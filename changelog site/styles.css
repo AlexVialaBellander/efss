@@ -1,0 +1,54 @@
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #232323;
+}
+
+.noSel{
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.border {
+  border: 1px solid red;
+}
+.changelog {
+  background-color: #232323;
+  height: 100vh;
+}
+
+.post {
+  margin: 0 20vw 0 20vw
+}
+
+.title {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  padding-top: 5vh;
+  color: white;
+}
+
+.subtitle {
+  letter-spacing: 0.1em;
+  font-weight: 300;
+  color: white;
+}
+
+.v {
+  letter-spacing: 0.1em;
+  font-weight: 300;
+  color: white;
+}
+
+.cText {
+  color: white;
+  font-weight: 300;
+}
+
+.center {
+  text-align: center;
+}
