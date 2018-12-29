@@ -1,0 +1,61 @@
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  <script src="scripts.js"></script>
+</head>
+
+<body class="noSel">
+  <menu id="ctxMenu">
+    <menu title="DEP"></menu>
+    <menu title="ARR"></menu>
+    <menu title="APRON"></menu>
+    <menu title="TAXI"></menu>
+    <menu title="30/12"></menu>
+    <menu title="22R/04L"></menu>
+    <menu title="22L/04R"></menu>
+  </menu>
+  <div id="read" class="col">
+    <div onclick="newTag()" class="hl">
+      DEPARTURES
+    </div>
+    <div id="clearance" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+    </div>
+    <div onclick="newTag()" class="hl">
+      ARRIVALS
+    </div>
+    <div id="clearance" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)">
+      APRON TRAFFIC - P/B S/U
+    </div>
+    <div id="push" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+    </div>
+  </div>
+  <div class="col">
+    <div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)">
+      TAXI
+    </div>
+    <div id="taxi" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+    </div>
+  </div>
+  <div class="col">
+    <div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)">
+      RUNWAY 22L/04R
+    </div>
+    <div id="rwy" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+    </div>
+    <div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)">
+      RUNWAY 22R/04L
+    </div>
+    <div id="rwy" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+    </div>
+    <div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)">
+      RUNWAY 30/12
+    </div>
+    <div id="rwy" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+    </div>
+  </div>
+</body>
