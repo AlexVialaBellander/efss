@@ -6,13 +6,12 @@ var airport = "EKCH"
 var getData = "https://api.ivao.aero/getdata/whazzup/"
 var tagID = '<div id="tag1"'
 var cleanTag = ' class="tag" draggable="true" ondragstart="drag(event)"><div class="leftCol b"><div id="cof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="callsign topCol b" contenteditable="true">CS</div><div id="sof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="sid topCol b"contenteditable="true">SID</div><div id="tof1" onfocus="removeOnFocus(this.id)"onblur="placeholderOnBlur(this.id)" class="type topCol b"contenteditable="true">TYPE</div><div id="rof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="rule topCol b"contenteditable="true">RULE</div></div><select onchange="rwy()" class="rwy rightCol b"><option value="rwy">RWY</option><option value="04r">04R</option><option value="04l">04L</option><option value="22r">22R</option><option value="22l">22L</option><option value="12">12</option><option value="30">30</option></select><select onchange="stat(value)" class="ins rightCol b"><option value="stby">STBY</option><option value="clrd">CLRD</option><option value="deice">DE-ICE</option><option value="lu">L/U</option><option value="to">T/O</option><option value="lnd">LND</option></select></div>'
-
+var id = "";
 if (tagArray[13] || tagArray[11] == airport) {
 
 }
 
 function newTag() {
-  debugger
   var tagNumberString = tagID[(tagID.length) - 2]
   var pt1 = (tagID.split(tagNumberString)[0])
   var ntagID = ((pt1.concat(Number(tagID[(tagID.length) - 2]) + 1)).concat('"'))
@@ -24,14 +23,19 @@ function newTag() {
   var currentRof = "rof".concat(String(xofCount))
   tag = cleanTag.replace("cof1", currentCof).replace("sof1", currentSof).replace("tof1", currentTof).replace("rof1", currentRof)
   var nTag = ntagID.concat(tag);
-  var div = document.getElementById("clearance");
+  var div = document.getElementById("dep");
   div.insertAdjacentHTML("afterbegin", nTag);
 
   var tagN = ((("tag").concat(Number(tagID[(tagID.length) - 2]))))
   var tag = document.getElementById(tagN);
   var body = document.getElementsByTagName("BODY")[0];
+  //add eventlister for context menu on every new generated tag
   tag.addEventListener("contextmenu", function(event) {
     event.preventDefault();
+    //get id from event target
+    var target = event.target || event.srcElement;
+    id = ("tag").concat((target.id).slice(3, 4));
+    //run context menu
     var ctxMenu = document.getElementById("ctxMenu");
     ctxMenu.style.display = "block";
     ctxMenu.style.left = (event.pageX - 10) + "px";
@@ -54,17 +58,9 @@ function drag(ev) {
   ev.dataTransfer.setData("text", ev.target.id);
 }
 
-function drop(ev) {
-  ev.preventDefault();
-  var data = ev.dataTransfer.getData("text");
-  ev.target.appendChild(document.getElementById(data));
-}
-
-// change 1 :: added el
 function drop(ev, el) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
-  // change 2 :: append to el
   el.appendChild(document.getElementById(data));
 }
 
@@ -74,25 +70,21 @@ function dropped(ev, id) {
   elem.parentElement.removeChild(elem);
 }
 
+var input = ""
+
 function removeOnFocus(id) {
+  input = document.getElementById(id).innerHTML
   document.getElementById(id).innerHTML = ""
 }
 
 function placeholderOnBlur(id) {
   var x = document.getElementById(id).innerHTML;
-  if (id[0] == "c") {
-    defaultLabel = "CS"
-  }
-  if (id[0] == "s") {
-    defaultLabel = "SID"
-  }
-  if (id[0] == "t") {
-    defaultLabel = "TYPE"
-  }
-  if (id[0] == "r") {
-    defaultLabel = "RULE"
-  }
   if (x == "") {
-    document.getElementById(id).innerHTML = defaultLabel
+    document.getElementById(id).innerHTML = input
   }
+}
+
+function move(destination) {
+  var tag = document.getElementById(id)
+  drop(ev, tag)
 }

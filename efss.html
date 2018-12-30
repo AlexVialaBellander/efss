@@ -6,24 +6,24 @@
 
 <body class="noSel">
   <menu id="ctxMenu">
-    <menu title="DEP"></menu>
-    <menu title="ARR"></menu>
-    <menu title="APRON"></menu>
-    <menu title="TAXI"></menu>
-    <menu title="30/12"></menu>
-    <menu title="22R/04L"></menu>
-    <menu title="22L/04R"></menu>
+    <menu onclick="move('dep')" title="DEP"></menu>
+    <menu onclick="move('arr')" title="ARR"></menu>
+    <menu onclick="move('push')" title="APRON"></menu>
+    <menu onclick="move('taxi')" title="TAXI"></menu>
+    <menu onclick="move('rwy1')" title="22L/04R"></menu>
+    <menu onclick="move('rwy2')" title="22R/04L"></menu>
+    <menu onclick="move('rwy3')" title="30/12"></menu>
   </menu>
   <div id="read" class="col">
     <div onclick="newTag()" class="hl">
       DEPARTURES
     </div>
-    <div id="clearance" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+    <div id="dep" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
     </div>
     <div onclick="newTag()" class="hl">
       ARRIVALS
     </div>
-    <div id="clearance" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+    <div id="arr" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
     </div>
   </div>
 
@@ -45,17 +45,17 @@
     <div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)">
       RUNWAY 22L/04R
     </div>
-    <div id="rwy" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+    <div id="rwy1" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
     </div>
     <div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)">
       RUNWAY 22R/04L
     </div>
-    <div id="rwy" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+    <div id="rwy2" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
     </div>
     <div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)">
       RUNWAY 30/12
     </div>
-    <div id="rwy" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+    <div id="rwy3" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
     </div>
   </div>
 </body>
