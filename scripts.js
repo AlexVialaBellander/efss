@@ -151,12 +151,13 @@ function getRunways(inputAirport) {
       var runwayCount = 1
       targetDiv.innerHTML = ""
       for (z = 0; z < runways.length; z++) {
+          //Add runways under runway section
           var n = runwayHTML.search("rwy")
           var withID = spliceSlice(runwayHTML, (n + 3), 0, runwayCount)
           var nn = withID.search("LOADING")
           var rwyHTML = spliceSlice(withID, nn, 7, "RUNWAY " + runways[z])
           targetDiv.insertAdjacentHTML("afterbegin", rwyHTML);
-          debugger
+          //Add runways in contextmenu
           var nnn = menuItem.search("rwy")
           var withID2 = spliceSlice(menuItem, (nnn + 3), 0, runwayCount)
           var nnnn = withID2.search("RUNWAY")
