@@ -118,7 +118,7 @@ window.onclick = function(event) {
 //Change airport
 var runways = []
 var runwayHTML = '<div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)"> LOADING </div> <div id="rwy" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>'
-
+var menuItem = '<menu onclick=\"move(\'rwy\')\" title="RUNWAY"></menu>'
 var submit = document.getElementById("field");
 submit.addEventListener("keydown", function (e) {
   if (e.keyCode === 13) {
@@ -126,6 +126,7 @@ submit.addEventListener("keydown", function (e) {
   }
 })
 
+//Close Modal and Validate airport input
 function validate(e) {
   var airport = document.getElementById("field").value;
   var modal = document.getElementById("myModal")
@@ -135,8 +136,7 @@ function validate(e) {
 
 }
 
-//Get airport data
-
+//Get airport data & add runways
 var done = false
 function getRunways(inputAirport) {
   var found = false
@@ -146,6 +146,7 @@ function getRunways(inputAirport) {
       var found = true
       done = true
       var targetDiv = document.getElementById("runway");
+      var targetDiv2 = document.getElementById("ctxMenu");
       runways = data[i][1]
       var runwayCount = 1
       targetDiv.innerHTML = ""
@@ -154,11 +155,18 @@ function getRunways(inputAirport) {
           var withID = spliceSlice(runwayHTML, (n + 3), 0, runwayCount)
           var nn = withID.search("LOADING")
           var rwyHTML = spliceSlice(withID, nn, 7, "RUNWAY " + runways[z])
-          runwayCount ++
           targetDiv.insertAdjacentHTML("afterbegin", rwyHTML);
+          debugger
+          var nnn = menuItem.search("rwy")
+          var withID2 = spliceSlice(menuItem, (nnn + 3), 0, runwayCount)
+          var nnnn = withID2.search("RUNWAY")
+          var menuItemHTML = spliceSlice(withID2, nnnn, 6, runways[z])
+          targetDiv2.insertAdjacentHTML("beforeend", menuItemHTML);
+          runwayCount ++
       }
     }
     }
+    //Reload page if the airport is not in database
     if (found == false) {
       location.reload();
   }
