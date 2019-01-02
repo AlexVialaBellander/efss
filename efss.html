@@ -4,7 +4,8 @@
   <script src="scripts.js"></script>
 </head>
 
-<body class="noSel">
+<body onload="loadModal()" class="noSel">
+  <!-- Context Menu -->
   <menu id="ctxMenu">
     <menu onclick="move('dep')" title="DEP"></menu>
     <menu onclick="move('arr')" title="ARR"></menu>
@@ -14,6 +15,23 @@
     <menu onclick="move('rwy2')" title="22R/04L"></menu>
     <menu onclick="move('rwy3')" title="30/12"></menu>
   </menu>
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2>Modal Header</h2>aswzqsaswzas
+      </div>
+      <div class="modal-body">
+        <p>Some text in the Modal Body</p>
+        <p>Some other text...</p>
+      </div>
+      <div class="modal-footer">
+        <h3>Modal Footer</h3>
+      </div>
+    </div>
+  </div>
   <div id="read" class="col">
     <div onclick="newTag()" class="hl">
       DEPARTURES
