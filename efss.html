@@ -1,6 +1,7 @@
 <head>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
+
 </head>
 
 <body onload="loadModal()" class="noSel">
@@ -13,12 +14,12 @@
         <h2>Electronic Flightstrip System</h2>
       </div>
       <div class="modal-body">
-        <form class="form">
+        <form onSubmit="return false" class="form" action="" method="get">
         Airport ICAO: <input class="field" id="field" type="text" name="icao" value=""><br>
         </form>
       </div>
       <div class="modal-footer">
-        <h3>Modal Footer</h3>
+        <h3>Version 0.3</h3>
       </div>
     </div>
   </div>
@@ -59,25 +60,27 @@
     <div id="taxi" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
     </div>
   </div>
-  <div class="col">
+  <div id="runway" class="col">
     <div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)">
-      RUNWAY 22L/04R
+      LOADING
     </div>
     <div id="rwy1" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
     </div>
     <div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)">
-      RUNWAY 22R/04L
+      LOADING
     </div>
     <div id="rwy2" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
     </div>
     <div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)">
-      RUNWAY 30/12
+      LOADING
     </div>
     <div id="rwy3" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
     </div>
   </div>
 </body>
-<script src="scripts.js"></script>
+<script type="text/javascript" src="airportdata.js"></script>
+<script type="text/javascript" src="scripts.js"></script>
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-51355468-1"></script>
 <script>

@@ -116,6 +116,63 @@ window.onclick = function(event) {
   }
 }
 //Change airport
-var airport = document.getElementById("field").value;
+var runways = []
+var runwayHTML = '<div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)"> LOADING </div> <div id="rwy" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>'
 
-//Get airport data from xml
+var submit = document.getElementById("field");
+submit.addEventListener("keydown", function (e) {
+  if (e.keyCode === 13) {
+    validate(e);
+  }
+})
+
+function validate(e) {
+  var airport = document.getElementById("field").value;
+  var modal = document.getElementById("myModal")
+  modal.style.display = "none";
+  console.log(airport)
+  getRunways(airport)
+
+}
+
+//Get airport data
+
+var done = false
+function getRunways(inputAirport) {
+  var found = false
+  var airport = inputAirport.toUpperCase()
+  for (i = 0; i < data.length || done == false; i++) {
+    if (airport == data[i][0]) {
+      var found = true
+      done = true
+      var targetDiv = document.getElementById("runway");
+      runways = data[i][1]
+      var runwayCount = 1
+      targetDiv.innerHTML = ""
+      for (z = 0; z < runways.length; z++) {
+          var n = runwayHTML.search("rwy")
+          var withID = spliceSlice(runwayHTML, (n + 3), 0, runwayCount)
+          var nn = withID.search("LOADING")
+          var rwyHTML = spliceSlice(withID, nn, 7, "RUNWAY " + runways[z])
+          runwayCount ++
+          targetDiv.insertAdjacentHTML("afterbegin", rwyHTML);
+      }
+    }
+    }
+    if (found == false) {
+      location.reload();
+  }
+}
+
+//Splice string function
+
+function spliceSlice(str, index, count, add) {
+  // We cannot pass negative indexes directly to the 2nd slicing operation.
+  if (index < 0) {
+    index = str.length + index;
+    if (index < 0) {
+      index = 0;
+    }
+  }
+  return str.slice(0, index) + (add || "") + str.slice(index + count);
+}
