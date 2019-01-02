@@ -92,7 +92,6 @@ function move(destination) {
 
 //Modal popup window from w3
 // Get the modal
-debugger;
 var modal = document.getElementById('myModal');
 
 // Get the button that opens the modal
@@ -102,7 +101,6 @@ var btn = document.getElementById("myBtn");
 var span = document.getElementsByClassName("close")[0];
 
 function loadModal() {
-  debugger
   modal.style.display = "block";
 }
 
@@ -117,3 +115,7 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+//Change airport
+var airport = document.getElementById("field").value;
+
+//Get airport data from xml

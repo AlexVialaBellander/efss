@@ -1,10 +1,27 @@
 <head>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
-  <script src="scripts.js"></script>
 </head>
 
 <body onload="loadModal()" class="noSel">
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <h2>Electronic Flightstrip System</h2>
+      </div>
+      <div class="modal-body">
+        <form class="form">
+        Airport ICAO: <input class="field" id="field" type="text" name="icao" value=""><br>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <h3>Modal Footer</h3>
+      </div>
+    </div>
+  </div>
   <!-- Context Menu -->
   <menu id="ctxMenu">
     <menu onclick="move('dep')" title="DEP"></menu>
@@ -15,23 +32,6 @@
     <menu onclick="move('rwy2')" title="22R/04L"></menu>
     <menu onclick="move('rwy3')" title="30/12"></menu>
   </menu>
-  <!-- The Modal -->
-  <div id="myModal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content">
-      <div class="modal-header">
-        <span class="close">&times;</span>
-        <h2>Modal Header</h2>aswzqsaswzas
-      </div>
-      <div class="modal-body">
-        <p>Some text in the Modal Body</p>
-        <p>Some other text...</p>
-      </div>
-      <div class="modal-footer">
-        <h3>Modal Footer</h3>
-      </div>
-    </div>
-  </div>
   <div id="read" class="col">
     <div onclick="newTag()" class="hl">
       DEPARTURES
@@ -77,3 +77,13 @@
     </div>
   </div>
 </body>
+<script src="scripts.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-51355468-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-51355468-1');
+</script>

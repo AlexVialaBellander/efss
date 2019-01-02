@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Airports>
+    <EKCH>
+        <Runway>30/12</Runway>
+        <Runway>22R/04L</Runway>
+        <Runway>22L/04R</Runway>
+    </EKCH>
+    <ENGM>
+        <Runway>19R/01L</Runway>
+        <Runway>19L/01R</Runway>
+    </ENGM>
+</Airports>
