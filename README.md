@@ -1,5 +1,4 @@
-# efss readme dev
-## content in dev is ID
+# efss readme 
 This project is an Open Source project started by Alexander Viala Bellander and is under an MIT license found at the bottom of the page.
 
 This is run as a sparetime project and is not highly prioritised.
