@@ -6,7 +6,7 @@ var getData = "https://api.ivao.aero/getdata/whazzup/"
 var tagID = '<div id="tag1"'
 
 //The base html for a tag
-var cleanTag = ' class="tag" draggable="true" ondragstart="drag(event)"><div class="leftCol b"><div id="cof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="callsign topCol b" contenteditable="true">CS</div><div id="sof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="sid topCol b"contenteditable="true">SID</div><div id="tof1" onfocus="removeOnFocus(this.id)"onblur="placeholderOnBlur(this.id)" class="type topCol b"contenteditable="true">TYPE</div><div id="rof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="rule topCol b"contenteditable="true">RULE</div></div><select onchange="rwy()" class="rwy rightCol b"><option value="rwy">RWY</option><option value="04r">04R</option><option value="04l">04L</option><option value="22r">22R</option><option value="22l">22L</option><option value="12">12</option><option value="30">30</option></select><select onchange="stat(value)" class="ins rightCol b"><option value="stby">STBY</option><option value="clrd">CLRD</option><option value="deice">DE-ICE</option><option value="lu">L/U</option><option value="to">T/O</option><option value="lnd">LND</option></select></div>'
+var cleanTag = ' class="tag" draggable="true" ondragstart="drag(event)"><div class="leftCol b"><div id="cof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="callsign topCol b" contenteditable="true">CS</div><div id="sof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="sid topCol b"contenteditable="true">SID</div><div id="tof1" onfocus="removeOnFocus(this.id)"onblur="placeholderOnBlur(this.id)" class="type topCol b"contenteditable="true">TYPE</div><div id="rof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="rule topCol b"contenteditable="true">RULE</div></div><select onchange="rwy()" class="rwy rightCol b"><option value="rwy">RWY</option>%</select><select onchange="stat(value)" class="ins rightCol b"><option value="stby">STBY</option><option value="clrd">CLRD</option><option value="deice">DE-ICE</option><option value="lu">L/U</option><option value="to">T/O</option><option value="lnd">LND</option></select></div>'
 var id = "";
 if (tagArray[13] || tagArray[11] == airport) {
 
@@ -110,9 +110,11 @@ window.onclick = function(event) {
   }
 }
 //Change airport
+var directionalRWYS = []
 var runways = []
 var runwayHTML = '<div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)"> LOADING </div> <div id="rwy" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>'
 var menuItem = '<menu onclick=\"move(\'rwy\')\" title="RUNWAY"></menu>'
+var tagRWYSel = '<option value="%">5</option>'
 var submit = document.getElementById("field");
 submit.addEventListener("keydown", function (e) {
   if (e.keyCode === 13) {
@@ -133,7 +135,6 @@ function validate(e) {
 //Get airport data & add runways
 var done = false
 function getRunways(inputAirport) {
-  debugger
   var found = false
   var airport = inputAirport.toUpperCase()
   for (i = 0; i < data.length && done == false; i++) {
@@ -146,22 +147,56 @@ function getRunways(inputAirport) {
       var runwayCount = 1
       targetDiv.innerHTML = ""
       for (z = 0; z < runways.length; z++) {
-          //Add runways under runway section
-          var n = runwayHTML.search("rwy")
-          var withID = spliceSlice(runwayHTML, (n + 3), 0, runwayCount)
-          var nn = withID.search("LOADING")
-          var rwyHTML = spliceSlice(withID, nn, 7, "RUNWAY " + runways[z])
-          targetDiv.insertAdjacentHTML("afterbegin", rwyHTML);
-          //Add runways in contextmenu
-          var nnn = menuItem.search("rwy")
-          var withID2 = spliceSlice(menuItem, (nnn + 3), 0, runwayCount)
-          var nnnn = withID2.search("RUNWAY")
-          var menuItemHTML = spliceSlice(withID2, nnnn, 6, runways[z])
-          targetDiv2.insertAdjacentHTML("beforeend", menuItemHTML);
-          runwayCount ++
+        //Add runways under runway section
+        var n = runwayHTML.search("rwy")
+        var withID = spliceSlice(runwayHTML, (n + 3), 0, runwayCount)
+        var nn = withID.search("LOADING")
+        var rwyHTML = spliceSlice(withID, nn, 7, "RUNWAY " + runways[z])
+        targetDiv.insertAdjacentHTML("afterbegin", rwyHTML);
+        //Add runways in contextmenu
+        var nnn = menuItem.search("rwy")
+        var withID2 = spliceSlice(menuItem, (nnn + 3), 0, runwayCount)
+        var nnnn = withID2.search("RUNWAY")
+        var menuItemHTML = spliceSlice(withID2, nnnn, 6, runways[z])
+        targetDiv2.insertAdjacentHTML("beforeend", menuItemHTML);
+        runwayCount ++
+      }
+      //Split each runway. ex 12/30 --> 12, 30
+      for (y = 0; y < runways.length; y++) {
+        directionalRWYS = directionalRWYS.concat(runways[y].split("/"))
+      }
+      directionalRWYS = directionalRWYS.sort();
+      var nTag = cleanTag.search("%")
+      var nVal = tagRWYSel.search("%")
+      var nDis = tagRWYSel.search("5")
+      var removeVal = 1
+      var removeDis = 1
+      var y = 2
+      for (i = 0; i < directionalRWYS.length; i++) {
+        debugger
+        if (y > 0) {
+          tagRWYSel = spliceSlice(tagRWYSel, nVal, removeVal, directionalRWYS[i])
+          nDis = tagRWYSel.search("5")
+          tagRWYSel= spliceSlice(tagRWYSel, nDis, removeDis, directionalRWYS[i])
+          removeDis = directionalRWYS[i].length
+          removeVal = directionalRWYS[i].length
+          cleanTag = spliceSlice(cleanTag, nTag, 1, tagRWYSel)
+          y --
+        }
+        y --
+        if (y < 0) {
+          nTag = nTag + tagRWYSel.length
+          nVal = tagRWYSel.search(directionalRWYS[i - 1])
+          tagRWYSel = spliceSlice(tagRWYSel, nVal, removeVal, directionalRWYS[i])
+          nDis = tagRWYSel.search(directionalRWYS[i - 1])
+          tagRWYSel= spliceSlice(tagRWYSel, nDis, removeDis, directionalRWYS[i])
+          removeDis = directionalRWYS[i].length
+          removeVal = directionalRWYS[i].length
+          cleanTag = spliceSlice(cleanTag, nTag, 0, tagRWYSel)
+        }
       }
     }
-    }
+  }
     //Reload page if the airport is not in database
     if (found == false) {
       location.reload();
