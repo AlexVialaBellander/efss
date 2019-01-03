@@ -18,6 +18,8 @@ body {
 .changelog {
   background-color: #232323;
   height: 100vh;
+  display: block;
+
 }
 
 .post {

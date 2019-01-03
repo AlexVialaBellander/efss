@@ -92,28 +92,91 @@ function move(destination) {
 
 //Modal popup window from w3
 // Get the modal
-debugger;
 var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
 function loadModal() {
-  debugger
   modal.style.display = "block";
 }
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
+
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
+}
+//Change airport
+var runways = []
+var runwayHTML = '<div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)"> LOADING </div> <div id="rwy" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>'
+var menuItem = '<menu onclick=\"move(\'rwy\')\" title="RUNWAY"></menu>'
+var submit = document.getElementById("field");
+submit.addEventListener("keydown", function (e) {
+  if (e.keyCode === 13) {
+    validate(e);
+  }
+})
+
+//Close Modal and Validate airport input
+function validate(e) {
+  var airport = document.getElementById("field").value;
+  var modal = document.getElementById("myModal")
+  modal.style.display = "none";
+  console.log(airport)
+  getRunways(airport)
+
+}
+
+//Get airport data & add runways
+var done = false
+function getRunways(inputAirport) {
+  debugger
+  var found = false
+  var airport = inputAirport.toUpperCase()
+  for (i = 0; i < data.length && done == false; i++) {
+    if (airport == data[i][0]) {
+      var found = true
+      done = true
+      var targetDiv = document.getElementById("runway");
+      var targetDiv2 = document.getElementById("ctxMenu");
+      runways = data[i][1]
+      var runwayCount = 1
+      targetDiv.innerHTML = ""
+      for (z = 0; z < runways.length; z++) {
+          //Add runways under runway section
+          var n = runwayHTML.search("rwy")
+          var withID = spliceSlice(runwayHTML, (n + 3), 0, runwayCount)
+          var nn = withID.search("LOADING")
+          var rwyHTML = spliceSlice(withID, nn, 7, "RUNWAY " + runways[z])
+          targetDiv.insertAdjacentHTML("afterbegin", rwyHTML);
+          //Add runways in contextmenu
+          var nnn = menuItem.search("rwy")
+          var withID2 = spliceSlice(menuItem, (nnn + 3), 0, runwayCount)
+          var nnnn = withID2.search("RUNWAY")
+          var menuItemHTML = spliceSlice(withID2, nnnn, 6, runways[z])
+          targetDiv2.insertAdjacentHTML("beforeend", menuItemHTML);
+          runwayCount ++
+      }
+    }
+    }
+    //Reload page if the airport is not in database
+    if (found == false) {
+      location.reload();
+  }
+}
+
+//Splice string function
+
+function spliceSlice(str, index, count, add) {
+  // We cannot pass negative indexes directly to the 2nd slicing operation.
+  if (index < 0) {
+    index = str.length + index;
+    if (index < 0) {
+      index = 0;
+    }
+  }
+  return str.slice(0, index) + (add || "") + str.slice(index + count);
 }

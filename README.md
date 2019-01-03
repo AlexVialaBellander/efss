@@ -7,4 +7,4 @@ To find the EFSS go to www.grubse.com/efss-app
 
 To generate a tag press on the Departure || Arrivals title
 
-For changelog and more information, visit www.grubse.com/efss
+For more information, visit www.grubse.com/efss

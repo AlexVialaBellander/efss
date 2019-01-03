@@ -1,37 +1,50 @@
 <head>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
-  <script src="scripts.js"></script>
+  <link href="changelog/cookie.css" rel="stylesheet">
+  <title>EFSS</title>
 </head>
-
+<!-- Cookie Consent for tracking -->
 <body onload="loadModal()" class="noSel">
+  <div id="cookie-consent" onload="isHidden()" class="cookie-consent" style="height: 80px;">
+		<span class="cookie-consent__text">This website uses cookies</span>
+		<a rel="nofollow" class="cookie-consent__link" href="privacy.html">Read More </a>
+		<a onclick="hide()" class="cookie-consent__close">
+      &times;
+		</a>
+  </div>
+  <!-- END Cookie Consent -->
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <img class="modal-image" src="EFSS_Wallpaper.jpg" alt="Wallpaper">
+      <div class="modal-body">
+        <table>
+          <tr>
+            <th class="first">
+              <div class="v">
+                <form onSubmit="return false" class="form" action="" method="get">
+                  Airport ICAO: <input maxlength = "4" class="field" id="field" type="text" name="icao" value=""><br>
+                </form>
+              </div>
+            </th>
+            <th class="r">Version 0.3</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- END Modal -->
   <!-- Context Menu -->
   <menu id="ctxMenu">
     <menu onclick="move('dep')" title="DEP"></menu>
     <menu onclick="move('arr')" title="ARR"></menu>
     <menu onclick="move('push')" title="APRON"></menu>
     <menu onclick="move('taxi')" title="TAXI"></menu>
-    <menu onclick="move('rwy1')" title="22L/04R"></menu>
-    <menu onclick="move('rwy2')" title="22R/04L"></menu>
-    <menu onclick="move('rwy3')" title="30/12"></menu>
   </menu>
-  <!-- The Modal -->
-  <div id="myModal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content">
-      <div class="modal-header">
-        <span class="close">&times;</span>
-        <h2>Modal Header</h2>aswzqsaswzas
-      </div>
-      <div class="modal-body">
-        <p>Some text in the Modal Body</p>
-        <p>Some other text...</p>
-      </div>
-      <div class="modal-footer">
-        <h3>Modal Footer</h3>
-      </div>
-    </div>
-  </div>
+  <!-- END Context Menu -->
+  <!-- UI -->
   <div id="read" class="col">
     <div onclick="newTag()" class="hl">
       DEPARTURES
@@ -59,21 +72,50 @@
     <div id="taxi" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
     </div>
   </div>
-  <div class="col">
+  <div id="runway" class="col">
     <div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)">
-      RUNWAY 22L/04R
+      LOADING
     </div>
     <div id="rwy1" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
     </div>
     <div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)">
-      RUNWAY 22R/04L
+      LOADING
     </div>
     <div id="rwy2" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
     </div>
     <div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)">
-      RUNWAY 30/12
+      LOADING
     </div>
     <div id="rwy3" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
     </div>
   </div>
 </body>
+<script type="text/javascript" src="airportdata.js"></script>
+<script type="text/javascript" src="scripts.js"></script>
+<!-- END UI -->
+
+<!-- BELOW IS NOT PART OF THE OPEN SOURCE PROJECT -->
+<!-- Administrative code-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-51355468-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-51355468-1');
+</script>
+<script type="text/javascript">
+  isHidden();
+  function isHidden() {
+    if (localStorage.getItem("cookie consent") !== "true") {
+      var el = document.getElementById("cookie-consent");
+      el.style.display = "flex"
+    }
+  }
+  function hide(){
+    var el = document.getElementById("cookie-consent");
+    el.style.display = "none"
+    localStorage.setItem("cookie consent", "true");
+  }
+</script>
