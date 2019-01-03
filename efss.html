@@ -1,10 +1,19 @@
 <head>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
+  <link href="/changelog/cookie.css" rel="stylesheet">
   <title>EFSS</title>
 </head>
-
+<!-- Cookie Consent for tracking -->
 <body onload="loadModal()" class="noSel">
+  <div id="cookie-consent" onload="isHidden()" class="cookie-consent" style="height: 80px;">
+		<span class="cookie-consent__text">This website uses cookies</span>
+		<a rel="nofollow" class="cookie-consent__link" href="privacy.html">Read More </a>
+		<a onclick="hide()" class="cookie-consent__close">
+      &times;
+		</a>
+  </div>
+  <!-- END Cookie Consent -->
   <!-- The Modal -->
   <div id="myModal" class="modal">
     <!-- Modal content -->
@@ -23,10 +32,10 @@
             <th class="r">Version 0.3</th>
           </tr>
         </table>
-
       </div>
     </div>
   </div>
+  <!-- END Modal -->
   <!-- Context Menu -->
   <menu id="ctxMenu">
     <menu onclick="move('dep')" title="DEP"></menu>
@@ -34,6 +43,8 @@
     <menu onclick="move('push')" title="APRON"></menu>
     <menu onclick="move('taxi')" title="TAXI"></menu>
   </menu>
+  <!-- END Context Menu -->
+  <!-- UI -->
   <div id="read" class="col">
     <div onclick="newTag()" class="hl">
       DEPARTURES
@@ -81,7 +92,10 @@
 </body>
 <script type="text/javascript" src="airportdata.js"></script>
 <script type="text/javascript" src="scripts.js"></script>
+<!-- END UI -->
 
+<!-- BELOW IS NOT PART OF THE OPEN SOURCE PROJECT -->
+<!-- Administrative code-->
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-51355468-1"></script>
 <script>
@@ -90,4 +104,18 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-51355468-1');
+</script>
+<script type="text/javascript">
+  isHidden();
+  function isHidden() {
+    if (localStorage.getItem("cookie consent") !== "true") {
+      var el = document.getElementById("cookie-consent");
+      el.style.display = "flex"
+    }
+  }
+  function hide(){
+    var el = document.getElementById("cookie-consent");
+    el.style.display = "none"
+    localStorage.setItem("cookie consent", "true");
+  }
 </script>
