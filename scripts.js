@@ -133,9 +133,10 @@ function validate(e) {
 //Get airport data & add runways
 var done = false
 function getRunways(inputAirport) {
+  debugger
   var found = false
   var airport = inputAirport.toUpperCase()
-  for (i = 0; i < data.length || done == false; i++) {
+  for (i = 0; i < data.length && done == false; i++) {
     if (airport == data[i][0]) {
       var found = true
       done = true
