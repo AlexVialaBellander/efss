@@ -202,76 +202,84 @@ function spliceSlice(str, index, count, add) {
   }
   return str.slice(0, index) + (add || "") + str.slice(index + count);
 }
+//Creates Drag and Drop zones using the Sortable library
 
 function spawnDropZone() {
+  Sortable.create(trash, {
+    group: "tag",
+
+    onAdd: function(evt) {
+      this.el.removeChild(evt.item);
+    }
+  });
   Sortable.create(dep, {
 
-    group: 'read',
+    group: 'tag',
     animation: 100
   });
   Sortable.create(arr, {
 
-    group: 'read',
+    group: 'tag',
     animation: 100
   });
   Sortable.create(push, {
 
-    group: 'read',
+    group: 'tag',
     animation: 100
   });
   Sortable.create(taxi, {
 
-    group: 'read',
+    group: 'tag',
     animation: 100
   });
   Sortable.create(rwy1, {
 
-    group: 'read',
+    group: 'tag',
     animation: 100
   });
   Sortable.create(rwy2, {
 
-    group: 'read',
+    group: 'tag',
     animation: 100
   });
   Sortable.create(rwy3, {
 
-    group: 'read',
+    group: 'tag',
     animation: 100
   });
   Sortable.create(rwy4, {
 
-    group: 'read',
+    group: 'tag',
     animation: 100
   });
   Sortable.create(rwy5, {
 
-    group: 'read',
+    group: 'tag',
     animation: 100
   });
   Sortable.create(rwy6, {
 
-    group: 'read',
+    group: 'tag',
     animation: 100
   });
   Sortable.create(rwy7, {
 
-    group: 'read',
+    group: 'tag',
     animation: 100
   });
   Sortable.create(rwy8, {
 
-    group: 'read',
+    group: 'tag',
     animation: 100
   });
   Sortable.create(rwy9, {
 
-    group: 'read',
+    group: 'tag',
     animation: 100
   });
   Sortable.create(rwy10, {
 
-    group: 'read',
+    group: 'tag',
     animation: 100
   });
 
