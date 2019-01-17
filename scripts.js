@@ -1,4 +1,6 @@
-var text = "RYR41BB:211575:211575:PILOT::51.4194:14.2231:38238:433:1/B738/M-SDE1FGHIJ1RWXYZ/LB1:N0452:LHBP:F380:EKCH:EU4:B:6:2000:0:50:0:I:1320:1320:1:34:3:44:EKBI:PBN/A1B1C1D1L1O1S1 NAV/RNVD1E2A1 DOF/181213 REG/EIDWE EET/LZBB0009 LKAA0020 EDUU0045 EDWW0115 EKDK0119 RVR/200 OPR/RYANAIR VIRTUAL AIRLINES PER/C:N0452F380 BADOV P41 MAVOR P41 BULEK L624 HDO DCT GEVNI T239 PEROM T298 MONAK:::::::20181213125500:IvAp:2.0.2:2:6::S:144:351:0:30:"
+/*! EFSS MIT | github.com/AlexVialaBellander/efss */
+var text =
+  "RYR41BB:211575:211575:PILOT::51.4194:14.2231:38238:433:1/B738/M-SDE1FGHIJ1RWXYZ/LB1:N0452:LHBP:F380:EKCH:EU4:B:6:2000:0:50:0:I:1320:1320:1:34:3:44:EKBI:PBN/A1B1C1D1L1O1S1 NAV/RNVD1E2A1 DOF/181213 REG/EIDWE EET/LZBB0009 LKAA0020 EDUU0045 EDWW0115 EKDK0119 RVR/200 OPR/RYANAIR VIRTUAL AIRLINES PER/C:N0452F380 BADOV P41 MAVOR P41 BULEK L624 HDO DCT GEVNI T239 PEROM T298 MONAK:::::::20181213125500:IvAp:2.0.2:2:6::S:144:351:0:30:"
 var xofCount = 1
 var tagArray = text.split(":");
 var airport = "EKCH"
@@ -6,7 +8,8 @@ var getData = "https://api.ivao.aero/getdata/whazzup/"
 var tagID = '<div id="tag1"'
 
 //The base html for a tag
-var cleanTag = ' class="tag" draggable="true" ondragstart="drag(event)"><div class="leftCol b"><div id="cof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="callsign topCol b" contenteditable="true">CS</div><div id="sof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="sid topCol b"contenteditable="true">SID</div><div id="tof1" onfocus="removeOnFocus(this.id)"onblur="placeholderOnBlur(this.id)" class="type topCol b"contenteditable="true">TYPE</div><div id="rof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="rule topCol b"contenteditable="true">RULE</div></div><select onchange="rwy()" class="rwy rightCol b"><option value="rwy">RWY</option>%</select><select onchange="stat(value)" class="ins rightCol b"><option value="stby">STBY</option><option value="clrd">CLRD</option><option value="deice">DE-ICE</option><option value="lu">L/U</option><option value="to">T/O</option><option value="lnd">LND</option></select></div>'
+var cleanTag =
+  ' class="tag"><div class="leftCol b"><div id="cof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="callsign topCol b" contenteditable="true">CS</div><div id="sof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="sid topCol b"contenteditable="true">SID</div><div id="tof1" onfocus="removeOnFocus(this.id)"onblur="placeholderOnBlur(this.id)" class="type topCol b"contenteditable="true">TYPE</div><div id="rof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="rule topCol b"contenteditable="true">RULE</div></div><select class="rwy rightCol1 b"><option value="rwy">RWY</option>%</select><select onchange="stat(value)" class="ins rightCol2 b"><option value="stby">STBY</option><option value="clrd">CLRD</option><option value="deice">DE-ICE</option><option value="lu">L/U</option><option value="to">T/O</option><option value="lnd">LND</option></select></div>'
 var id = "";
 if (tagArray[13] || tagArray[11] == airport) {
 
@@ -22,7 +25,8 @@ function newTag() {
   var currentSof = "sof".concat(String(xofCount))
   var currentTof = "tof".concat(String(xofCount))
   var currentRof = "rof".concat(String(xofCount))
-  tag = cleanTag.replace("cof1", currentCof).replace("sof1", currentSof).replace("tof1", currentTof).replace("rof1", currentRof)
+  tag = cleanTag.replace("cof1", currentCof).replace("sof1", currentSof).replace(
+    "tof1", currentTof).replace("rof1", currentRof)
   var nTag = ntagID.concat(tag);
   var div = document.getElementById("dep");
   div.insertAdjacentHTML("afterbegin", nTag);
@@ -51,28 +55,9 @@ function newTag() {
 
 }
 
-function allowDrop(ev) {
-  ev.preventDefault();
-}
-
-function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id);
-}
-
-function drop(ev, el) {
-  ev.preventDefault();
-  var data = ev.dataTransfer.getData("text");
-  el.appendChild(document.getElementById(data));
-}
-
-function dropped(ev, id) {
-  var id = ev.dataTransfer.getData("text");
-  var elem = document.getElementById(id);
-  elem.parentElement.removeChild(elem);
-}
 //globar var for the field input
 var input = ""
-//Removes text when pressing on field
+  //Removes text when pressing on field
 function removeOnFocus(id) {
   input = document.getElementById(id).innerHTML
   document.getElementById(id).innerHTML = ""
@@ -105,18 +90,19 @@ function loadModal() {
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
   }
-}
-//Change airport
+  //Change airport
 var directionalRWYS = []
 var runways = []
-var runwayHTML = '<div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)"> LOADING </div> <div id="rwy" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>'
+var runwayHTML =
+  '<div class="hl"> LOADING </div> <div id="rwy" class="dz"></div>'
 var menuItem = '<menu onclick=\"move(\'rwy\')\" title="RUNWAY"></menu>'
 var tagRWYSel = '<option value="%">5</option>'
 var submit = document.getElementById("field");
-submit.addEventListener("keydown", function (e) {
+submit.addEventListener("keydown", function(e) {
   if (e.keyCode === 13) {
     validate(e);
   }
@@ -129,11 +115,13 @@ function validate(e) {
   modal.style.display = "none";
   console.log(airport)
   getRunways(airport)
+  spawnDropZone()
 
 }
 
 //Get airport data & add runways
 var done = false
+
 function getRunways(inputAirport) {
   var found = false
   var airport = inputAirport.toUpperCase()
@@ -159,7 +147,7 @@ function getRunways(inputAirport) {
         var nnnn = withID2.search("RUNWAY")
         var menuItemHTML = spliceSlice(withID2, nnnn, 6, runways[z])
         targetDiv2.insertAdjacentHTML("beforeend", menuItemHTML);
-        runwayCount ++
+        runwayCount++
       }
       //Split each runway. ex 12/30 --> 12, 30
       for (y = 0; y < runways.length; y++) {
@@ -173,23 +161,22 @@ function getRunways(inputAirport) {
       var removeDis = 1
       var y = 2
       for (i = 0; i < directionalRWYS.length; i++) {
-        debugger
         if (y > 0) {
           tagRWYSel = spliceSlice(tagRWYSel, nVal, removeVal, directionalRWYS[i])
           nDis = tagRWYSel.search("5")
-          tagRWYSel= spliceSlice(tagRWYSel, nDis, removeDis, directionalRWYS[i])
+          tagRWYSel = spliceSlice(tagRWYSel, nDis, removeDis, directionalRWYS[i])
           removeDis = directionalRWYS[i].length
           removeVal = directionalRWYS[i].length
           cleanTag = spliceSlice(cleanTag, nTag, 1, tagRWYSel)
-          y --
+          y--
         }
-        y --
+        y--
         if (y < 0) {
           nTag = nTag + tagRWYSel.length
           nVal = tagRWYSel.search(directionalRWYS[i - 1])
           tagRWYSel = spliceSlice(tagRWYSel, nVal, removeVal, directionalRWYS[i])
           nDis = tagRWYSel.search(directionalRWYS[i - 1])
-          tagRWYSel= spliceSlice(tagRWYSel, nDis, removeDis, directionalRWYS[i])
+          tagRWYSel = spliceSlice(tagRWYSel, nDis, removeDis, directionalRWYS[i])
           removeDis = directionalRWYS[i].length
           removeVal = directionalRWYS[i].length
           cleanTag = spliceSlice(cleanTag, nTag, 0, tagRWYSel)
@@ -197,9 +184,9 @@ function getRunways(inputAirport) {
       }
     }
   }
-    //Reload page if the airport is not in database
-    if (found == false) {
-      location.reload();
+  //Reload page if the airport is not in database
+  if (found == false) {
+    location.reload();
   }
 }
 
@@ -214,4 +201,78 @@ function spliceSlice(str, index, count, add) {
     }
   }
   return str.slice(0, index) + (add || "") + str.slice(index + count);
+}
+
+function spawnDropZone() {
+  Sortable.create(dep, {
+
+    group: 'read',
+    animation: 100
+  });
+  Sortable.create(arr, {
+
+    group: 'read',
+    animation: 100
+  });
+  Sortable.create(push, {
+
+    group: 'read',
+    animation: 100
+  });
+  Sortable.create(taxi, {
+
+    group: 'read',
+    animation: 100
+  });
+  Sortable.create(rwy1, {
+
+    group: 'read',
+    animation: 100
+  });
+  Sortable.create(rwy2, {
+
+    group: 'read',
+    animation: 100
+  });
+  Sortable.create(rwy3, {
+
+    group: 'read',
+    animation: 100
+  });
+  Sortable.create(rwy4, {
+
+    group: 'read',
+    animation: 100
+  });
+  Sortable.create(rwy5, {
+
+    group: 'read',
+    animation: 100
+  });
+  Sortable.create(rwy6, {
+
+    group: 'read',
+    animation: 100
+  });
+  Sortable.create(rwy7, {
+
+    group: 'read',
+    animation: 100
+  });
+  Sortable.create(rwy8, {
+
+    group: 'read',
+    animation: 100
+  });
+  Sortable.create(rwy9, {
+
+    group: 'read',
+    animation: 100
+  });
+  Sortable.create(rwy10, {
+
+    group: 'read',
+    animation: 100
+  });
+
 }

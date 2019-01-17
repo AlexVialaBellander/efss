@@ -5,13 +5,14 @@
   <title>EFSS</title>
 </head>
 <!-- Cookie Consent for tracking -->
+
 <body onload="loadModal()" class="noSel">
   <div id="cookie-consent" onload="isHidden()" class="cookie-consent" style="height: 80px;">
-		<span class="cookie-consent__text">This website uses cookies</span>
-		<a rel="nofollow" class="cookie-consent__link" href="privacy.html">Read More </a>
-		<a onclick="hide()" class="cookie-consent__close">
+    <span class="cookie-consent__text">This website uses cookies</span>
+    <a rel="nofollow" class="cookie-consent__link" href="privacy.html">Read More </a>
+    <a onclick="hide()" class="cookie-consent__close">
       &times;
-		</a>
+    </a>
   </div>
   <!-- END Cookie Consent -->
   <!-- The Modal -->
@@ -25,7 +26,7 @@
             <th class="first">
               <div class="v">
                 <form onSubmit="return false" class="form" action="" method="get">
-                  Airport ICAO: <input maxlength = "4" class="field" id="field" type="text" name="icao" value=""><br>
+                  Airport ICAO: <input maxlength="4" class="field" id="field" type="text" name="icao" value=""><br>
                 </form>
               </div>
             </th>
@@ -49,49 +50,49 @@
     <div onclick="newTag()" class="hl">
       DEPARTURES
     </div>
-    <div id="dep" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+    <div id="dep" class="dz">
     </div>
     <div onclick="newTag()" class="hl">
       ARRIVALS
     </div>
-    <div id="arr" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+    <div id="arr" class="dz">
     </div>
   </div>
-
   <div class="col">
-    <div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)">
+    <div class="hl">
       APRON TRAFFIC - P/B S/U
     </div>
-    <div id="push" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+    <div id="push" class="dz">
     </div>
   </div>
   <div class="col">
-    <div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)">
+    <div class="hl">
       TAXI
     </div>
-    <div id="taxi" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+    <div id="taxi" class="dz">
     </div>
   </div>
   <div id="runway" class="col">
-    <div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)">
+    <div class="hl">
       LOADING
     </div>
-    <div id="rwy1" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+    <div id="rwy1" class="dz">
     </div>
-    <div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)">
+    <div class="hl">
       LOADING
     </div>
-    <div id="rwy2" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+    <div id="rwy2" class="dz">
     </div>
-    <div class="hl" ondrop="dropped(event, this.id)" ondragover="allowDrop(event)">
+    <div class="hl">
       LOADING
     </div>
-    <div id="rwy3" class="dz" ondrop="drop(event, this)" ondragover="allowDrop(event)">
+    <div id="rwy3" class="dz">
     </div>
   </div>
 </body>
 <script type="text/javascript" src="airportdata.js"></script>
 <script type="text/javascript" src="scripts.js"></script>
+<script type="text/javascript" src="Sortable.js"></script>
 <!-- END UI -->
 
 <!-- BELOW IS NOT PART OF THE OPEN SOURCE PROJECT -->
@@ -100,20 +101,25 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-51355468-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
   gtag('js', new Date());
 
   gtag('config', 'UA-51355468-1');
 </script>
 <script type="text/javascript">
   isHidden();
+
   function isHidden() {
     if (localStorage.getItem("cookie consent") !== "true") {
       var el = document.getElementById("cookie-consent");
       el.style.display = "flex"
     }
   }
-  function hide(){
+
+  function hide() {
     var el = document.getElementById("cookie-consent");
     el.style.display = "none"
     localStorage.setItem("cookie consent", "true");

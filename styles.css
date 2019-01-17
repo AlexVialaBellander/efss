@@ -18,6 +18,11 @@ select:focus {
   outline: 0;
 }
 
+li, ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
 [contenteditable]:focus {
   outline: 0px solid transparent;
 }
@@ -52,12 +57,16 @@ select:focus {
   width: 50%;
 }
 
-.rightCol {
+.rightCol1 {
   float: left;
   height: 100%;
-  width: 25%;
+  width: 17.5%;
 }
-
+.rightCol2 {
+  float: left;
+  height: 100%;
+  width: 22.5%;
+}
 .topCol {
   float: left;
   height: 50%;
@@ -68,7 +77,7 @@ select:focus {
   cursor: -webkit-default;
   cursor: default;
   background-color: #b7b7b7;
-  height: 4vw;
+  height: 3.5vw;
   border: 2px solid #3d3d3d;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -93,7 +102,7 @@ select:focus {
   padding-left: .4vw;
   text-align: left;
   font-weight: 700;
-  font-size: 1.25vw;
+  font-size: 1.15vw;
   white-space: nowrap;
 }
 
@@ -108,14 +117,14 @@ select:focus {
   padding-top: .25vw;
   text-align: center;
   font-weight: 700;
-  font-size: 1.75vw;
+  font-size: 1.35vw;
   background-color: #b7b7b7;
 }
 
 .ins {
   text-align: center;
   font-weight: 700;
-  font-size: 1.5vw;
+  font-size: 1.35vw;
   background-color: #a0a0a0;
 }
 
@@ -130,7 +139,7 @@ select:focus {
   padding-top: .25vw;
   padding-left: .45vw;
   text-align: left;
-  font-size: 1vw;
+  font-size: .85vw;
 }
 
 .fl {
