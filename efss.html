@@ -1,4 +1,5 @@
 <head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
   <link href="changelog/cookie.css" rel="stylesheet">
@@ -19,20 +20,55 @@
   <div id="myModal" class="modal">
     <!-- Modal content -->
     <div class="modal-content">
-      <img class="modal-image" src="EFSS_Wallpaper.jpg" alt="Wallpaper">
+      <img class="modal-image" src="images/EFSS_Wallpaper.jpg" alt="Wallpaper">
       <div class="modal-body">
         <table>
           <tr>
             <th class="first">
               <div class="v">
-                <form onSubmit="return false" class="form" action="" method="get">
+                <form onkeyup="search()" onSubmit="return false" class="form" action="" method="get">
                   Airport ICAO: <input maxlength="4" class="field" id="field" type="text" name="icao" value=""><br>
                 </form>
               </div>
+              <div class="fl">
+                <img id="status" class="tooltip" src="images/notindb.png" alt="not found">
+              </div>
+              <div id="options" class="options fr">
+                <img id="arrowIcon" class="fr" src="images/arrow_down.png" class="fr" style="margin-top: -1.5%;">
+                </img>
+                <div class="fr">
+                  More Options
+                </div>
+              </div>
             </th>
-            <th class="r">Dev 0.4.0</th>
+            <th class="r des">Dev 0.4.0</th>
           </tr>
         </table>
+        <div id="optionsMenu">
+          <div class="menucontent">
+            <table class="">
+              <tr class="">
+                <th width="12.5%" class="subtitle">
+                  Runway Config
+                </th>
+                <th width="10%" class="subtitle">
+                  <div class="switch_box box_1">
+                    <input id="cb1" type="checkbox" class="switch_1">
+                    <label class="label" for="cb1">RWY 30</label>
+                  </div>
+                </th>
+                <th width="10%" class="subtitle">
+                  <div class="switch_box box_1">
+                    <input id="cb2" type="checkbox" class="switch_1">
+                    <label class="label" for="cb2">RWY 30</label>
+                  </div>
+                </th>
+                <th width="20%" class="">
+                </th>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>

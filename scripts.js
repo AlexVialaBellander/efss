@@ -9,7 +9,7 @@ var tagID = '<div id="tag1"'
 
 //The base html for a tag
 var cleanTag =
-  ' class="tag"><div class="leftCol b"><div id="cof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="callsign topCol b" contenteditable="true">CS</div><div id="sof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="sid topCol b"contenteditable="true">SID</div><div id="tof1" onfocus="removeOnFocus(this.id)"onblur="placeholderOnBlur(this.id)" class="type topCol b"contenteditable="true">TYPE</div><div id="rof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="rule topCol b"contenteditable="true">RULE</div></div><select class="rwy rightCol1 b"><option value="rwy">RWY</option>%</select><select onchange="stat(value)" class="ins rightCol2 b"><option value="stby">STBY</option><option value="clrd">CLRD</option><option value="deice">DE-ICE</option><option value="lu">L/U</option><option value="to">T/O</option><option value="lnd">LND</option></select></div>'
+  ' class="tag"><div class="leftCol b"><div id="cof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="callsign topCol b" contenteditable="true">CS</div><div id="sof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="sid topCol b"contenteditable="true">TEXT</div><div id="tof1" onfocus="removeOnFocus(this.id)"onblur="placeholderOnBlur(this.id)" class="type topCol b"contenteditable="true">TYPE</div><div id="rof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="rule topCol b"contenteditable="true">RULE</div></div><select class="rwy rightCol1 b"><option value="rwy">RWY</option>%</select><select onchange="stat(value)" class="ins rightCol2 b"><option value="stby">STBY</option><option value="clrd">CLRD</option><option value="deice">DE-ICE</option><option value="lu">L/U</option><option value="to">T/O</option><option value="lnd">LND</option></select></div>'
 var id = "";
 if (tagArray[13] || tagArray[11] == airport) {
 
@@ -86,15 +86,45 @@ function loadModal() {
   modal.style.display = "block";
 }
 
+//Extends the options menu and rotate arrow icon
+var optionsMenu = document.getElementById("optionsMenu")
+var arrowIcon = document.getElementById("arrowIcon")
+document.getElementById("options").addEventListener("click", function() {
+  optionsMenu.classList.toggle("is-active");
+  arrowIcon.classList.toggle("is-active");
+});
 
+function search() {
+  var status = document.getElementById("status")
+  var airport = document.getElementById("field").value;
+  airport = airport.toUpperCase();
+  var found = false
+  for (i = 0; i < data.length && found == false; i++) {
+    if (airport == data[i][0]) {
+      var found = true
+      getRunways(airport)
+    }
+  }
+  if (found == true) {
+    status.classList.add("found");
+    status.src = "images/indb.png";
+  } else {
+    status.classList.add("notfound");
+    status.src = "images/notindb.png";
+  }
+}
 
-// When the user clicks anywhere outside of the modal, close it
+/* When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == modal) {
       modal.style.display = "none";
     }
   }
-  //Change airport
+  */
+
+
+
+//Change airport
 var directionalRWYS = []
 var runways = []
 var runwayHTML =
@@ -113,14 +143,15 @@ function validate(e) {
   var airport = document.getElementById("field").value;
   var modal = document.getElementById("myModal")
   modal.style.display = "none";
-  console.log(airport)
+  console.log("Loaded:".concat(airport))
   getRunways(airport)
   spawnDropZone()
 
 }
 
 //Get airport data & add runways
-var done = false
+var done = false;
+//Global flag
 
 function getRunways(inputAirport) {
   var found = false
@@ -162,9 +193,11 @@ function getRunways(inputAirport) {
       var y = 2
       for (i = 0; i < directionalRWYS.length; i++) {
         if (y > 0) {
-          tagRWYSel = spliceSlice(tagRWYSel, nVal, removeVal, directionalRWYS[i])
+          tagRWYSel = spliceSlice(tagRWYSel, nVal, removeVal,
+            directionalRWYS[i])
           nDis = tagRWYSel.search("5")
-          tagRWYSel = spliceSlice(tagRWYSel, nDis, removeDis, directionalRWYS[i])
+          tagRWYSel = spliceSlice(tagRWYSel, nDis, removeDis,
+            directionalRWYS[i])
           removeDis = directionalRWYS[i].length
           removeVal = directionalRWYS[i].length
           cleanTag = spliceSlice(cleanTag, nTag, 1, tagRWYSel)
@@ -174,9 +207,11 @@ function getRunways(inputAirport) {
         if (y < 0) {
           nTag = nTag + tagRWYSel.length
           nVal = tagRWYSel.search(directionalRWYS[i - 1])
-          tagRWYSel = spliceSlice(tagRWYSel, nVal, removeVal, directionalRWYS[i])
+          tagRWYSel = spliceSlice(tagRWYSel, nVal, removeVal,
+            directionalRWYS[i])
           nDis = tagRWYSel.search(directionalRWYS[i - 1])
-          tagRWYSel = spliceSlice(tagRWYSel, nDis, removeDis, directionalRWYS[i])
+          tagRWYSel = spliceSlice(tagRWYSel, nDis, removeDis,
+            directionalRWYS[i])
           removeDis = directionalRWYS[i].length
           removeVal = directionalRWYS[i].length
           cleanTag = spliceSlice(cleanTag, nTag, 0, tagRWYSel)
@@ -213,72 +248,58 @@ function spawnDropZone() {
     }
   });
   Sortable.create(dep, {
-
     group: 'tag',
     animation: 100
   });
   Sortable.create(arr, {
-
     group: 'tag',
     animation: 100
   });
   Sortable.create(push, {
-
     group: 'tag',
     animation: 100
   });
   Sortable.create(taxi, {
-
     group: 'tag',
     animation: 100
   });
   Sortable.create(rwy1, {
-
     group: 'tag',
     animation: 100
   });
   Sortable.create(rwy2, {
-
     group: 'tag',
     animation: 100
   });
   Sortable.create(rwy3, {
-
     group: 'tag',
     animation: 100
   });
   Sortable.create(rwy4, {
-
     group: 'tag',
     animation: 100
   });
   Sortable.create(rwy5, {
-
     group: 'tag',
     animation: 100
   });
   Sortable.create(rwy6, {
-
     group: 'tag',
     animation: 100
   });
   Sortable.create(rwy7, {
-
     group: 'tag',
     animation: 100
   });
   Sortable.create(rwy8, {
-
     group: 'tag',
     animation: 100
   });
   Sortable.create(rwy9, {
-
     group: 'tag',
     animation: 100
   });
   Sortable.create(rwy10, {
-
     group: 'tag',
     animation: 100
   });

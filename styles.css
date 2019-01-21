@@ -4,6 +4,7 @@ body {
   margin: 0px;
   font-family: 'Open Sans', sans-serif;
   background-color: #232323;
+  cursor: crosshair;
 }
 
 select {
@@ -12,6 +13,7 @@ select {
   text-indent: 1px;
   text-overflow: '';
   text-align-last: center;
+  border: 0px;
 }
 
 select:focus {
@@ -23,12 +25,13 @@ li, ul {
   padding: 0;
   margin: 0;
 }
+
 [contenteditable]:focus {
   outline: 0px solid transparent;
 }
 
 /*UI */
-.noSel{
+.noSel {
   -moz-user-select: none;
   -webkit-user-select: none;
   user-select: none;
@@ -62,11 +65,13 @@ li, ul {
   height: 100%;
   width: 17.5%;
 }
+
 .rightCol2 {
   float: left;
   height: 100%;
   width: 22.5%;
 }
+
 .topCol {
   float: left;
   height: 50%;
@@ -155,7 +160,6 @@ li, ul {
 }
 
 /* FOR RIGHT CLICK MENU */
-
 #ctxMenu {
   display: none;
   z-index: 100;
@@ -216,17 +220,26 @@ menu:not([title]):before {
 /* MODAL WINDOW */
 /* The Modal (background) */
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  padding-top: 100px;
+  /* Location of the box */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.7);
+  /* Black w/ opacity */
 }
 
 /* Modal Content */
@@ -236,7 +249,7 @@ menu:not([title]):before {
   margin: auto;
   padding: 0;
   width: 60%;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   -webkit-animation-name: animatetop;
   -webkit-animation-duration: 0.7s;
   animation-name: animatetop;
@@ -249,7 +262,7 @@ menu:not([title]):before {
   margin: auto;
   padding: 0;
   width: 100%;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   -webkit-animation-name: animatetop;
   -webkit-animation-duration: 0.8s;
   animation-name: animatetop;
@@ -258,29 +271,27 @@ menu:not([title]):before {
 
 /* Add Animation */
 @-webkit-keyframes animatetop {
-  from {top:-300px; opacity:0}
-  to {top:0; opacity:1}
+  from {
+    top: -300px;
+    opacity: 0
+  }
+
+  to {
+    top: 0;
+    opacity: 1
+  }
 }
 
 @keyframes animatetop {
-  from {top:-300px; opacity:0}
-  to {top:0; opacity:1}
-}
+  from {
+    top: -300px;
+    opacity: 0
+  }
 
-/* The Close Button */
-.close {
-  color: red;
-  margin-right: 7px;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
+  to {
+    top: 0;
+    opacity: 1
+  }
 }
 
 .modal-header {
@@ -298,6 +309,10 @@ menu:not([title]):before {
   margin-left: 2vw;
 }
 
+.fr {
+  float: right;
+}
+
 .form {
   margin: 0;
 }
@@ -311,10 +326,118 @@ menu:not([title]):before {
 }
 
 .first {
- width: 70%;
- padding: 0;
+  width: 70%;
+  padding: 0;
+}
+
+.options {
+  margin-top: 2.85%;
+  margin-right: 20%;
+  font-size: .7vw;
+}
+
+#arrowIcon {
+  height: 1.25vw;
+  transition: 400ms;
+}
+
+#arrowIcon.is-active {
+  transform: rotate(180deg);
+}
+
+.options:hover {
+  cursor: pointer;
+  opacity: 0.66;
+}
+
+
+#optionsMenu {
+  overflow: hidden;
+  height: 0vw;
+  background: white;
+  transition: 400ms;
+}
+
+#optionsMenu.is-active {
+  height: 4vw;
+}
+
+#status {
+  margin-left: 10%;
+  margin-top: 25%;
+  height: 1.75vw;
+  opacity: 0;
+}
+
+#status.found {
+  opacity: 0.8;
+}
+
+#status.notfound {
+  opacity: 0.8;
+}
+
+.menucontent {
 
 }
+.subtitle {
+  text-align: left;
+  font-size: .8vw;
+  padding: 0 0 0 2vw;
+}
+
+/* Switch 1 Specific Styles Start */
+
+.box_1{
+  position: relative;
+}
+
+.label {
+  position: absolute;
+  margin-left: .5vw;
+}
+
+input[type="checkbox"].switch_1{
+	font-size: 30px;
+	-webkit-appearance: none;
+	   -moz-appearance: none;
+	        appearance: none;
+	width: 1.25em;
+	height: .5em;
+	background: #ddd;
+	border-radius: 1em;
+	position: relative;
+	cursor: pointer;
+	outline: none;
+	-webkit-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+  }
+
+  input[type="checkbox"].switch_1:checked{
+	background: #09510c;
+  }
+
+  input[type="checkbox"].switch_1:after{
+	position: absolute;
+	content: "";
+	width: .5em;
+	height: .5em;
+	border-radius: 50%;
+	background: #fff;
+	-webkit-box-shadow: 0 0 .25em rgba(0,0,0,.3);
+	        box-shadow: 0 0 .25em rgba(0,0,0,.3);
+	-webkit-transform: scale(.7);
+	        transform: scale(.7);
+	left: 0;
+	-webkit-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+  }
+
+  input[type="checkbox"].switch_1:checked:after{
+	left: calc(100% - .5em);
+  }
+
+/* Switch 1 Specific Style End */
 
 table {
   border-collapse: collapse;
