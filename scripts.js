@@ -1,20 +1,129 @@
 /*! EFSS MIT | github.com/AlexVialaBellander/efss */
-var text =
-  "RYR41BB:211575:211575:PILOT::51.4194:14.2231:38238:433:1/B738/M-SDE1FGHIJ1RWXYZ/LB1:N0452:LHBP:F380:EKCH:EU4:B:6:2000:0:50:0:I:1320:1320:1:34:3:44:EKBI:PBN/A1B1C1D1L1O1S1 NAV/RNVD1E2A1 DOF/181213 REG/EIDWE EET/LZBB0009 LKAA0020 EDUU0045 EDWW0115 EKDK0119 RVR/200 OPR/RYANAIR VIRTUAL AIRLINES PER/C:N0452F380 BADOV P41 MAVOR P41 BULEK L624 HDO DCT GEVNI T239 PEROM T298 MONAK:::::::20181213125500:IvAp:2.0.2:2:6::S:144:351:0:30:"
+var debug = false
+  //Modal popup window from w3
+  // Get the modal
+var modal = document.getElementById('myModal')
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0]
+
+//Loads the modal window
+function loadModal() {
+  modal.style.display = "block"
+}
+
+//Extends the options menu and rotate arrow icon
+var optionsMenu = document.getElementById("optionsMenu")
+var arrowIcon = document.getElementById("arrowIcon")
+document.getElementById("options").addEventListener("click", function() {
+  var airport = document.getElementById("field").value
+  if (airport.length == 4 && search()) {
+    optionsMenu.classList.toggle("is-active")
+    arrowIcon.classList.toggle("is-active")
+    loadMenuItems()
+  }
+})
+
+//Options menu items
+var rwyContent =
+  '<th width="10%" class="subtitle"><div class="switch_box box_1"><input id="cb!" type="checkbox" class="switch_1"><label class="label" for="cb!">XX</label></div></th>'
+var rwyContentTemp = "";
+var wrapperOptionHTML =
+  '<table><tr id="wrapperOption"><th id="here" width="12.5%" class="subtitle">Runway Configuration</th><th width="40%" class=""></th></tr></table>'
+
+
+//Change airport, listen on enter key press down event
+var directionalRWYS = []
+var runways = []
+var runwayHTML =
+  '<div class="hl"> LOADING </div> <div id="rwy" class="dz"></div>'
+var menuItem = '<menu onclick=\"move(\'rwy\')\" title="RUNWAY"></menu>'
+var tagRWYSel = '<option value="%">5</option>'
+var submit = document.getElementById("field")
+  //Listen on enter press runvalidate
+submit.addEventListener("keydown", function(e) {
+  if (e.keyCode === 13) {
+    validate(e)
+  }
+})
+
+//global var for div ID count
 var xofCount = 1
-var tagArray = text.split(":");
-var airport = "EKCH"
-var getData = "https://api.ivao.aero/getdata/whazzup/"
 var tagID = '<div id="tag1"'
 
 //The base html for a tag
 var cleanTag =
   ' class="tag"><div class="leftCol b"><div id="cof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="callsign topCol b" contenteditable="true">CS</div><div id="sof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="sid topCol b"contenteditable="true">TEXT</div><div id="tof1" onfocus="removeOnFocus(this.id)"onblur="placeholderOnBlur(this.id)" class="type topCol b"contenteditable="true">TYPE</div><div id="rof1" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="rule topCol b"contenteditable="true">RULE</div></div><select class="rwy rightCol1 b"><option value="rwy">RWY</option>%</select><select onchange="stat(value)" class="ins rightCol2 b"><option value="stby">STBY</option><option value="clrd">CLRD</option><option value="deice">DE-ICE</option><option value="lu">L/U</option><option value="to">T/O</option><option value="lnd">LND</option></select></div>'
-var id = "";
-if (tagArray[13] || tagArray[11] == airport) {
+var id = ""
+var defaultTag =
+  `
+<div id="tagid" class="tag">
+   <div class="leftCol b">
+      <div id="callsignid" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="callsign topCol b" contenteditable="true">CS</div>
+      <div id="textid" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="sid topCol b"contenteditable="true">TEXT</div>
+      <div id="typeid" onfocus="removeOnFocus(this.id)"onblur="placeholderOnBlur(this.id)" class="type topCol b"contenteditable="true">TYPE</div>
+      <div id="ruleid" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="rule topCol b"contenteditable="true">RULE</div>
+   </div>
+   <select class="rwy rightCol1 b">
+      <option value="rwy">RWY</option>
+      %
+   </select>
+   <select onchange="stat(value)" class="ins rightCol2 b">
+      <option value="stby">STBY</option>
+      <option value="clrd">CLRD</option>
+      <option value="deice">DE-ICE</option>
+      <option value="lu">L/U</option>
+      <option value="to">T/O</option>
+      <option value="lnd">LND</option>
+   </select>
+</div>
+`
+var idCount = 0
 
+function createTag() {
+  var newTag = defaultTag
+  var idToChange = ["tagid", "callsignid", "textid", "typeid", "ruleid"]
+  for (i = 0; i < idToChange.length; i++) {
+    newTag = newTag.replace(idToChange[i], idToChange[i].concat(idCount))
+  }
+  if (debug) {
+    console.log("New Tag Created with code: \n" + newTag)
+  }
+  var divToInject = document.getElementById("dep")
+  divToInject.insertAdjacentHTML("afterbegin", newTag)
+    //Create eventlister for contextmenu
+  var newTagDiv = document.getElementById("tagid".concat(idCount))
+  var body = document.getElementsByTagName("body")[0]
+    //add eventlister for context menu on every new generated tag
+  newTagDiv.addEventListener("contextmenu", function(event) {
+    event.preventDefault()
+      //get id from event target
+    var target = event.target || event.srcElement
+    id = ("tag").concat((target.id).slice(3, 4))
+      //run context menu
+    var ctxMenu = document.getElementById("ctxMenu")
+    ctxMenu.style.display = "block"
+    ctxMenu.style.left = (event.pageX - 10) + "px"
+    ctxMenu.style.top = (event.pageY - 10) + "px"
+  }, false)
+  body.addEventListener("click", function(event) {
+    var ctxMenu = document.getElementById("ctxMenu")
+    ctxMenu.style.display = ""
+    ctxMenu.style.left = ""
+    ctxMenu.style.top = ""
+  }, false)
+  idCount++
 }
+
+
 //Generate New tag and add eventlister for context menu
+/*
+cof = callsign div ID
+sof = (former SID) now TEXT div ID
+tof = type div ID
+rof = rule div ID
+*/
+/*
 function newTag() {
   var tagNumberString = tagID[(tagID.length) - 2]
   var pt1 = (tagID.split(tagNumberString)[0])
@@ -27,34 +136,33 @@ function newTag() {
   var currentRof = "rof".concat(String(xofCount))
   tag = cleanTag.replace("cof1", currentCof).replace("sof1", currentSof).replace(
     "tof1", currentTof).replace("rof1", currentRof)
-  var nTag = ntagID.concat(tag);
-  var div = document.getElementById("dep");
-  div.insertAdjacentHTML("afterbegin", nTag);
+  var nTag = ntagID.concat(tag)
+  var div = document.getElementById("dep")
+  div.insertAdjacentHTML("afterbegin", nTag)
 
   var tagN = ((("tag").concat(Number(tagID[(tagID.length) - 2]))))
-  var tag = document.getElementById(tagN);
-  var body = document.getElementsByTagName("BODY")[0];
-  //add eventlister for context menu on every new generated tag
+  var tag = document.getElementById(tagN)
+  var body = document.getElementsByTagName("BODY")[0]
+    //add eventlister for context menu on every new generated tag
   tag.addEventListener("contextmenu", function(event) {
-    event.preventDefault();
-    //get id from event target
-    var target = event.target || event.srcElement;
-    id = ("tag").concat((target.id).slice(3, 4));
-    //run context menu
-    var ctxMenu = document.getElementById("ctxMenu");
-    ctxMenu.style.display = "block";
-    ctxMenu.style.left = (event.pageX - 10) + "px";
-    ctxMenu.style.top = (event.pageY - 10) + "px";
-  }, false);
+    event.preventDefault()
+      //get id from event target
+    var target = event.target || event.srcElement
+    id = ("tag").concat((target.id).slice(3, 4))
+      //run context menu
+    var ctxMenu = document.getElementById("ctxMenu")
+    ctxMenu.style.display = "block"
+    ctxMenu.style.left = (event.pageX - 10) + "px"
+    ctxMenu.style.top = (event.pageY - 10) + "px"
+  }, false)
   body.addEventListener("click", function(event) {
-    var ctxMenu = document.getElementById("ctxMenu");
-    ctxMenu.style.display = "";
-    ctxMenu.style.left = "";
-    ctxMenu.style.top = "";
-  }, false);
-
+    var ctxMenu = document.getElementById("ctxMenu")
+    ctxMenu.style.display = ""
+    ctxMenu.style.left = ""
+    ctxMenu.style.top = ""
+  }, false)
 }
-
+*/
 //globar var for the field input
 var input = ""
   //Removes text when pressing on field
@@ -64,7 +172,7 @@ function removeOnFocus(id) {
 }
 //If nothing in field return the old value
 function placeholderOnBlur(id) {
-  var x = document.getElementById(id).innerHTML;
+  var x = document.getElementById(id).innerHTML
   if (x == "") {
     document.getElementById(id).innerHTML = input
   }
@@ -72,96 +180,105 @@ function placeholderOnBlur(id) {
 //touch support move function
 function move(destination) {
   var tag = document.getElementById(id)
-  document.getElementById(destination).appendChild(tag);
+  document.getElementById(destination).appendChild(tag)
 }
 
-//Modal popup window from w3
-// Get the modal
-var modal = document.getElementById('myModal');
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+var ele = document.getElementById("here")
 
-function loadModal() {
-  modal.style.display = "block";
+function loadMenuItems() {
+  var idCount = 0;
+  var runwayArray = getRunways()
+  var x = document.getElementById("wrapperOption")
+  var xF = document.getElementById("father")
+  x.remove(x.selectedIndex)
+  xF.insertAdjacentHTML("afterend", wrapperOptionHTML)
+  for (i = 0; i < runwayArray.length; i++) {
+    idCount++
+    var nUpdate1 = rwyContent.search("!")
+    rwyContentTemp = spliceSlice(rwyContent, nUpdate1, 1, idCount)
+    var nUpdate2 = rwyContentTemp.search("!")
+    rwyContentTemp = spliceSlice(rwyContentTemp, nUpdate2, 1, idCount)
+    var nUpdate3 = rwyContentTemp.search("XX")
+    rwyContentTemp = spliceSlice(rwyContentTemp, nUpdate3, 2, runwayArray[i])
+    var ele = document.getElementById("here")
+    ele.insertAdjacentHTML("afterend", rwyContentTemp)
+  }
 }
 
-//Extends the options menu and rotate arrow icon
-var optionsMenu = document.getElementById("optionsMenu")
-var arrowIcon = document.getElementById("arrowIcon")
-document.getElementById("options").addEventListener("click", function() {
-  optionsMenu.classList.toggle("is-active");
-  arrowIcon.classList.toggle("is-active");
-});
-
-function search() {
-  var status = document.getElementById("status")
-  var airport = document.getElementById("field").value;
-  airport = airport.toUpperCase();
-  var found = false
-  for (i = 0; i < data.length && found == false; i++) {
+function getRunways() {
+  var airport = document.getElementById("field").value
+  airport = airport.toUpperCase()
+  var done = false
+  for (i = 0; i < data.length && !done; i++) {
     if (airport == data[i][0]) {
-      var found = true
-      getRunways(airport)
+      done = true
+      return (data[i][1])
     }
   }
-  if (found == true) {
-    status.classList.add("found");
-    status.src = "images/indb.png";
-  } else {
-    status.classList.add("notfound");
-    status.src = "images/notindb.png";
+}
+
+
+//search db for input value, returns boolean
+function search() {
+  var airport = document.getElementById("field").value
+  airport = airport.toUpperCase()
+  var found = false
+  for (i = 0; i < data.length && !found; i++) {
+    if (airport == data[i][0]) {
+      found = true
+      return true
+    }
+  }
+  if (!found) {
+    return false
   }
 }
 
+//user input feedback icon
+function inputFeedback() {
+  var status = document.getElementById("status")
+  if (search()) {
+    status.classList.add("found")
+    status.src = "images/indb.png"
+  } else {
+    status.classList.add("notfound")
+    status.src = "images/notindb.png"
+  }
+}
 /* When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == modal) {
-      modal.style.display = "none";
+      modal.style.display = "none"
     }
   }
   */
 
-
-
-//Change airport
-var directionalRWYS = []
-var runways = []
-var runwayHTML =
-  '<div class="hl"> LOADING </div> <div id="rwy" class="dz"></div>'
-var menuItem = '<menu onclick=\"move(\'rwy\')\" title="RUNWAY"></menu>'
-var tagRWYSel = '<option value="%">5</option>'
-var submit = document.getElementById("field");
-submit.addEventListener("keydown", function(e) {
-  if (e.keyCode === 13) {
-    validate(e);
-  }
-})
-
-//Close Modal and Validate airport input
+//Close Modal and run validation, spawn dropzones and load runways
 function validate(e) {
-  var airport = document.getElementById("field").value;
+  var airport = document.getElementById("field").value
   var modal = document.getElementById("myModal")
-  modal.style.display = "none";
+  modal.style.display = "none"
   console.log("Loaded:".concat(airport))
-  getRunways(airport)
-  spawnDropZone()
-
+  loadRunways(airport)
+  spawnDropZone(airport)
 }
 
-//Get airport data & add runways
-var done = false;
 //Global flag
+//Get airport data & add runways
+var done = false
 
-function getRunways(inputAirport) {
-  var found = false
+
+//OLD
+function loadRunways(inputAirport) {
+  var found, done = false
   var airport = inputAirport.toUpperCase()
-  for (i = 0; i < data.length && done == false; i++) {
+  for (i = 0; i < data.length && !done; i++) {
     if (airport == data[i][0]) {
       var found = true
       done = true
-      var targetDiv = document.getElementById("runway");
-      var targetDiv2 = document.getElementById("ctxMenu");
+      var targetDiv = document.getElementById("runway")
+      var targetDiv2 = document.getElementById("ctxMenu")
       runways = data[i][1]
       var runwayCount = 1
       targetDiv.innerHTML = ""
@@ -171,20 +288,20 @@ function getRunways(inputAirport) {
         var withID = spliceSlice(runwayHTML, (n + 3), 0, runwayCount)
         var nn = withID.search("LOADING")
         var rwyHTML = spliceSlice(withID, nn, 7, "RUNWAY " + runways[z])
-        targetDiv.insertAdjacentHTML("afterbegin", rwyHTML);
-        //Add runways in contextmenu
+        targetDiv.insertAdjacentHTML("afterbegin", rwyHTML)
+          //Add runways in contextmenu
         var nnn = menuItem.search("rwy")
         var withID2 = spliceSlice(menuItem, (nnn + 3), 0, runwayCount)
         var nnnn = withID2.search("RUNWAY")
         var menuItemHTML = spliceSlice(withID2, nnnn, 6, runways[z])
-        targetDiv2.insertAdjacentHTML("beforeend", menuItemHTML);
+        targetDiv2.insertAdjacentHTML("beforeend", menuItemHTML)
         runwayCount++
       }
       //Split each runway. ex 12/30 --> 12, 30
       for (y = 0; y < runways.length; y++) {
         directionalRWYS = directionalRWYS.concat(runways[y].split("/"))
       }
-      directionalRWYS = directionalRWYS.sort();
+      directionalRWYS = directionalRWYS.sort()
       var nTag = cleanTag.search("%")
       var nVal = tagRWYSel.search("%")
       var nDis = tagRWYSel.search("5")
@@ -221,87 +338,86 @@ function getRunways(inputAirport) {
   }
   //Reload page if the airport is not in database
   if (found == false) {
-    location.reload();
+    location.reload()
   }
 }
 
 //Splice string function
-
 function spliceSlice(str, index, count, add) {
   // We cannot pass negative indexes directly to the 2nd slicing operation.
   if (index < 0) {
-    index = str.length + index;
+    index = str.length + index
     if (index < 0) {
-      index = 0;
+      index = 0
     }
   }
-  return str.slice(0, index) + (add || "") + str.slice(index + count);
+  return str.slice(0, index) + (add || "") + str.slice(index + count)
 }
-//Creates Drag and Drop zones using the Sortable library
 
+
+//Creates Drag and Drop zones using the Sortable library
 function spawnDropZone() {
   Sortable.create(trash, {
     group: "tag",
-
     onAdd: function(evt) {
-      this.el.removeChild(evt.item);
+      this.el.removeChild(evt.item)
     }
-  });
+  })
   Sortable.create(dep, {
     group: 'tag',
     animation: 100
-  });
+  })
   Sortable.create(arr, {
     group: 'tag',
     animation: 100
-  });
+  })
   Sortable.create(push, {
     group: 'tag',
     animation: 100
-  });
+  })
   Sortable.create(taxi, {
     group: 'tag',
     animation: 100
-  });
+  })
   Sortable.create(rwy1, {
     group: 'tag',
     animation: 100
-  });
+  })
   Sortable.create(rwy2, {
     group: 'tag',
     animation: 100
-  });
+  })
   Sortable.create(rwy3, {
     group: 'tag',
     animation: 100
-  });
+  })
   Sortable.create(rwy4, {
     group: 'tag',
     animation: 100
-  });
+  })
   Sortable.create(rwy5, {
     group: 'tag',
     animation: 100
-  });
+  })
   Sortable.create(rwy6, {
     group: 'tag',
     animation: 100
-  });
+  })
   Sortable.create(rwy7, {
     group: 'tag',
     animation: 100
-  });
+  })
   Sortable.create(rwy8, {
     group: 'tag',
     animation: 100
-  });
+  })
   Sortable.create(rwy9, {
     group: 'tag',
     animation: 100
-  });
+  })
   Sortable.create(rwy10, {
     group: 'tag',
     animation: 100
-  });
+  })
 
 }

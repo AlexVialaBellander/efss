@@ -1,9 +1,14 @@
 <head>
+  <title>Virtual Electronic Flightstrip System</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="Free Electronic Flightstrip System, an air traffic control tool for imporved air traffic management. ATC Electronic Flightstrip System">
+  <meta name="keywords" content="ATC, Electronic, Flightstrip, System, VATSIM, IVAO, OpenSource, Tool, Free, Air Traffic Control, Flightsim, Virtual">
+  <meta name="author" content="Alexander Viala Bellander">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
   <link href="changelog/cookie.css" rel="stylesheet">
-  <title>EFSS</title>
 </head>
 <!-- Cookie Consent for tracking -->
 
@@ -26,7 +31,7 @@
           <tr>
             <th class="first">
               <div class="v">
-                <form onkeyup="search()" onSubmit="return false" class="form" action="" method="get">
+                <form onkeyup="inputFeedback()" onSubmit="return false" class="form" action="" method="get">
                   Airport ICAO: <input maxlength="4" class="field" id="field" type="text" name="icao" value=""><br>
                 </form>
               </div>
@@ -46,24 +51,10 @@
         </table>
         <div id="optionsMenu">
           <div class="menucontent">
-            <table class="">
-              <tr class="">
-                <th width="12.5%" class="subtitle">
-                  Runway Config
-                </th>
-                <th width="10%" class="subtitle">
-                  <div class="switch_box box_1">
-                    <input id="cb1" type="checkbox" class="switch_1">
-                    <label class="label" for="cb1">RWY 30</label>
-                  </div>
-                </th>
-                <th width="10%" class="subtitle">
-                  <div class="switch_box box_1">
-                    <input id="cb2" type="checkbox" class="switch_1">
-                    <label class="label" for="cb2">RWY 30</label>
-                  </div>
-                </th>
-                <th width="20%" class="">
+            <table id="father">
+              <tr id="wrapperOption">
+                <th id="here" width="12.5%" class="subtitle">
+                  Runway Configuration
                 </th>
               </tr>
             </table>
