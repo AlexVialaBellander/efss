@@ -23,6 +23,19 @@ document.getElementById("options").addEventListener("click", function() {
   }
 })
 
+
+//user input feedback icon
+function inputFeedback() {
+  var status = document.getElementById("status")
+  if (searchInput()) {
+    status.classList.add("found")
+    status.src = "images/indb.png"
+  } else {
+    status.classList.add("notfound")
+    status.src = "images/notindb.png"
+  }
+}
+
 //Change airport, listen on enter key press down event
 directionalRWYS = []
 runways = []
@@ -36,8 +49,183 @@ submit.addEventListener("keydown", function(e) {
 
 tagidCount = 0
 
+
+//globar var for the field input on tag
+input = ""
+  //Removes text when pressing on field
+function removeOnFocus(id) {
+  input = document.getElementById(id).innerHTML
+  document.getElementById(id).innerHTML = ""
+}
+//If nothing in field return the old value
+function placeholderOnBlur(id) {
+  var x = document.getElementById(id).innerHTML
+  if (x == "") {
+    document.getElementById(id).innerHTML = input
+  }
+}
+//touch support move function
+function move(destination) {
+  var tag = document.getElementById(id)
+  document.getElementById(destination).appendChild(tag)
+}
+
+
+ele = document.getElementById("here")
+
+function loadMenuItems() {
+  var idCount = 1;
+  var runwayArray = getRunways()
+  var x = document.getElementById("wrapperOption")
+  var xF = document.getElementById("father")
+  x.remove(x.selectedIndex)
+  xF.insertAdjacentHTML("afterend", wrapperOptionHTML)
+  for (let index of runwayArray) {
+    var nUpdate1 = rwyContent.search("!")
+    rwyContentTemp = spliceSlice(rwyContent, nUpdate1, 1, idCount)
+    var nUpdate2 = rwyContentTemp.search("!")
+    rwyContentTemp = spliceSlice(rwyContentTemp, nUpdate2, 1, idCount)
+    var nUpdate3 = rwyContentTemp.search("XX")
+    rwyContentTemp = spliceSlice(rwyContentTemp, nUpdate3, 2, runwayArray[
+      idCount - 1])
+    var ele = document.getElementById("here")
+    ele.insertAdjacentHTML("afterend", rwyContentTemp)
+    debugger
+    document.getElementById("cb" + idCount).checked = true;
+    check(document.getElementById("cb" + idCount))
+    idCount++
+  }
+}
+
+//Returns array of runways
+function getRunways() {
+  var airport = document.getElementById("field").value.toUpperCase()
+  var done = false
+  for (i = 0; i < data.length && !done; i++) {
+    if (airport == data[i][0]) {
+      done = true
+      return (data[i][1])
+    }
+  }
+}
+//e = innerText of checkbox input label (rwy)
+var selectedRunways = []
+
+function check(e) {
+  e = e.parentNode.childNodes[3].innerText
+  if (selectedRunways.indexOf(e) == -1) {
+    selectedRunways.push(e)
+  } else {
+    selectedRunways.splice(selectedRunways.indexOf(e), 1)
+  }
+}
+
+//search db for input value, returns boolean
+function searchInput() {
+  var airport = document.getElementById("field").value.toUpperCase()
+  var found = false
+  for (i = 0; i < data.length && !found; i++) {
+    if (airport == data[i][0]) {
+      found = true
+      return true
+    }
+  }
+  if (!found) {
+    optionsMenu.classList.remove("is-active")
+    arrowIcon.classList.remove("is-active")
+    return false
+  }
+}
+
+/* When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none"
+    }
+  }
+  */
+
+//run validation, if input is valid: spawn dropzones and load runways
+function validate(e) {
+  var airport = document.getElementById("field").value
+  if (searchInput(airport) && selectedRunways.length != 0) {
+    var modal = document.getElementById("myModal")
+    modal.classList.add("fade")
+    setTimeout(function() {
+      modal.style.display = "none";
+    }, 300);
+    console.log("Loaded:".concat(airport))
+    loadRunways(airport)
+    spawnDropZone(airport)
+  }
+}
+
+//Global flag
+//Get airport data & add runways
+done = false
+
+function loadRunways() {
+  var targetDiv2 = document.getElementById("ctxMenu")
+  var targetDiv = document.getElementById("runway")
+  targetDiv.innerHTML = ""
+  var runwayCount = 0
+  for (z = 0; z < selectedRunways.length; z++) {
+    //Add runways under runway section
+    var n = runwayHTML.search("rwy")
+    var withID = spliceSlice(runwayHTML, (n + 3), 0, runwayCount)
+    var nn = withID.search("LOADING")
+    var rwyHTML = spliceSlice(withID, nn, 7, "RUNWAY " + selectedRunways[z])
+    targetDiv.insertAdjacentHTML("afterbegin", rwyHTML)
+      //Add runways in contextmenu
+    var nnn = menuItem.search("rwy")
+    var withID2 = spliceSlice(menuItem, (nnn + 3), 0, runwayCount)
+    var nnnn = withID2.search("RUNWAY")
+    var menuItemHTML = spliceSlice(withID2, nnnn, 6, selectedRunways[z])
+    targetDiv2.insertAdjacentHTML("beforeend", menuItemHTML)
+    runwayCount++
+  }
+  debugger
+  //Split each runway. ex 12/30 --> 12, 30
+  for (y = 0; y < selectedRunways.length; y++) {
+    directionalRWYS = directionalRWYS.concat(selectedRunways[y].split("/")).sort()
+  }
+  var nTag = defaultTag.search("%")
+  var nVal = tagRWYSel.search("%")
+  var nDis = tagRWYSel.search("5")
+  var removeVal = 1
+  var removeDis = 1
+  var y = 2
+  for (i = 0; i < directionalRWYS.length; i++) {
+    if (y > 0) {
+      tagRWYSel = spliceSlice(tagRWYSel, nVal, removeVal,
+        directionalRWYS[i])
+      nDis = tagRWYSel.search("5")
+      tagRWYSel = spliceSlice(tagRWYSel, nDis, removeDis,
+        directionalRWYS[i])
+      removeDis = directionalRWYS[i].length
+      removeVal = directionalRWYS[i].length
+      defaultTag = spliceSlice(defaultTag, nTag, 1, tagRWYSel)
+      y--
+    }
+    y--
+    if (y < 0) {
+      nTag = nTag + tagRWYSel.length
+      nVal = tagRWYSel.search(directionalRWYS[i - 1])
+      tagRWYSel = spliceSlice(tagRWYSel, nVal, removeVal,
+        directionalRWYS[i])
+      nDis = tagRWYSel.search(directionalRWYS[i - 1])
+      tagRWYSel = spliceSlice(tagRWYSel, nDis, removeDis,
+        directionalRWYS[i])
+      removeDis = directionalRWYS[i].length
+      removeVal = directionalRWYS[i].length
+      defaultTag = spliceSlice(defaultTag, nTag, 0, tagRWYSel)
+    }
+  }
+}
+
 //Generate New tag and add eventlister for context menu
 function newTag() {
+  debugger
   var newTag = defaultTag
   var idToChange = ["tagid", "callsignid", "textid", "typeid", "ruleid"]
   for (i = 0; i < idToChange.length; i++) {
@@ -67,188 +255,6 @@ function newTag() {
     ctxMenu.style.top = ""
   }, false)
   tagidCount++
-}
-
-//globar var for the field input on tag
-input = ""
-  //Removes text when pressing on field
-function removeOnFocus(id) {
-  input = document.getElementById(id).innerHTML
-  document.getElementById(id).innerHTML = ""
-}
-//If nothing in field return the old value
-function placeholderOnBlur(id) {
-  var x = document.getElementById(id).innerHTML
-  if (x == "") {
-    document.getElementById(id).innerHTML = input
-  }
-}
-//touch support move function
-function move(destination) {
-  var tag = document.getElementById(id)
-  document.getElementById(destination).appendChild(tag)
-}
-
-
-ele = document.getElementById("here")
-
-function loadMenuItems() {
-  debugger
-  var idCount = 0;
-  var runwayArray = getRunways()
-  var x = document.getElementById("wrapperOption")
-  var xF = document.getElementById("father")
-  x.remove(x.selectedIndex)
-  xF.insertAdjacentHTML("afterend", wrapperOptionHTML)
-  for (let index of runwayArray) {
-    var nUpdate1 = rwyContent.search("!")
-    rwyContentTemp = spliceSlice(rwyContent, nUpdate1, 1, idCount)
-    var nUpdate2 = rwyContentTemp.search("!")
-    rwyContentTemp = spliceSlice(rwyContentTemp, nUpdate2, 1, idCount)
-    //var nUpdate3 = rwyContentTemp.search("XX")
-    //rwyContentTemp = spliceSlice(rwyContentTemp, nUpdate3, 2, runwayArray[idCount])
-    var ele = document.getElementById("here")
-    ele.insertAdjacentHTML("afterend", rwyContentTemp)
-    idCount++
-  }
-}
-
-//Returns array of runways
-function getRunways() {
-  var airport = document.getElementById("field").value.toUpperCase()
-  var done = false
-  for (i = 0; i < data.length && !done; i++) {
-    if (airport == data[i][0]) {
-      done = true
-      return (data[i][1])
-    }
-  }
-}
-
-
-//search db for input value, returns boolean
-function searchInput() {
-  var airport = document.getElementById("field").value.toUpperCase()
-  var found = false
-  for (i = 0; i < data.length && !found; i++) {
-    if (airport == data[i][0]) {
-      found = true
-      return true
-    }
-  }
-  if (!found) {
-    optionsMenu.classList.remove("is-active")
-    arrowIcon.classList.remove("is-active")
-    return false
-  }
-}
-
-//user input feedback icon
-function inputFeedback() {
-  var status = document.getElementById("status")
-  if (searchInput()) {
-    status.classList.add("found")
-    status.src = "images/indb.png"
-  } else {
-    status.classList.add("notfound")
-    status.src = "images/notindb.png"
-  }
-}
-/* When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none"
-    }
-  }
-  */
-
-//Close Modal and run validation, spawn dropzones and load runways
-function validate(e) {
-  debugger
-  var airport = document.getElementById("field").value
-  var modal = document.getElementById("myModal")
-  modal.classList.add("fade")
-  console.log("Loaded:".concat(airport))
-  loadRunways(airport)
-  spawnDropZone(airport)
-}
-
-//Global flag
-//Get airport data & add runways
-done = false
-
-
-//OLD
-function loadRunways(inputAirport) {
-  var found, done = false
-  var airport = inputAirport.toUpperCase()
-  for (i = 0; i < data.length && !done; i++) {
-    if (airport == data[i][0]) {
-      var found = true
-      done = true
-      var targetDiv = document.getElementById("runway")
-      var targetDiv2 = document.getElementById("ctxMenu")
-      runways = data[i][1]
-      var runwayCount = 1
-      targetDiv.innerHTML = ""
-      for (z = 0; z < runways.length; z++) {
-        //Add runways under runway section
-        var n = runwayHTML.search("rwy")
-        var withID = spliceSlice(runwayHTML, (n + 3), 0, runwayCount)
-        var nn = withID.search("LOADING")
-        var rwyHTML = spliceSlice(withID, nn, 7, "RUNWAY " + runways[z])
-        targetDiv.insertAdjacentHTML("afterbegin", rwyHTML)
-          //Add runways in contextmenu
-        var nnn = menuItem.search("rwy")
-        var withID2 = spliceSlice(menuItem, (nnn + 3), 0, runwayCount)
-        var nnnn = withID2.search("RUNWAY")
-        var menuItemHTML = spliceSlice(withID2, nnnn, 6, runways[z])
-        targetDiv2.insertAdjacentHTML("beforeend", menuItemHTML)
-        runwayCount++
-      }
-      //Split each runway. ex 12/30 --> 12, 30
-      for (y = 0; y < runways.length; y++) {
-        directionalRWYS = directionalRWYS.concat(runways[y].split("/"))
-      }
-      directionalRWYS = directionalRWYS.sort()
-      var nTag = defaultTag.search("%")
-      var nVal = tagRWYSel.search("%")
-      var nDis = tagRWYSel.search("5")
-      var removeVal = 1
-      var removeDis = 1
-      var y = 2
-      for (i = 0; i < directionalRWYS.length; i++) {
-        if (y > 0) {
-          tagRWYSel = spliceSlice(tagRWYSel, nVal, removeVal,
-            directionalRWYS[i])
-          nDis = tagRWYSel.search("5")
-          tagRWYSel = spliceSlice(tagRWYSel, nDis, removeDis,
-            directionalRWYS[i])
-          removeDis = directionalRWYS[i].length
-          removeVal = directionalRWYS[i].length
-          defaultTag = spliceSlice(defaultTag, nTag, 1, tagRWYSel)
-          y--
-        }
-        y--
-        if (y < 0) {
-          nTag = nTag + tagRWYSel.length
-          nVal = tagRWYSel.search(directionalRWYS[i - 1])
-          tagRWYSel = spliceSlice(tagRWYSel, nVal, removeVal,
-            directionalRWYS[i])
-          nDis = tagRWYSel.search(directionalRWYS[i - 1])
-          tagRWYSel = spliceSlice(tagRWYSel, nDis, removeDis,
-            directionalRWYS[i])
-          removeDis = directionalRWYS[i].length
-          removeVal = directionalRWYS[i].length
-          defaultTag = spliceSlice(defaultTag, nTag, 0, tagRWYSel)
-        }
-      }
-    }
-  }
-  //Reload page if the airport is not in database
-  if (found == false) {
-    location.reload()
-  }
 }
 
 //Splice string function

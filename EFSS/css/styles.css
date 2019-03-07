@@ -387,18 +387,24 @@ menu:not([title]):before {
 .subtitle {
   text-align: left;
   font-size: .8vw;
-  padding: 0 0 0 2vw;
+  padding: 0 2vw 0 2vw;
+}
+
+.selector {
+  text-align: left;
+  font-size: .8vw;
 }
 
 /* Switch 1 Specific Styles Start */
 
 .box_1{
   position: relative;
+  width: 7vw;
 }
 
 .label {
   position: absolute;
-  margin-left: .5vw;
+  margin: 3px 3px 3px 6px;
 }
 
 input[type="checkbox"].switch_1{
@@ -438,7 +444,7 @@ input[type="checkbox"].switch_1{
   }
 
   input[type="checkbox"].switch_1:checked:after{
-	left: calc(100% - .5em);
+	left: calc(100% - 1.15vw);
   }
 
 /* Switch 1 Specific Style End */
@@ -451,8 +457,10 @@ table {
 
 td, th {
   font-weight: 600;
-  padding: 0 2vw 0 2vw;
   font-size: 1.75vw;
+}
+.pad {
+  padding: 0 2vw 0 2vw;
 }
 
 .r {

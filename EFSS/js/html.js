@@ -23,10 +23,10 @@ var defaultTag =
 `
 var rwyContent =
   `
-<th width="10%" class="subtitle">
+<th width="12%" class="selector">
    <div class="switch_box box_1">
-      <input id="cb!" type="checkbox" class="switch_1">
-      <label class="label" for="cb!"></label>
+      <input onclick="check(this)" id="cb!" type="checkbox" class="switch_1">
+      <label class="label" for="cb!">XX</label>
    </div>
 </th>
 `
