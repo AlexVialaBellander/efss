@@ -93,6 +93,7 @@ function move(destination) {
 ele = document.getElementById("here")
 
 function loadMenuItems() {
+  debugger
   var idCount = 0;
   var runwayArray = getRunways()
   var x = document.getElementById("wrapperOption")
@@ -100,22 +101,21 @@ function loadMenuItems() {
   x.remove(x.selectedIndex)
   xF.insertAdjacentHTML("afterend", wrapperOptionHTML)
   for (let index of runwayArray) {
-    idCount++
     var nUpdate1 = rwyContent.search("!")
     rwyContentTemp = spliceSlice(rwyContent, nUpdate1, 1, idCount)
     var nUpdate2 = rwyContentTemp.search("!")
     rwyContentTemp = spliceSlice(rwyContentTemp, nUpdate2, 1, idCount)
-    var nUpdate3 = rwyContentTemp.search("XX")
-    rwyContentTemp = spliceSlice(rwyContentTemp, nUpdate3, 2, runwayArray[i])
+    //var nUpdate3 = rwyContentTemp.search("XX")
+    //rwyContentTemp = spliceSlice(rwyContentTemp, nUpdate3, 2, runwayArray[idCount])
     var ele = document.getElementById("here")
     ele.insertAdjacentHTML("afterend", rwyContentTemp)
+    idCount++
   }
 }
 
 //Returns array of runways
 function getRunways() {
-  var airport = document.getElementById("field").value
-  airport = airport.toUpperCase()
+  var airport = document.getElementById("field").value.toUpperCase()
   var done = false
   for (i = 0; i < data.length && !done; i++) {
     if (airport == data[i][0]) {
@@ -137,6 +137,8 @@ function searchInput() {
     }
   }
   if (!found) {
+    optionsMenu.classList.remove("is-active")
+    arrowIcon.classList.remove("is-active")
     return false
   }
 }
@@ -162,9 +164,10 @@ window.onclick = function(event) {
 
 //Close Modal and run validation, spawn dropzones and load runways
 function validate(e) {
+  debugger
   var airport = document.getElementById("field").value
   var modal = document.getElementById("myModal")
-  modal.style.display = "none"
+  modal.classList.add("fade")
   console.log("Loaded:".concat(airport))
   loadRunways(airport)
   spawnDropZone(airport)

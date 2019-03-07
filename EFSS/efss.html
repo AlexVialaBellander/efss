@@ -22,7 +22,7 @@
   </div>
   <!-- END Cookie Consent -->
   <!-- The Modal -->
-  <div id="myModal" class="modal">
+  <div id="myModal" id="toFade" class="modal">
     <!-- Modal content -->
     <div class="modal-content">
       <img class="modal-image" src="images/EFSS_Wallpaper.jpg" alt="Wallpaper">
@@ -31,8 +31,8 @@
           <tr>
             <th class="first">
               <div class="v">
-                <form onkeyup="inputFeedback()" onSubmit="return false" class="form" action="" method="get">
-                  Airport ICAO: <input maxlength="4" class="field" id="field" type="text" name="icao" value=""><br>
+                <form onkeyup="inputFeedback()" autocomplete="off" onSubmit="return false" class="form" action="" method="get">
+                  Airport ICAO: <input autofocus maxlength="4" class="field" id="field" type="text" name="icao" value=""><br>
                 </form>
               </div>
               <div class="fl">

@@ -26,7 +26,7 @@ var rwyContent =
 <th width="10%" class="subtitle">
    <div class="switch_box box_1">
       <input id="cb!" type="checkbox" class="switch_1">
-      <label class="label" for="cb!">XX</label>
+      <label class="label" for="cb!"></label>
    </div>
 </th>
 `
