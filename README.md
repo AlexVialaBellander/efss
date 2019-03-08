@@ -8,6 +8,47 @@ To find the EFSS go to www.grubse.com/efss-app
 ## disclaimer
 I am a beginner to programming in general, thus the code is a great mess!
 
+## airport data-base structure
+The structure used for representing airports are [[String,[String, String]],[String,[String, String]]] where [] represents an array.
+
+All airports and their runways are stored in an array.
+Calling the variable data will return the array with all airports and runways currently supported
+
+### the database
+```
+var data = []
+```
+
+### example of entry
+```
+["EKCH", ["22R/04L", "22L/04R", "30/12"]]
+```
+### example of database (2 entries)
+```
+[["EKCH", ["22R/04L", "22L/04R", "30/12"]],["EDDM",["26L/08R", "26R/08L"]]]
+```
+
+## getting runways
+```
+function getRunways()
+```
+**getRunways()** checks the input field and searches **data** for the airport, if the input value is an airport in **data**, **getRunways()** returns an array with the runways.
+
+### example
+input field value = EKCH
+```
+getRunways()
+returns ["22R/04L", "22L/04R", "30/12"]
+```
+### getting directional runways [VERSION 0.5]
+If you want to get the directional runways. ex. RWY 12 and RWY30 and NOT 12/30 as one runway. The **getDirectionalRunways** will do this for you. The **getDirectionalRunways** function expects an array with runways in format ("12/30") as an argument.
+
+### example
+with getRunways() as argument and EKCH as airport
+```
+getDirectionalRunways(array of runways)
+returns ["04L", "04R", "12", "22L", "22R", "30"]
+```
 
 ## info
 For more information, visit www.grubse.com/efss
