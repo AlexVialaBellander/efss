@@ -187,52 +187,54 @@ function loadRunways() {
   for (y = 0; y < selectedRunways.length; y++) {
     directionalRWYS = directionalRWYS.concat(selectedRunways[y].split("/")).sort()
   }
-  var nTag = defaultTag.search("%")
-  var nVal = tagRWYSel.search("%")
-  var nDis = tagRWYSel.search("5")
-  var removeVal = 1
-  var removeDis = 1
-  var y = 2
-  for (i = 0; i < directionalRWYS.length; i++) {
-    if (y > 0) {
-      tagRWYSel = spliceSlice(tagRWYSel, nVal, removeVal,
-        directionalRWYS[i])
-      nDis = tagRWYSel.search("5")
-      tagRWYSel = spliceSlice(tagRWYSel, nDis, removeDis,
-        directionalRWYS[i])
-      removeDis = directionalRWYS[i].length
-      removeVal = directionalRWYS[i].length
-      defaultTag = spliceSlice(defaultTag, nTag, 1, tagRWYSel)
+  var htmlTags = [defaultTag, arrTag]
+  for (z = 0; z < 2; z++) {
+    debugger
+    var tempTagRWYSel = tagRWYSel
+    var nTag = htmlTags[z].search("%")
+    var nVal = tempTagRWYSel.search("%")
+    var nDis = tempTagRWYSel.search("5")
+    var removeVal = 1
+    var removeDis = 1
+    var y = 2
+    for (i = 0; i < directionalRWYS.length; i++) {
+      if (y > 0) {
+        tempTagRWYSel = spliceSlice(tempTagRWYSel, nVal, removeVal,
+          directionalRWYS[i])
+        nDis = tempTagRWYSel.search("5")
+        tempTagRWYSel = spliceSlice(tempTagRWYSel, nDis, removeDis,
+          directionalRWYS[i])
+        removeDis = directionalRWYS[i].length
+        removeVal = directionalRWYS[i].length
+        htmlTags[z] = spliceSlice(htmlTags[z], nTag, 1, tempTagRWYSel)
+        y--
+      }
       y--
-    }
-    y--
-    if (y < 0) {
-      nTag = nTag + tagRWYSel.length
-      nVal = tagRWYSel.search(directionalRWYS[i - 1])
-      tagRWYSel = spliceSlice(tagRWYSel, nVal, removeVal,
-        directionalRWYS[i])
-      nDis = tagRWYSel.search(directionalRWYS[i - 1])
-      tagRWYSel = spliceSlice(tagRWYSel, nDis, removeDis,
-        directionalRWYS[i])
-      removeDis = directionalRWYS[i].length
-      removeVal = directionalRWYS[i].length
-      defaultTag = spliceSlice(defaultTag, nTag, 0, tagRWYSel)
+      if (y < 0) {
+        nTag = nTag + tempTagRWYSel.length
+        nVal = tempTagRWYSel.search(directionalRWYS[i - 1])
+        tempTagRWYSel = spliceSlice(tempTagRWYSel, nVal, removeVal,
+          directionalRWYS[i])
+        nDis = tempTagRWYSel.search(directionalRWYS[i - 1])
+        tempTagRWYSel = spliceSlice(tempTagRWYSel, nDis, removeDis,
+          directionalRWYS[i])
+        removeDis = directionalRWYS[i].length
+        removeVal = directionalRWYS[i].length
+        htmlTags[z] = spliceSlice(htmlTags[z], nTag, 0, tempTagRWYSel)
+      }
     }
   }
+  defaultTag = htmlTags[0]
+  arrTag = htmlTags[1]
 }
 
 
 id = ""
   //Generate New tag and add eventlister for context menu
 function newTag(divId) {
-  debugger
   var newTag = defaultTag
-  var idToChange = ["tagid", "callsignid", "textid", "typeid", "ruleid"]
-  for (i = 0; i < idToChange.length; i++) {
-    newTag = newTag.replace(idToChange[i], idToChange[i].concat(tagidCount))
-  }
-  var divToInject = document.getElementById(divId)
   if (divId == "arr") {
+    newTag = arrTag
     newTag = spliceSlice(newTag, newTag.search("ins"), 0,
       "arr ")
   }
@@ -240,6 +242,12 @@ function newTag(divId) {
     newTag = spliceSlice(newTag, newTag.search("ins"), 0,
       "dep ")
   }
+  var idToChange = ["tagid", "callsignid", "textid", "typeid", "ruleid"]
+  for (i = 0; i < idToChange.length; i++) {
+    newTag = newTag.replace(idToChange[i], idToChange[i].concat(tagidCount))
+  }
+  var divToInject = document.getElementById(divId)
+
   divToInject.insertAdjacentHTML("afterbegin", newTag)
   if (divId == "arr") {
     document.getElementById("tagid".concat(tagidCount)).classList.add("arr")
@@ -252,7 +260,6 @@ function newTag(divId) {
   var body = document.getElementsByTagName("body")[0]
     //add eventlister for context menu on every new generated tag
   newTagDiv.addEventListener("contextmenu", function(event) {
-    debugger
     event.preventDefault()
       //get id from event target
     var target = event.target || event.srcElement
@@ -274,10 +281,74 @@ function newTag(divId) {
 
 //touch support move function
 function move(destination) {
+  debugger
   var tag = document.getElementById(id)
   document.getElementById(destination).appendChild(tag)
+  state(tag.children[2].value, tag.parentNode)
 }
 
+function state(v, p) {
+  debugger
+  var childHTML = p.children
+  var tags = []
+  for (i = 0; i < p.children.length; i++) {
+    tags.push(childHTML[i].children[2].value)
+  }
+  checkWarning(tags, p)
+}
+
+concernedValues = ["to", "lnd", "tgo", "lpass"]
+semiConcernedValues = ["lu"]
+
+function checkWarning(tags, p) {
+
+  var concernedIndexes = []
+  var semiConcernedIndexes = []
+  var unconcernedIndexes = []
+  var concerned = 0
+  for (i = 0; i < tags.length; i++) {
+    if (concernedValues.indexOf(tags[i]) != -1) {
+      concerned++
+      concernedIndexes.push(i)
+    } else if (semiConcernedValues.indexOf(tags[i]) != -1) {
+      semiConcernedIndexes.push(i)
+    } else {
+      unconcernedIndexes.push(i)
+    }
+  }
+  for (let i of unconcernedIndexes) {
+    p.children[i].classList.remove("warning", "semiConcerned")
+    p.children[i].children[2].classList.remove("warning", "semiConcerned")
+  }
+  if (p.id[0] == "r") {
+    for (let i of semiConcernedIndexes) {
+      p.children[i].classList.add("semiConcerned")
+      p.children[i].children[2].classList.add("semiConcerned")
+    }
+  }
+
+  if (concerned == 1) {
+    p.children[concernedIndexes[0]].classList.remove("warning", "semiConcerned")
+    p.children[concernedIndexes[0]].children[2].classList.remove("warning",
+      "semiConcerned")
+    if (p.id[0] == "r") {
+      p.children[concernedIndexes[0]].classList.add("semiConcerned")
+      p.children[concernedIndexes[0]].children[2].classList.add("semiConcerned")
+    }
+  }
+  if (p.id[0] == "r" && (concerned > 1)) {
+    warning(concernedIndexes, p)
+  }
+}
+
+function warning(indexes, p) {
+  for (let i of indexes) {
+    p.children[i].classList.remove("semiConcerned")
+    p.children[i].children[2].classList.remove("semiConcerned")
+    p.children[i].classList.add("warning")
+    p.children[i].children[2].classList.add("warning")
+  }
+}
 
 //Splice string function
 function spliceSlice(str, index, count, add) {
@@ -302,59 +373,141 @@ function spawnDropZone() {
   })
   Sortable.create(dep, {
     group: 'tag',
-    animation: 100
+    animation: 100,
+    onAdd: function(evt) {
+      state(evt.item.children[2].value, evt.item.parentNode)
+    }
   })
   Sortable.create(arr, {
     group: 'tag',
-    animation: 100
+    animation: 100,
+    onAdd: function(evt) {
+      state(evt.item.children[2].value, evt.item.parentNode)
+    }
   })
   Sortable.create(push, {
     group: 'tag',
-    animation: 100
+    animation: 100,
+    onAdd: function(evt) {
+      state(evt.item.children[2].value, evt.item.parentNode)
+    }
   })
   Sortable.create(taxi, {
     group: 'tag',
-    animation: 100
+    animation: 100,
+    onAdd: function(evt) {
+      state(evt.item.children[2].value, evt.item.parentNode)
+    }
+  })
+  Sortable.create(rwy, {
+    group: 'tag',
+    animation: 100,
+    onAdd: function(evt) {
+      state(evt.item.children[2].value, evt.item.parentNode)
+    },
+    onRemove: function(evt) {
+      state(evt.item.children[2].value, evt.from)
+    },
   })
   Sortable.create(rwy1, {
     group: 'tag',
-    animation: 100
+    animation: 100,
+    onAdd: function(evt) {
+      state(evt.item.children[2].value, evt.item.parentNode)
+    },
+    onRemove: function(evt) {
+      state(evt.item.children[2].value, evt.from)
+    },
   })
   Sortable.create(rwy2, {
     group: 'tag',
-    animation: 100
+    animation: 100,
+    onAdd: function(evt) {
+      state(evt.item.children[2].value, evt.item.parentNode)
+    },
+    onRemove: function(evt) {
+      state(evt.item.children[2].value, evt.from)
+    },
   })
   Sortable.create(rwy3, {
     group: 'tag',
-    animation: 100
+    animation: 100,
+    onAdd: function(evt) {
+      state(evt.item.children[2].value, evt.item.parentNode)
+    },
+    onRemove: function(evt) {
+      state(evt.item.children[2].value, evt.from)
+    },
   })
   Sortable.create(rwy4, {
     group: 'tag',
-    animation: 100
+    animation: 100,
+    onAdd: function(evt) {
+      state(evt.item.children[2].value, evt.item.parentNode)
+    },
+    onRemove: function(evt) {
+      state(evt.item.children[2].value, evt.from)
+    },
   })
   Sortable.create(rwy5, {
     group: 'tag',
-    animation: 100
+    animation: 100,
+    onAdd: function(evt) {
+      state(evt.item.children[2].value, evt.item.parentNode)
+    },
+    onRemove: function(evt) {
+      state(evt.item.children[2].value, evt.from)
+    },
   })
   Sortable.create(rwy6, {
     group: 'tag',
-    animation: 100
+    animation: 100,
+    onAdd: function(evt) {
+      state(evt.item.children[2].value, evt.item.parentNode)
+    },
+    onRemove: function(evt) {
+      state(evt.item.children[2].value, evt.from)
+    },
   })
   Sortable.create(rwy7, {
     group: 'tag',
-    animation: 100
+    animation: 100,
+    onAdd: function(evt) {
+      state(evt.item.children[2].value, evt.item.parentNode)
+    },
+    onRemove: function(evt) {
+      state(evt.item.children[2].value, evt.from)
+    },
   })
   Sortable.create(rwy8, {
     group: 'tag',
-    animation: 100
+    animation: 100,
+    onAdd: function(evt) {
+      state(evt.item.children[2].value, evt.item.parentNode)
+    },
+    onRemove: function(evt) {
+      state(evt.item.children[2].value, evt.from)
+    },
   })
   Sortable.create(rwy9, {
     group: 'tag',
-    animation: 100
+    animation: 100,
+    onAdd: function(evt) {
+      state(evt.item.children[2].value, evt.item.parentNode)
+    },
+    onRemove: function(evt) {
+      state(evt.item.children[2].value, evt.from)
+    },
   })
   Sortable.create(rwy10, {
     group: 'tag',
-    animation: 100
+    animation: 100,
+    onAdd: function(evt) {
+      state(evt.item.children[2].value, evt.item.parentNode)
+    },
+    onRemove: function(evt) {
+      state(evt.item.children[2].value, evt.from)
+    },
   })
 
 }

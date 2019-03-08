@@ -149,6 +149,47 @@ li, ul {
   background-color: #79b9b0 !important;
 }
 
+.warning {
+  animation-name: warningFlash !important;
+  animation-duration: .35s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes warningFlash {
+  0% {
+    background-color: rgba(200, 28, 28, 100)
+  }
+
+  50% {
+    background-color: rgba(150, 30, 38, 100)
+  }
+
+  100% {
+    background-color: rgba(200, 28, 28, 100)
+  }
+}
+
+.semiConcerned {
+  animation-name: semiConcerned !important;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  background-color: rgb(255, 164, 79)
+}
+
+@keyframes semiConcerned {
+  0% {
+    background-color: rgb(255, 164, 79)
+  }
+
+  50% {
+    background-color: rgb(255, 112, 56)
+  }
+
+  100% {
+    background-color: rgb(255, 164, 79)
+  }
+}
+
 .rule {
   text-align: right;
   font-size: .75vw;
@@ -257,6 +298,7 @@ menu:not([title]):before {
   background-color: rgba(0, 0, 0, 0.7);
   /* Black w/ opacity */
 }
+
 .modal.fade {
   -webkit-transition: opacity 0.3s ease-in-out;
   opacity: 0;
@@ -370,7 +412,6 @@ menu:not([title]):before {
   opacity: 0.66;
 }
 
-
 #optionsMenu {
   overflow: hidden;
   height: 0vw;
@@ -397,9 +438,8 @@ menu:not([title]):before {
   opacity: 0.8;
 }
 
-.menucontent {
+.menucontent {}
 
-}
 .subtitle {
   text-align: left;
   font-size: .8vw;
@@ -412,8 +452,7 @@ menu:not([title]):before {
 }
 
 /* Switch 1 Specific Styles Start */
-
-.box_1{
+.box_1 {
   position: relative;
   width: 7vw;
 }
@@ -423,48 +462,47 @@ menu:not([title]):before {
   margin: 3px 3px 3px 6px;
 }
 
-input[type="checkbox"].switch_1{
-	font-size: 30px;
-	-webkit-appearance: none;
-	   -moz-appearance: none;
-	        appearance: none;
-	width: 2.75vw;
-	height: 1.15vw;
-	background: #ddd;
-	border-radius: 2.3vw;
-	position: relative;
-	cursor: pointer;
-	outline: none;
-	-webkit-transition: all .2s ease-in-out;
-	transition: all .2s ease-in-out;
-  }
+input[type="checkbox"].switch_1 {
+  font-size: 30px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 2.75vw;
+  height: 1.15vw;
+  background: #ddd;
+  border-radius: 2.3vw;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
 
-  input[type="checkbox"].switch_1:checked{
-	background: #09510c;
-  }
+input[type="checkbox"].switch_1:checked {
+  background: #09510c;
+}
 
-  input[type="checkbox"].switch_1:after{
-	position: absolute;
-	content: "";
-	width: 1.15vw;
-	height: 1.15vw;
-	border-radius: 50%;
-	background: #fff;
-	-webkit-box-shadow: 0 0 .75vw rgba(0,0,0,.35);
-	        box-shadow: 0 0 .75vw rgba(0,0,0,.35);
-	-webkit-transform: scale(.7);
-	        transform: scale(.7);
-	left: 0;
-	-webkit-transition: all .2s ease-in-out;
-	transition: all .2s ease-in-out;
-  }
+input[type="checkbox"].switch_1:after {
+  position: absolute;
+  content: "";
+  width: 1.15vw;
+  height: 1.15vw;
+  border-radius: 50%;
+  background: #fff;
+  -webkit-box-shadow: 0 0 .75vw rgba(0, 0, 0, .35);
+  box-shadow: 0 0 .75vw rgba(0, 0, 0, .35);
+  -webkit-transform: scale(.7);
+  transform: scale(.7);
+  left: 0;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
 
-  input[type="checkbox"].switch_1:checked:after{
-	left: calc(100% - 1.15vw);
-  }
+input[type="checkbox"].switch_1:checked:after {
+  left: calc(100% - 1.15vw);
+}
 
 /* Switch 1 Specific Style End */
-
 table {
   border-collapse: collapse;
   width: 100%;
@@ -475,6 +513,7 @@ td, th {
   font-weight: 600;
   font-size: 1.75vw;
 }
+
 .pad {
   padding: 0 2vw 0 2vw;
 }
