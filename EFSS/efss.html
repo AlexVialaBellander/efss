@@ -1,0 +1,155 @@
+<head>
+  <title>Virtual Electronic Flightstrip System</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="Free Electronic Flightstrip System, an air traffic control tool for imporved air traffic management. ATC Electronic Flightstrip System">
+  <meta name="keywords" content="ATC, Electronic, Flightstrip, System, VATSIM, IVAO, OpenSource, Tool, Free, Air Traffic Control, Flightsim, Virtual">
+  <meta name="author" content="Alexander Viala Bellander">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <link href="../changelog/cookie.css" rel="stylesheet">
+</head>
+<!-- Cookie Consent for tracking -->
+
+<body onload="loadModal()" class="noSel">
+  <div id="cookie-consent" onload="isHidden()" class="cookie-consent" style="height: 80px;">
+    <span class="cookie-consent__text">This website uses cookies</span>
+    <a rel="nofollow" class="cookie-consent__link" href="privacy.html">Read More </a>
+    <a onclick="hide()" class="cookie-consent__close">
+      &times;
+    </a>
+  </div>
+  <!-- END Cookie Consent -->
+  <!-- The Modal -->
+  <div id="myModal" id="toFade" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <img class="modal-image" src="images/EFSS_Wallpaper.jpg" alt="Wallpaper">
+      <div class="modal-body">
+        <table>
+          <tr>
+            <th class="first">
+              <div class="v">
+                <form onkeyup="inputFeedback()" autocomplete="off" onSubmit="return false" class="form" action="" method="get">
+                  Airport ICAO: <input autofocus maxlength="4" class="field" id="field" type="text" name="icao" value=""><br>
+                </form>
+              </div>
+              <div class="fl">
+                <img id="status" class="tooltip" src="images/notindb.png" alt="not found">
+              </div>
+              <div id="options" class="options fr">
+                <img id="arrowIcon" class="fr" src="images/arrow_down.png" class="fr" style="margin-top: -1.5%;">
+                </img>
+                <div class="fr">
+                  More Options
+                </div>
+              </div>
+            </th>
+            <th class="r des pad"> 0.4.0</th>
+          </tr>
+        </table>
+        <div id="optionsMenu">
+          <div class="menucontent">
+            <table id="father">
+              <tr id="wrapperOption">
+                <th id="here" width="12.5%" class="subtitle">
+                  Runway Configuration
+                </th>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END Modal -->
+  <!-- Context Menu -->
+  <menu id="ctxMenu">
+    <menu onclick="move('dep')" title="DEP"></menu>
+    <menu onclick="move('arr')" title="ARR"></menu>
+    <menu onclick="move('push')" title="APRON"></menu>
+    <menu onclick="move('taxi')" title="TAXI"></menu>
+  </menu>
+  <!-- END Context Menu -->
+  <!-- UI -->
+  <div class="col">
+    <div onclick="newTag('dep')"" class="hl">
+      DEPARTURES
+    </div>
+    <div id="dep" class="dz">
+    </div>
+    <div onclick="newTag('arr')" class="hl">
+      ARRIVALS
+    </div>
+    <div id="arr" class="dz">
+    </div>
+  </div>
+  <div class="col">
+    <div class="hl">
+      APRON TRAFFIC - P/B S/U
+    </div>
+    <div id="push" class="dz">
+    </div>
+  </div>
+  <div class="col">
+    <div id="trash" class="hl">
+      TAXI
+    </div>
+    <div id="taxi" class="dz">
+    </div>
+  </div>
+  <div id="runway" class="col">
+    <div class="hl">
+      LOADING
+    </div>
+    <div id="rwy1" class="dz">
+    </div>
+    <div class="hl">
+      LOADING
+    </div>
+    <div id="rwy2" class="dz">
+    </div>
+    <div class="hl">
+      LOADING
+    </div>
+    <div id="rwy3" class="dz">
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="js/html.js"></script>
+<script type="text/javascript" src="js/airportdata.js"></script>
+<script type="text/javascript" src="js/scripts.js"></script>
+<!-- Open Source JS Library for drag and drop and sort -->
+<script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
+
+<!-- BELOW IS NOT PART OF THE OPEN SOURCE PROJECT -->
+<!-- Administrative code-->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-51355468-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-51355468-1');
+</script>
+<script type="text/javascript">
+  isHidden();
+
+  function isHidden() {
+    if (localStorage.getItem("cookie consent") !== "true") {
+      var el = document.getElementById("cookie-consent");
+      el.style.display = "flex"
+    }
+  }
+
+  function hide() {
+    var el = document.getElementById("cookie-consent");
+    el.style.display = "none"
+    localStorage.setItem("cookie consent", "true");
+  }
+</script>
