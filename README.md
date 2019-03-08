@@ -9,7 +9,7 @@ To find the EFSS go to www.grubse.com/efss-app
 I am a beginner to programming in general, thus the code is a great mess!
 
 
-## Info
+## info
 For more information, visit www.grubse.com/efss
 
 MIT License
