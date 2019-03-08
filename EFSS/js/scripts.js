@@ -64,16 +64,13 @@ function placeholderOnBlur(id) {
     document.getElementById(id).innerHTML = input
   }
 }
-//touch support move function
-function move(destination) {
-  var tag = document.getElementById(id)
-  document.getElementById(destination).appendChild(tag)
-}
-
 
 ele = document.getElementById("here")
+optionsMenuOpened = false
 
 function loadMenuItems() {
+  selectedRunways = []
+  optionsMenuOpened = true
   var idCount = 1;
   var runwayArray = getRunways()
   var x = document.getElementById("wrapperOption")
@@ -90,7 +87,6 @@ function loadMenuItems() {
       idCount - 1])
     var ele = document.getElementById("here")
     ele.insertAdjacentHTML("afterend", rwyContentTemp)
-    debugger
     document.getElementById("cb" + idCount).checked = true;
     check(document.getElementById("cb" + idCount))
     idCount++
@@ -147,7 +143,10 @@ window.onclick = function(event) {
 
 //run validation, if input is valid: spawn dropzones and load runways
 function validate(e) {
-  var airport = document.getElementById("field").value
+  var airport = document.getElementById("field").value.toUpperCase()
+  if (!optionsMenuOpened) {
+    selectedRunways = getRunways()
+  }
   if (searchInput(airport) && selectedRunways.length != 0) {
     var modal = document.getElementById("myModal")
     modal.classList.add("fade")
@@ -184,7 +183,6 @@ function loadRunways() {
     targetDiv2.insertAdjacentHTML("beforeend", menuItemHTML)
     runwayCount++
   }
-  debugger
   //Split each runway. ex 12/30 --> 12, 30
   for (y = 0; y < selectedRunways.length; y++) {
     directionalRWYS = directionalRWYS.concat(selectedRunways[y].split("/")).sort()
@@ -223,21 +221,38 @@ function loadRunways() {
   }
 }
 
-//Generate New tag and add eventlister for context menu
-function newTag() {
+
+id = ""
+  //Generate New tag and add eventlister for context menu
+function newTag(divId) {
   debugger
   var newTag = defaultTag
   var idToChange = ["tagid", "callsignid", "textid", "typeid", "ruleid"]
   for (i = 0; i < idToChange.length; i++) {
     newTag = newTag.replace(idToChange[i], idToChange[i].concat(tagidCount))
   }
-  var divToInject = document.getElementById("dep")
+  var divToInject = document.getElementById(divId)
+  if (divId == "arr") {
+    newTag = spliceSlice(newTag, newTag.search("ins"), 0,
+      "arr ")
+  }
+  if (divId == "dep") {
+    newTag = spliceSlice(newTag, newTag.search("ins"), 0,
+      "dep ")
+  }
   divToInject.insertAdjacentHTML("afterbegin", newTag)
-    //Create eventlister for contextmenu
+  if (divId == "arr") {
+    document.getElementById("tagid".concat(tagidCount)).classList.add("arr")
+  }
+  if (divId == "dep") {
+    document.getElementById("tagid".concat(tagidCount)).classList.add("dep")
+  }
+  //Create eventlister for contextmenu
   var newTagDiv = document.getElementById("tagid".concat(tagidCount))
   var body = document.getElementsByTagName("body")[0]
     //add eventlister for context menu on every new generated tag
   newTagDiv.addEventListener("contextmenu", function(event) {
+    debugger
     event.preventDefault()
       //get id from event target
     var target = event.target || event.srcElement
@@ -256,6 +271,13 @@ function newTag() {
   }, false)
   tagidCount++
 }
+
+//touch support move function
+function move(destination) {
+  var tag = document.getElementById(id)
+  document.getElementById(destination).appendChild(tag)
+}
+
 
 //Splice string function
 function spliceSlice(str, index, count, add) {

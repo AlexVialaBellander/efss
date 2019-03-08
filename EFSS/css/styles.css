@@ -89,6 +89,14 @@ li, ul {
   -webkit-box-sizing: border-box;
 }
 
+.tag.dep {
+  background-color: #a8dcd5 !important;
+}
+
+.tag.arr {
+  background-color: #e2e1b9 !important;
+}
+
 .b {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -123,7 +131,7 @@ li, ul {
   text-align: center;
   font-weight: 700;
   font-size: 1.35vw;
-  background-color: #b7b7b7;
+  background-color: inherit;
 }
 
 .ins {
@@ -131,6 +139,14 @@ li, ul {
   font-weight: 700;
   font-size: 1.35vw;
   background-color: #a0a0a0;
+}
+
+.arr {
+  background-color: #b7b68a !important;
+}
+
+.dep {
+  background-color: #79b9b0 !important;
 }
 
 .rule {

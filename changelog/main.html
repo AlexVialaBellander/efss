@@ -8,19 +8,20 @@
   <link href="styles.css" rel="stylesheet">
   <link href="cookie.css" rel="stylesheet">
 </head>
+
 <body>
   <div id="cookie-consent" onload="isHidden()" class="cookie-consent" style="height: 80px;">
-		<span class="cookie-consent__text">This website uses cookies</span>
-		<a rel="nofollow" class="cookie-consent__link" href="privacy.html">Read More </a>
-		<a onclick="hide()" class="cookie-consent__close">
+    <span class="cookie-consent__text">This website uses cookies</span>
+    <a rel="nofollow" class="cookie-consent__link" href="privacy.html">Read More </a>
+    <a onclick="hide()" class="cookie-consent__close">
       &times;
-		</a>
+    </a>
   </div>
   <div class="changelog">
     <h1 class="center title">Changelog</h1>
     <h2 class="center subtitle">Electronic Flightstrip System</h2>
     <div class="post">
-    <hr>
+      <hr>
       <h3 class="v">Developer's Note</h3>
       <p class="v">This project is an Open Source project started by Alexander Viala Bellander and is under an MIT license found at the bottom of the page.</p>
       <p class="v">A link to the Git repository can be found on every changelog update - Feel free to have a look and fork it</p>
@@ -30,106 +31,153 @@
     </div>
     <div class="post">
       <hr>
+      <h3 class="v">Version 0.4.0 | 2019-03-19</h3>
+      <p class="v"></p>
+      <ul class="cText">
+        <li>Feature: Advanced options menu</li>
+        <ul>Select Runways</ul>
+        <li>Feature: New drag and drop system for wider device support (touch)</li>
+        <li>Feature: Feedback icon for ICAO input</li>
+        <li>Feature: Colour codes for Departure and Arrival traffic</li>
+        <li>Developer: Re-worked the code</li>
+        <ul>
+          New data-structure for html-block code
+        </ul>
+        <ul>
+          Many optimised and re-written functions
+        </ul>
+        <li>FIXED: Clicking on the arrivals title spawns a tag under departures</li>
+        <li>CHECKED: Take a look at IVAC 2 and see if there is a way to export data from the software</li>
+        <ul>
+          After discussion with T2S, there is no API or way to retrieve data from IvAc 2
+        </ul>
+
+
+      </ul>
+      <p class="v">Known issues</p>
+      <ul class="cText">
+        <li>Contextmenu selection not working when the rightclick target is the RWY list or Aircraft State List</li>
+        <li>The only way to re-open the airport selection menu is to reaload the page</li>
+        <li>Runways are displayed in the oposite order in comparison to the contextmenu</li>
+        <li>Session not saved when page is refreshed</li>
+      </ul>
+      <p class="v">Roadmap</p>
+      <ul class="cText">
+        <li>Sorting tags</li>
+        <li>Improved colour codes for the tags</li>
+        <li>Make the whole UI resizeable </li>
+        <li>Re-structure and re-work airport database for improved performance</li>
+        <li>Automatic generation of tags</li>
+        <li>Create server solution for cooperation</li>
+        <li>Save session on client</li>
+      </ul>
+      <p class="v">Current Version: https://github.com/AlexVialaBellander/efss/tree/master/</p>
+      <p class="v">ID Version: https://github.com/AlexVialaBellander/efss/tree/dev/</p>
+      <hr>
+    </div>
+
+    <div class="post">
+      <hr>
       <h3 class="v">Version 0.3.1 | 2019-01-03</h3>
       <p class="v"></p>
+      <ul class="cText">
+        <li>Feature: Airport Selection Menu</li>
+        <li>Feature: Now supports multiple airports!</li>
         <ul class="cText">
-          <li>Feature: Airport Selection Menu</li>
-          <li>Feature: Now supports multiple airports!</li>
-          <ul class="cText">
-            <li>EKCH</li>
-            <li>ENGM</li>
-            <li>EFHK</li>
-            <li>EHAM</li>
-            <li>EDDS</li>
-            <li>BIRK</li>
-            <li>BIKF</li>
-            <li>BIAR</li>
-            <li>ENAL</li>
-            <li>ENAN</li>
-            <li>ENAT</li>
-            <li>ENBO</li>
-            <li>ENBR</li>
-            <li>ENCN</li>
-            <li>ENDU</li>
-            <li>ENEV</li>
-            <li>ENHD</li>
-            <li>ENKB</li>
-            <li>ENKR</li>
-            <li>ENNA</li>
-            <li>ENOL</li>
-            <li>ENRO</li>
-            <li>ENRY</li>
-            <li>ENTC</li>
-            <li>ENTO</li>
-            <li>ENVA</li>
-            <li>ENZV</li>
-            <li>ESGG</li>
-            <li>ESCF</li>
-            <li>ESCM</li>
-            <li>ESDF</li>
-            <li>ESGJ</li>
-            <li>ESGP</li>
-            <li>ESGT</li>
-            <li>ESIA</li>
-            <li>ESIB</li>
-            <li>ESKN</li>
-            <li>ESMK</li>
-            <li>ESMQ</li>
-            <li>ESMS</li>
-            <li>ESMT</li>
-            <li>ESMX</li>
-            <li>ESNN</li>
-            <li>ESNO</li>
-            <li>ESNS</li>
-            <li>ESNU</li>
-            <li>ESNX</li>
-            <li>ESNZ</li>
-            <li>ESOE</li>
-            <li>ESOK</li>
-            <li>ESOW</li>
-            <li>ESPA</li>
-            <li>ESPE</li>
-            <li>ESSA</li>
-            <li>ESSB</li>
-            <li>ESSD</li>
-            <li>ESSL</li>
-            <li>ESSP</li>
-            <li>ESSV</li>
-            <li>ESTA</li>
-            <li>ESTL</li>
-            <li>EKBI</li>
-            <li>EKRN</li>
-            <li>EKKA</li>
-            <li>EKRK</li>
-            <li>EKSP</li>
-            <li>EKYT</li>
-            <li>EKAH</li>
-            <li>BGSF</li>
-            <li>EFHA</li>
-            <li>EFIV</li>
-            <li>EFJO</li>
-            <li>EFJY</li>
-            <li>EFKE</li>
-            <li>EFKT</li>
-            <li>EFKK</li>
-            <li>EFKU</li>
-            <li>EFKS</li>
-            <li>EFLP</li>
-            <li>EFMA</li>
-            <li>EFMI</li>
-            <li>EFOU</li>
-            <li>EFPO</li>
-            <li>EFRO</li>
-            <li>EFTP</li>
-            <li>EFTU</li>
-            <li>EFUT</li>
-            <li>EFVA</li>
-            <li>EDDM</li>
-          </ul>
-          <li>Developer: Added google analytics tracking</li>
-          <li>FIXED: The Tag RWY Selector is not showing the correct runways</li>
-
+          <li>EKCH</li>
+          <li>ENGM</li>
+          <li>EFHK</li>
+          <li>EHAM</li>
+          <li>EDDS</li>
+          <li>BIRK</li>
+          <li>BIKF</li>
+          <li>BIAR</li>
+          <li>ENAL</li>
+          <li>ENAN</li>
+          <li>ENAT</li>
+          <li>ENBO</li>
+          <li>ENBR</li>
+          <li>ENCN</li>
+          <li>ENDU</li>
+          <li>ENEV</li>
+          <li>ENHD</li>
+          <li>ENKB</li>
+          <li>ENKR</li>
+          <li>ENNA</li>
+          <li>ENOL</li>
+          <li>ENRO</li>
+          <li>ENRY</li>
+          <li>ENTC</li>
+          <li>ENTO</li>
+          <li>ENVA</li>
+          <li>ENZV</li>
+          <li>ESGG</li>
+          <li>ESCF</li>
+          <li>ESCM</li>
+          <li>ESDF</li>
+          <li>ESGJ</li>
+          <li>ESGP</li>
+          <li>ESGT</li>
+          <li>ESIA</li>
+          <li>ESIB</li>
+          <li>ESKN</li>
+          <li>ESMK</li>
+          <li>ESMQ</li>
+          <li>ESMS</li>
+          <li>ESMT</li>
+          <li>ESMX</li>
+          <li>ESNN</li>
+          <li>ESNO</li>
+          <li>ESNS</li>
+          <li>ESNU</li>
+          <li>ESNX</li>
+          <li>ESNZ</li>
+          <li>ESOE</li>
+          <li>ESOK</li>
+          <li>ESOW</li>
+          <li>ESPA</li>
+          <li>ESPE</li>
+          <li>ESSA</li>
+          <li>ESSB</li>
+          <li>ESSD</li>
+          <li>ESSL</li>
+          <li>ESSP</li>
+          <li>ESSV</li>
+          <li>ESTA</li>
+          <li>ESTL</li>
+          <li>EKBI</li>
+          <li>EKRN</li>
+          <li>EKKA</li>
+          <li>EKRK</li>
+          <li>EKSP</li>
+          <li>EKYT</li>
+          <li>EKAH</li>
+          <li>BGSF</li>
+          <li>EFHA</li>
+          <li>EFIV</li>
+          <li>EFJO</li>
+          <li>EFJY</li>
+          <li>EFKE</li>
+          <li>EFKT</li>
+          <li>EFKK</li>
+          <li>EFKU</li>
+          <li>EFKS</li>
+          <li>EFLP</li>
+          <li>EFMA</li>
+          <li>EFMI</li>
+          <li>EFOU</li>
+          <li>EFPO</li>
+          <li>EFRO</li>
+          <li>EFTP</li>
+          <li>EFTU</li>
+          <li>EFUT</li>
+          <li>EFVA</li>
+          <li>EDDM</li>
         </ul>
+        <li>Developer: Added google analytics tracking</li>
+        <li>FIXED: The Tag RWY Selector is not showing the correct runways</li>
+
+      </ul>
       <p class="v">Known issues</p>
       <ul class="cText">
         <li>Clicking on the arrivals title spawns a tag under departures</li>
@@ -155,20 +203,19 @@
       </ul>
       <p class="v">Current Version: https://github.com/AlexVialaBellander/efss/tree/master/</p>
       <p class="v">ID Version: https://github.com/AlexVialaBellander/efss/tree/dev/</p>
-      <hr>
     </div>
 
     <div class="post">
       <hr>
       <h3 class="v">Version 0.2 | 2019-01-02</h3>
       <p class="v"></p>
-        <ul class="cText">
-          <li>Feature: Partial touch support - rightclick on tag to open the "move" menu</li>
-          <li>Feature: Newly designed scrollbar for overflow</li>
-          <li>Feature: Started implementation of modal window for aiport selection menu</li>
-          <li>Developer: Added comments in code for clarity</li>
-          <li>FIXED: When pressing on a field on the tag and then moving the tag to another section, the selected field will be reset</li>
-        </ul>
+      <ul class="cText">
+        <li>Feature: Partial touch support - rightclick on tag to open the "move" menu</li>
+        <li>Feature: Newly designed scrollbar for overflow</li>
+        <li>Feature: Started implementation of modal window for aiport selection menu</li>
+        <li>Developer: Added comments in code for clarity</li>
+        <li>FIXED: When pressing on a field on the tag and then moving the tag to another section, the selected field will be reset</li>
+      </ul>
       <p class="v">Known issues</p>
       <ul class="cText">
         <li>Drag and drop not working on touch devices</li>
@@ -226,15 +273,17 @@
 
     <div class="post">
       <p class="v">Copyright 2018 Alexander Viala Bellander
-      <br>
-      <br>
-      Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-      <br>
-      <br>
-      The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-      <br>
-      <br>
-      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+        <br>
+        <br>
+        Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use,
+        copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+        <br>
+        <br>
+        The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+        <br>
+        <br>
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+        COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
       <br>
     </div>
   </div>
@@ -243,20 +292,25 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-51355468-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
   gtag('js', new Date());
 
   gtag('config', 'UA-51355468-1');
 </script>
 <script type="text/javascript">
   isHidden();
+
   function isHidden() {
     if (localStorage.getItem("cookie consent") !== "true") {
       var el = document.getElementById("cookie-consent");
       el.style.display = "flex"
     }
   }
-  function hide(){
+
+  function hide() {
     var el = document.getElementById("cookie-consent");
     el.style.display = "none"
     localStorage.setItem("cookie consent", "true");
