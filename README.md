@@ -35,7 +35,7 @@ function getRunways()
 **getRunways()** checks the input field and searches **data** for the airport or the **airport** variable if airport has been selected, if the input value or **airport** is an airport in **data**, **getRunways()** returns an array with the runways.
 
 ### example
-input field value = EKCH
+input field value = "EKCH" OR var airport = "EKCH"
 ```
 getRunways()
 returns ["22R/04L", "22L/04R", "30/12"]
