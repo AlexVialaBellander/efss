@@ -32,7 +32,7 @@ var data = []
 ```
 function getRunways()
 ```
-**getRunways()** checks the input field and searches **data** for the airport, if the input value is an airport in **data**, **getRunways()** returns an array with the runways.
+**getRunways()** checks the input field and searches **data** for the airport or the **airport** variable if airport has been selected, if the input value or **airport** is an airport in **data**, **getRunways()** returns an array with the runways.
 
 ### example
 input field value = EKCH
