@@ -4,6 +4,7 @@ This project is an Open Source project started by Alexander Viala Bellander and 
 This is run as a sparetime project and is not highly prioritised.
 
 To find the EFSS go to www.grubse.com/efss-app
+For full changelog: www.grubse.com/efss
 
 ## disclaimer
 I am a beginner to programming in general, thus the code is a great mess!
