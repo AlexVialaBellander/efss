@@ -6,6 +6,9 @@ This is run as a sparetime project and is not highly prioritised.
 To find the EFSS go to www.grubse.com/efss-app
 For full changelog: www.grubse.com/efss
 
+## how to use the software
+You need to create your own strips, this is done by pressing either the Departures or Arrivals text. Fill the tags, update their states respectivly by changing their state and by moving them. Removing a tag is done by dropping the tag onto the taxi text.
+
 ## disclaimer
 I am a beginner to programming in general, thus the code is a great mess!
 
