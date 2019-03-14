@@ -74,3 +74,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## editors note
+Knowing that I am a beginner and currently a student in Computer Science for another 4 years, I have come to learn one or two things on how to develope better software. If I were to re-do this today, I would probably do it in a more class-oriented way or better said; object oriented. If anyone has any feedback or would like to contribute, please do so. I love to learn and any feedback or declaring me dumb is something I welcome.
+
+Made with Love <3
+//Alex
