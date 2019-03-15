@@ -1,6 +1,7 @@
 <?php
 include 'data.php';
 preg_match_all("#[A-Z][A-Z][A-Z][A-Z];[0-9][0-9][A-Z]*#", $data, $out); //OACI-RWY REGEX
+//TO BE UPDATE IN ORDER TO KEEP THE OACI WITH NUMBERS INTO like 06FA
 
 for($i=0;$i<count($out[0]);$i++)
 {
