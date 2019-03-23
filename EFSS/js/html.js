@@ -11,7 +11,7 @@ var defaultTag =
       <option value="rwy">RWY</option>
       %
    </select>
-   <select onchange="state(value, this.parentNode.parentNode)" class="ins rightCol2 b">
+   <select onchange="state(value, this.parentNode.parentNode, this)" class="ins rightCol2 b">
       <option value="stby">STBY</option>
       <option value="clrd">CLRD</option>
       <option value="deice">DE-ICE</option>
@@ -34,8 +34,8 @@ var arrTag =
       <option value="rwy">RWY</option>
       %
    </select>
-   <select onchange="state(value, this.parentNode.parentNode)" class="ins rightCol2 b">
-      <option value="stby">STBY</option>
+   <select onchange="state(value, this.parentNode.parentNode, this)" class="ins rightCol2 b">
+      <option value="enr">ENR</option>
       <option value="f">FINAL</option>
       <option value="lnd">LND</option>
       <option value="tgo">TGO</option>
