@@ -4,6 +4,10 @@ This project is an Open Source project started by Alexander Viala Bellander and 
 This is run as a sparetime project and is not highly prioritised.
 
 To find the EFSS go to www.grubse.com/efss-app
+For full changelog: www.grubse.com/efss
+
+## how to use the software
+You need to create your own strips, this is done by pressing either the Departures or Arrivals text. Fill the tags, update their states respectivly by changing their state and by moving them. Removing a tag is done by dropping the tag onto the taxi text.
 
 ## disclaimer
 I am a beginner to programming in general, thus the code is a great mess!
@@ -74,3 +78,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## editors note
+Knowing that I am a beginner and currently a student in Computer Science for another 4 years, I have come to learn one or two things on how to develope better software. If I were to re-do this today, I would probably do it in a more class-oriented way or better said; object oriented. If anyone has any feedback or would like to contribute, please do so. I love to learn and any feedback or declaring me dumb is something I welcome.
+
+Made with Love <3
+//Alex
