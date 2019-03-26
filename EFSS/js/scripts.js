@@ -93,13 +93,16 @@ function loadMenuItems() {
   }
 }
 
+airport = ""
+
 //Returns array of runways
 function getRunways() {
-  var airport = document.getElementById("field").value.toUpperCase()
+  airport = document.getElementById("field").value.toUpperCase()
   var done = false
   for (i = 0; i < data.length && !done; i++) {
     if (airport == data[i][0]) {
       done = true
+      runways = data[i][1]
       return (data[i][1])
     }
   }
@@ -159,6 +162,15 @@ function validate(e) {
   }
 }
 
+//Split each runway. ex 12/30 --> 12, 30
+function getDirectionalRWYS(runways) {
+  var directionalRWYS = []
+  for (i = 0; i < runways.length; i++) {
+    directionalRWYS = directionalRWYS.concat(runways[i].split("/")).sort()
+  }
+  return directionalRWYS
+}
+
 //Global flag
 //Get airport data & add runways
 done = false
@@ -183,10 +195,7 @@ function loadRunways() {
     targetDiv2.insertAdjacentHTML("beforeend", menuItemHTML)
     runwayCount++
   }
-  //Split each runway. ex 12/30 --> 12, 30
-  for (y = 0; y < selectedRunways.length; y++) {
-    directionalRWYS = directionalRWYS.concat(selectedRunways[y].split("/")).sort()
-  }
+  var directionalRWYS = getDirectionalRWYS(getRunways())
   var htmlTags = [defaultTag, arrTag]
   for (z = 0; z < 2; z++) {
     debugger
@@ -281,20 +290,27 @@ function newTag(divId) {
 
 //touch support move function
 function move(destination) {
-  debugger
   var tag = document.getElementById(id)
   document.getElementById(destination).appendChild(tag)
   state(tag.children[2].value, tag.parentNode)
 }
 
-function state(v, p) {
+function state(v, e) {
   debugger
+  p = e.parentNode.parentNode
   var childHTML = p.children
   var tags = []
   for (i = 0; i < p.children.length; i++) {
     tags.push(childHTML[i].children[2].value)
   }
   checkWarning(tags, p)
+  smartMove(v, e)
+}
+
+function smartMove(v, e) {
+  if (v == "f") {
+
+  }
 }
 
 concernedValues = ["to", "lnd", "tgo", "lpass"]
