@@ -47,12 +47,10 @@ submit.addEventListener("keydown", function(e) {
   }
 })
 
-tagidCount = 0
-
-
 //globar var for the field input on tag
 input = ""
-  //Removes text when pressing on field
+
+//Removes text when pressing on field
 function removeOnFocus(id) {
   input = document.getElementById(id).innerHTML
   document.getElementById(id).innerHTML = ""
@@ -189,7 +187,6 @@ function loadRunways() {
   }
   var htmlTags = [defaultTag, arrTag]
   for (z = 0; z < 2; z++) {
-    debugger
     var tempTagRWYSel = tagRWYSel
     var nTag = htmlTags[z].search("%")
     var nVal = tempTagRWYSel.search("%")
@@ -230,54 +227,6 @@ function loadRunways() {
 
 
 id = ""
-  //Generate New tag and add eventlister for context menu
-function newTag(divId) {
-  var newTag = defaultTag
-  if (divId == "arr") {
-    newTag = arrTag
-    newTag = spliceSlice(newTag, newTag.search("ins"), 0,
-      "arr ")
-  }
-  if (divId == "dep") {
-    newTag = spliceSlice(newTag, newTag.search("ins"), 0,
-      "dep ")
-  }
-  var idToChange = ["tagid", "callsignid", "textid", "typeid", "ruleid"]
-  for (i = 0; i < idToChange.length; i++) {
-    newTag = newTag.replace(idToChange[i], idToChange[i].concat(tagidCount))
-  }
-  var divToInject = document.getElementById(divId)
-
-  divToInject.insertAdjacentHTML("afterbegin", newTag)
-  if (divId == "arr") {
-    document.getElementById("tagid".concat(tagidCount)).classList.add("arr")
-  }
-  if (divId == "dep") {
-    document.getElementById("tagid".concat(tagidCount)).classList.add("dep")
-  }
-  //Create eventlister for contextmenu
-  var newTagDiv = document.getElementById("tagid".concat(tagidCount))
-  var body = document.getElementsByTagName("body")[0]
-    //add eventlister for context menu on every new generated tag
-  newTagDiv.addEventListener("contextmenu", function(event) {
-    event.preventDefault()
-      //get id from event target
-    var target = event.target || event.srcElement
-    id = ("tagid").concat((target.id).substr(target.id.length - 1))
-      //run context menu
-    var ctxMenu = document.getElementById("ctxMenu")
-    ctxMenu.style.display = "block"
-    ctxMenu.style.left = (event.pageX - 10) + "px"
-    ctxMenu.style.top = (event.pageY - 10) + "px"
-  }, false)
-  body.addEventListener("click", function(event) {
-    var ctxMenu = document.getElementById("ctxMenu")
-    ctxMenu.style.display = ""
-    ctxMenu.style.left = ""
-    ctxMenu.style.top = ""
-  }, false)
-  tagidCount++
-}
 
 //touch support move function
 function move(destination) {
@@ -296,11 +245,11 @@ function update(v, p, t) {
   autoComplete(v, t)
 }
 
-concernedValues = ["to", "lnd", "tgo", "lpass"]
-semiConcernedValues = ["lu"]
+
 
 function checkWarning(tags, p) {
-
+  var semiConcernedValues = ["lu"]
+  var concernedValues = ["to", "lnd", "tgo", "lpass"]
   var concernedIndexes = []
   var semiConcernedIndexes = []
   var unconcernedIndexes = []

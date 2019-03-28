@@ -1,6 +1,8 @@
+// The different tag templates
+
 var defaultTag =
   `
-<div id="tagid" class="tag">
+<div id="tagid" class="tag dep">
    <div class="leftCol b">
       <div id="callsignid" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="callsign topCol b" contenteditable="true">CS</div>
       <div id="textid" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="sid topCol b"contenteditable="true">TEXT</div>
@@ -11,7 +13,7 @@ var defaultTag =
       <option value="rwy">RWY</option>
       %
    </select>
-   <select onchange="state(value, this.parentNode.parentNode, this)" class="ins rightCol2 b">
+   <select onchange="update(value, this.parentNode.parentNode, this)" class="ins dep rightCol2 b">
       <option value="stby">STBY</option>
       <option value="clrd">CLRD</option>
       <option value="deice">DE-ICE</option>
@@ -23,7 +25,7 @@ var defaultTag =
 `
 var arrTag =
   `
-<div id="tagid" class="tag">
+<div id="tagid" class="tag arr">
    <div class="leftCol b">
       <div id="callsignid" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="callsign topCol b" contenteditable="true">CS</div>
       <div id="textid" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="sid topCol b"contenteditable="true">TEXT</div>
@@ -34,7 +36,7 @@ var arrTag =
       <option value="rwy">RWY</option>
       %
    </select>
-   <select onchange="state(value, this.parentNode.parentNode, this)" class="ins rightCol2 b">
+   <select onchange="update(value, this.parentNode.parentNode, this)" class="ins arr rightCol2 b">
       <option value="enr">ENR</option>
       <option value="f">FINAL</option>
       <option value="lnd">LND</option>
