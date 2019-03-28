@@ -283,10 +283,10 @@ function newTag(divId) {
 function move(destination) {
   var tag = document.getElementById(id)
   document.getElementById(destination).appendChild(tag)
-  state(tag.children[2].value, tag.parentNode, tag)
+  update(tag.children[2].value, tag.parentNode, tag)
 }
 
-function state(v, p, t) {
+function update(v, p, t) {
   var childHTML = p.children
   var tags = []
   for (i = 0; i < p.children.length; i++) {
@@ -380,138 +380,138 @@ function spawnDropZone() {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      state(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
     }
   })
   Sortable.create(arr, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      state(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
     }
   })
   Sortable.create(push, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      state(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
     }
   })
   Sortable.create(taxi, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      state(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
     }
   })
   Sortable.create(rwy, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      state(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
     },
     onRemove: function(evt) {
-      state(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.from, evt.item)
     },
   })
   Sortable.create(rwy1, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      state(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
     },
     onRemove: function(evt) {
-      state(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.from, evt.item)
     },
   })
   Sortable.create(rwy2, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      state(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
     },
     onRemove: function(evt) {
-      state(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.from, evt.item)
     },
   })
   Sortable.create(rwy3, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      state(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
     },
     onRemove: function(evt) {
-      state(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.from, evt.item)
     },
   })
   Sortable.create(rwy4, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      state(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
     },
     onRemove: function(evt) {
-      state(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.from, evt.item)
     },
   })
   Sortable.create(rwy5, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      state(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
     },
     onRemove: function(evt) {
-      state(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.from, evt.item)
     },
   })
   Sortable.create(rwy6, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      state(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
     },
     onRemove: function(evt) {
-      state(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.from, evt.item)
     },
   })
   Sortable.create(rwy7, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      state(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
     },
     onRemove: function(evt) {
-      state(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.from, evt.item)
     },
   })
   Sortable.create(rwy8, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      state(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
     },
     onRemove: function(evt) {
-      state(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.from, evt.item)
     },
   })
   Sortable.create(rwy9, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      state(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
     },
     onRemove: function(evt) {
-      state(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.from, evt.item)
     },
   })
   Sortable.create(rwy10, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      state(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
     },
     onRemove: function(evt) {
-      state(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.from, evt.item)
     },
   })
 
