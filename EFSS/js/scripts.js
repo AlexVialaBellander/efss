@@ -1,51 +1,9 @@
 /*! EFSS MIT | github.com/AlexVialaBellander/efss */
-//Modal popup window from w3
-// Get the modal
-modal = document.getElementById('myModal')
-
-// Get the <span> element that closes the modal
-span = document.getElementsByClassName("close")[0]
-
-//Loads the modal window
-function loadModal() {
-  modal.style.display = "block"
-}
-
-//Extends the options menu and rotate arrow icon
-optionsMenu = document.getElementById("optionsMenu")
-arrowIcon = document.getElementById("arrowIcon")
-document.getElementById("options").addEventListener("click", function() {
-  airport = document.getElementById("field").value
-  if (airport.length == 4 && searchInput()) {
-    optionsMenu.classList.toggle("is-active")
-    arrowIcon.classList.toggle("is-active")
-    loadMenuItems()
-  }
-})
-
-
-//user input feedback icon
-function inputFeedback() {
-  var status = document.getElementById("status")
-  if (searchInput()) {
-    status.classList.add("found")
-    status.src = "images/indb.png"
-  } else {
-    status.classList.add("notfound")
-    status.src = "images/notindb.png"
-  }
-}
 
 //Change airport, listen on enter key press down event
 directionalRWYS = []
 runways = []
-submit = document.getElementById("field")
-  //Listen on enter press runvalidate
-submit.addEventListener("keydown", function(e) {
-  if (e.keyCode === 13) {
-    validate(e)
-  }
-})
+selectedRunways = []
 
 //globar var for the field input on tag
 input = ""
@@ -63,34 +21,6 @@ function placeholderOnBlur(id) {
   }
 }
 
-ele = document.getElementById("here")
-optionsMenuOpened = false
-
-function loadMenuItems() {
-  selectedRunways = []
-  optionsMenuOpened = true
-  var idCount = 1;
-  var runwayArray = getRunways()
-  var x = document.getElementById("wrapperOption")
-  var xF = document.getElementById("father")
-  x.remove(x.selectedIndex)
-  xF.insertAdjacentHTML("afterend", wrapperOptionHTML)
-  for (let index of runwayArray) {
-    var nUpdate1 = rwyContent.search("!")
-    rwyContentTemp = spliceSlice(rwyContent, nUpdate1, 1, idCount)
-    var nUpdate2 = rwyContentTemp.search("!")
-    rwyContentTemp = spliceSlice(rwyContentTemp, nUpdate2, 1, idCount)
-    var nUpdate3 = rwyContentTemp.search("XX")
-    rwyContentTemp = spliceSlice(rwyContentTemp, nUpdate3, 2, runwayArray[
-      idCount - 1])
-    var ele = document.getElementById("here")
-    ele.insertAdjacentHTML("afterend", rwyContentTemp)
-    document.getElementById("cb" + idCount).checked = true;
-    check(document.getElementById("cb" + idCount))
-    idCount++
-  }
-}
-
 //Returns array of runways
 function getRunways() {
   var airport = document.getElementById("field").value.toUpperCase()
@@ -102,42 +32,6 @@ function getRunways() {
     }
   }
 }
-//e = innerText of checkbox input label (rwy)
-var selectedRunways = []
-
-function check(e) {
-  e = e.parentNode.childNodes[3].innerText
-  if (selectedRunways.indexOf(e) == -1) {
-    selectedRunways.push(e)
-  } else {
-    selectedRunways.splice(selectedRunways.indexOf(e), 1)
-  }
-}
-
-//search db for input value, returns boolean
-function searchInput() {
-  var airport = document.getElementById("field").value.toUpperCase()
-  var found = false
-  for (i = 0; i < data.length && !found; i++) {
-    if (airport == data[i][0]) {
-      found = true
-      return true
-    }
-  }
-  if (!found) {
-    optionsMenu.classList.remove("is-active")
-    arrowIcon.classList.remove("is-active")
-    return false
-  }
-}
-
-/* When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none"
-    }
-  }
-  */
 
 //run validation, if input is valid: spawn dropzones and load runways
 function validate(e) {
@@ -225,84 +119,33 @@ function loadRunways() {
   arrTag = htmlTags[1]
 }
 
-
-id = ""
-
 //touch support move function
 function move(destination) {
-  var tag = document.getElementById(id)
+  var tag = document.getElementById(rightClickObjectId)
   document.getElementById(destination).appendChild(tag)
-  update(tag.children[2].value, tag.parentNode, tag)
+  update(tag.children[2].value, tag.children[1].value, tag.parentNode, tag,
+    "moveUpdate")
 }
 
-function update(v, p, t) {
-  var childHTML = p.children
-  var tags = []
-  for (i = 0; i < p.children.length; i++) {
-    tags.push(childHTML[i].children[2].value)
-  }
-  checkWarning(tags, p)
-  autoComplete(v, t)
-}
+function update(vS, vR, cat, t, trigger) {
+  if (t.parentNode.id == cat.id) {
+    var tagsHTML = cat.children
+    var tagsVs = []
+    for (i = 0; i < cat.children.length; i++) {
+      tagsVs.push(tagsHTML[i].children[2].value)
+    }
+    checkWarning(tagsVs, cat)
 
-
-
-function checkWarning(tags, p) {
-  var semiConcernedValues = ["lu"]
-  var concernedValues = ["to", "lnd", "tgo", "lpass"]
-  var concernedIndexes = []
-  var semiConcernedIndexes = []
-  var unconcernedIndexes = []
-  var concerned = 0
-  for (i = 0; i < tags.length; i++) {
-    if (concernedValues.indexOf(tags[i]) != -1) {
-      concerned++
-      concernedIndexes.push(i)
-    } else if (semiConcernedValues.indexOf(tags[i]) != -1) {
-      semiConcernedIndexes.push(i)
-    } else {
-      unconcernedIndexes.push(i)
+    if (trigger == "moveUpdate") {
+      updateMenu(t, cat)
+    }
+    if (trigger == "menuUpdate") {
+      autoMove(vS, vR, t)
     }
   }
-  for (let i of unconcernedIndexes) {
-    p.children[i].classList.remove("warning", "semiConcerned")
-    p.children[i].children[2].classList.remove("warning", "semiConcerned")
-  }
-  if (p.id[0] == "r") {
-    for (let i of semiConcernedIndexes) {
-      p.children[i].classList.add("semiConcerned")
-      p.children[i].children[2].classList.add("semiConcerned")
-    }
-  }
-
-  if (concerned == 1) {
-    p.children[concernedIndexes[0]].classList.remove("warning", "semiConcerned")
-    p.children[concernedIndexes[0]].children[2].classList.remove("warning",
-      "semiConcerned")
-    if (p.id[0] == "r") {
-      p.children[concernedIndexes[0]].classList.add("semiConcerned")
-      p.children[concernedIndexes[0]].children[2].classList.add("semiConcerned")
-    }
-  }
-  if (p.id[0] == "r" && (concerned > 1)) {
-    warning(concernedIndexes, p)
-  }
 }
 
-function warning(indexes, p) {
-  for (let i of indexes) {
-    p.children[i].classList.remove("semiConcerned")
-    p.children[i].children[2].classList.remove("semiConcerned")
-    p.children[i].classList.add("warning")
-    p.children[i].children[2].classList.add("warning")
-  }
-}
 
-function autoComplete(v, t) {
-  if (v == "lu" || "to") {
-
-  }
-}
 
 //Splice string function
 function spliceSlice(str, index, count, add) {
@@ -329,138 +172,165 @@ function spawnDropZone() {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
     }
   })
   Sortable.create(arr, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
     }
   })
   Sortable.create(push, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
     }
   })
   Sortable.create(taxi, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      debugger
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
     }
   })
   Sortable.create(rwy, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
     },
     onRemove: function(evt) {
-      update(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
     },
   })
   Sortable.create(rwy1, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
     },
     onRemove: function(evt) {
-      update(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
     },
   })
   Sortable.create(rwy2, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
     },
     onRemove: function(evt) {
-      update(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
     },
   })
   Sortable.create(rwy3, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
     },
     onRemove: function(evt) {
-      update(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
     },
   })
   Sortable.create(rwy4, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
     },
     onRemove: function(evt) {
-      update(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
     },
   })
   Sortable.create(rwy5, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
     },
     onRemove: function(evt) {
-      update(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
     },
   })
   Sortable.create(rwy6, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
     },
     onRemove: function(evt) {
-      update(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
     },
   })
   Sortable.create(rwy7, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
     },
     onRemove: function(evt) {
-      update(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
     },
   })
   Sortable.create(rwy8, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
     },
     onRemove: function(evt) {
-      update(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
     },
   })
   Sortable.create(rwy9, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
     },
     onRemove: function(evt) {
-      update(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
     },
   })
   Sortable.create(rwy10, {
     group: 'tag',
     animation: 100,
     onAdd: function(evt) {
-      update(evt.item.children[2].value, evt.item.parentNode, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
     },
     onRemove: function(evt) {
-      update(evt.item.children[2].value, evt.from, evt.item)
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
     },
   })
 
