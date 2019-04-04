@@ -76,7 +76,7 @@ var arrivalOptionsFinal =
 var arrivalOptionsTaxi =
   `
   <option value="taxi">TAXI</option>
-  <option value="lnd">HOLD</option>
+  <option value="hold">HOLD</option>
   `
 
 var arrivalOptionsPush =
