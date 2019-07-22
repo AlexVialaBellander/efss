@@ -1,11 +1,22 @@
 //Modal popup window from w3
 
+class User {
+  constructor(id, type) {
+    this.id = id;
+    this.type = type;
+    this.lastAirport;
+    this.automove = true;
+    this.selectedRunways = [];
+  }
+}
+
 // GLOBAL OBJECT
 modal = document.getElementById('myModal')
 
 //Loads the modal window
 function loadModal() {
   modal.style.display = "block"
+  user = new User(0, "all")
 }
 
 //Extends the options menu and rotate arrow icon

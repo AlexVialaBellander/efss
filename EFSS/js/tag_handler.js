@@ -28,8 +28,14 @@ class Tag {
         break
     }
   }
-  edit() {
-
+  update() {
+    var textFields = document.getElementById(this.id).childNodes[1].childNodes
+    textFields[1].innerHTML = this.cs
+    textFields[3].innerHTML = this.text
+    textFields[5].innerHTML = this.atype
+    textFields[7].innerHTML = this.rule
+    document.getElementById(this.id).childNodes[3].value = this.rwy
+    document.getElementById(this.id).childNodes[5].value = this.state
   }
 }
 
@@ -77,6 +83,50 @@ function placeholderOnBlur(obj, v) {
       break;
     case "state":
       tags[obj.parentNode.parentNode.id].state = obj.innerHTML
+      break;
+  }
+}
+
+
+//touch support move function
+function move(destination) {
+  var tag = document.getElementById(rightClickObjectId)
+  document.getElementById(destination).appendChild(tag)
+  update(tag.children[2].value, tag.children[1].value, tag.parentNode, tag,
+    "moveUpdate")
+}
+
+function update(vS, vR, cat, t, trigger) {
+  if (t.parentNode.id == cat.id) {
+    var tagsHTML = cat.children
+    var tagsVs = []
+    for (i = 0; i < cat.children.length; i++) {
+      tagsVs.push(tagsHTML[i].children[2].value)
+    }
+    checkWarning(tagsVs, cat)
+    switch (trigger) {
+      case "moveUpdate":
+        updateMenu(t, cat)
+        break
+      case "stateUpdate":
+        tags[t.id].state = vS
+        autoMove(vS, vR, t)
+        debugger
+        releaseStatus(cat, vS, t)
+        break
+      case "rwyUpdate":
+        tags[t.id].rwy = vS
+        break
+    }
+  }
+}
+
+function releaseStatus(cat, vS, t) {
+  switch (cat.id) {
+    case "arr":
+      if (vS == "f") {
+        t.classList.add("releaseRWY");
+      }
       break;
   }
 }
@@ -160,6 +210,7 @@ function autoMove(vS, vR, t) {
 }
 
 function updateMenu(t, cat) {
+  debugger
   if (cat.id[0] == "r" && t.classList.contains("arr")) {
     t.children[2].innerHTML = ""
     t.children[2].insertAdjacentHTML("beforeend", arrivalOptionsFinal)
@@ -188,4 +239,5 @@ function updateMenu(t, cat) {
     t.children[2].innerHTML = ""
     t.children[2].insertAdjacentHTML("beforeend", departureOptionsDep)
   }
+  tags[t.id].update()
 }

@@ -127,6 +127,7 @@ function update(vS, vR, cat, t, trigger) {
         //autoMove(vS, vR, t)
         break
       case "rwyUpdate2":
+
         break
     }
   }
@@ -149,14 +150,14 @@ function spliceSlice(str, index, count, add) {
 //Creates Drag and Drop zones using the Sortable library
 function spawnDropZone() {
   Sortable.create(trash, {
-    group: "tag",
+    group: 'tag',
     onAdd: function(evt) {
       this.el.removeChild(evt.item)
     }
   })
   Sortable.create(dep, {
     group: 'tag',
-    animation: 100,
+    animation: 200,
     onAdd: function(evt) {
       update(evt.item.children[2].value, evt.item.children[1].value, evt.item
         .parentNode, evt.item, "moveUpdate")
@@ -164,7 +165,7 @@ function spawnDropZone() {
   })
   Sortable.create(arr, {
     group: 'tag',
-    animation: 100,
+    animation: 200,
     onAdd: function(evt) {
       update(evt.item.children[2].value, evt.item.children[1].value, evt.item
         .parentNode, evt.item, "moveUpdate")
@@ -172,7 +173,7 @@ function spawnDropZone() {
   })
   Sortable.create(push, {
     group: 'tag',
-    animation: 100,
+    animation: 200,
     onAdd: function(evt) {
       update(evt.item.children[2].value, evt.item.children[1].value, evt.item
         .parentNode, evt.item, "moveUpdate")
@@ -180,7 +181,7 @@ function spawnDropZone() {
   })
   Sortable.create(taxi, {
     group: 'tag',
-    animation: 100,
+    animation: 200,
     onAdd: function(evt) {
       debugger
       update(evt.item.children[2].value, evt.item.children[1].value, evt.item
@@ -189,7 +190,7 @@ function spawnDropZone() {
   })
   Sortable.create(rwy, {
     group: 'tag',
-    animation: 100,
+    animation: 200,
     onAdd: function(evt) {
       update(evt.item.children[2].value, evt.item.children[1].value, evt.item
         .parentNode, evt.item, "moveUpdate")
@@ -201,7 +202,7 @@ function spawnDropZone() {
   })
   Sortable.create(rwy1, {
     group: 'tag',
-    animation: 100,
+    animation: 200,
     onAdd: function(evt) {
       update(evt.item.children[2].value, evt.item.children[1].value, evt.item
         .parentNode, evt.item, "moveUpdate")
@@ -213,7 +214,7 @@ function spawnDropZone() {
   })
   Sortable.create(rwy2, {
     group: 'tag',
-    animation: 100,
+    animation: 200,
     onAdd: function(evt) {
       update(evt.item.children[2].value, evt.item.children[1].value, evt.item
         .parentNode, evt.item, "moveUpdate")
@@ -225,7 +226,7 @@ function spawnDropZone() {
   })
   Sortable.create(rwy3, {
     group: 'tag',
-    animation: 100,
+    animation: 200,
     onAdd: function(evt) {
       update(evt.item.children[2].value, evt.item.children[1].value, evt.item
         .parentNode, evt.item, "moveUpdate")
@@ -237,7 +238,7 @@ function spawnDropZone() {
   })
   Sortable.create(rwy4, {
     group: 'tag',
-    animation: 100,
+    animation: 200,
     onAdd: function(evt) {
       update(evt.item.children[2].value, evt.item.children[1].value, evt.item
         .parentNode, evt.item, "moveUpdate")
@@ -249,7 +250,7 @@ function spawnDropZone() {
   })
   Sortable.create(rwy5, {
     group: 'tag',
-    animation: 100,
+    animation: 200,
     onAdd: function(evt) {
       update(evt.item.children[2].value, evt.item.children[1].value, evt.item
         .parentNode, evt.item, "moveUpdate")
@@ -261,7 +262,7 @@ function spawnDropZone() {
   })
   Sortable.create(rwy6, {
     group: 'tag',
-    animation: 100,
+    animation: 200,
     onAdd: function(evt) {
       update(evt.item.children[2].value, evt.item.children[1].value, evt.item
         .parentNode, evt.item, "moveUpdate")
@@ -273,7 +274,7 @@ function spawnDropZone() {
   })
   Sortable.create(rwy7, {
     group: 'tag',
-    animation: 100,
+    animation: 200,
     onAdd: function(evt) {
       update(evt.item.children[2].value, evt.item.children[1].value, evt.item
         .parentNode, evt.item, "moveUpdate")
@@ -285,7 +286,7 @@ function spawnDropZone() {
   })
   Sortable.create(rwy8, {
     group: 'tag',
-    animation: 100,
+    animation: 200,
     onAdd: function(evt) {
       update(evt.item.children[2].value, evt.item.children[1].value, evt.item
         .parentNode, evt.item, "moveUpdate")
@@ -297,7 +298,7 @@ function spawnDropZone() {
   })
   Sortable.create(rwy9, {
     group: 'tag',
-    animation: 100,
+    animation: 200,
     onAdd: function(evt) {
       update(evt.item.children[2].value, evt.item.children[1].value, evt.item
         .parentNode, evt.item, "moveUpdate")
@@ -309,7 +310,7 @@ function spawnDropZone() {
   })
   Sortable.create(rwy10, {
     group: 'tag',
-    animation: 100,
+    animation: 200,
     onAdd: function(evt) {
       update(evt.item.children[2].value, evt.item.children[1].value, evt.item
         .parentNode, evt.item, "moveUpdate")
