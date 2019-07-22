@@ -96,6 +96,14 @@ function move(destination) {
     "moveUpdate")
 }
 
+//touch support move function
+function move(destination) {
+  var tag = document.getElementById(rightClickObjectId)
+  document.getElementById(destination).appendChild(tag)
+  update(tag.children[2].value, tag.children[1].value, tag.parentNode, tag,
+    "moveUpdate")
+}
+
 function update(vS, vR, cat, t, trigger) {
   if (t.parentNode.id == cat.id) {
     var tagsHTML = cat.children
@@ -240,4 +248,190 @@ function updateMenu(t, cat) {
     t.children[2].insertAdjacentHTML("beforeend", departureOptionsDep)
   }
   tags[t.id].update()
+}
+
+//Creates Drag and Drop zones using the Sortable library
+function spawnDropZone() {
+  Sortable.create(trash, {
+    group: 'tag',
+    onAdd: function(evt) {
+      this.el.removeChild(evt.item)
+    }
+  })
+  Sortable.create(dep, {
+    group: 'tag',
+    animation: 200,
+    onAdd: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
+    }
+  })
+  Sortable.create(arr, {
+    group: 'tag',
+    animation: 200,
+    onAdd: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
+    }
+  })
+  Sortable.create(push, {
+    group: 'tag',
+    animation: 200,
+    onAdd: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
+    }
+  })
+  Sortable.create(taxi, {
+    group: 'tag',
+    animation: 200,
+    onAdd: function(evt) {
+      debugger
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
+    }
+  })
+  Sortable.create(rwy, {
+    group: 'tag',
+    animation: 200,
+    onAdd: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
+    },
+    onRemove: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
+    },
+  })
+  if (user.selectedRunways.length < 2) return
+  Sortable.create(rwy1, {
+    group: 'tag',
+    animation: 200,
+    onAdd: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
+    },
+    onRemove: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
+    },
+  })
+  if (user.selectedRunways.length < 3) return
+  Sortable.create(rwy2, {
+    group: 'tag',
+    animation: 200,
+    onAdd: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
+    },
+    onRemove: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
+    },
+  })
+  if (user.selectedRunways.length < 4) return
+  Sortable.create(rwy3, {
+    group: 'tag',
+    animation: 200,
+    onAdd: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
+    },
+    onRemove: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
+    },
+  })
+  if (user.selectedRunways.length < 5) return
+  Sortable.create(rwy4, {
+    group: 'tag',
+    animation: 200,
+    onAdd: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
+    },
+    onRemove: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
+    },
+  })
+  if (user.selectedRunways.length < 6) return
+  Sortable.create(rwy5, {
+    group: 'tag',
+    animation: 200,
+    onAdd: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
+    },
+    onRemove: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
+    },
+  })
+  if (user.selectedRunways.length < 7) return
+  Sortable.create(rwy6, {
+    group: 'tag',
+    animation: 200,
+    onAdd: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
+    },
+    onRemove: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
+    },
+  })
+  if (user.selectedRunways.length < 8) return
+  Sortable.create(rwy7, {
+    group: 'tag',
+    animation: 200,
+    onAdd: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
+    },
+    onRemove: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
+    },
+  })
+  if (user.selectedRunways.length < 9) return
+  Sortable.create(rwy8, {
+    group: 'tag',
+    animation: 200,
+    onAdd: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
+    },
+    onRemove: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
+    },
+  })
+  if (user.selectedRunways.length < 10) return
+  Sortable.create(rwy9, {
+    group: 'tag',
+    animation: 200,
+    onAdd: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
+    },
+    onRemove: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
+    },
+  })
+  if (user.selectedRunways.length < 11) return
+  Sortable.create(rwy10, {
+    group: 'tag',
+    animation: 200,
+    onAdd: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.item
+        .parentNode, evt.item, "moveUpdate")
+    },
+    onRemove: function(evt) {
+      update(evt.item.children[2].value, evt.item.children[1].value, evt.from,
+        evt.item, "moveUpdate")
+    },
+  })
+
 }

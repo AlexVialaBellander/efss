@@ -5,6 +5,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   background-color: #232323;
   cursor: crosshair;
+  z-index: auto;
 }
 
 select {
