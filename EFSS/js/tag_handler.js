@@ -3,42 +3,82 @@
 
 //GLOBAL VAR
 rightClickObjectId = ""
+tags = [];
+
+class Tag {
+  constructor(id, type) {
+    this.id = id;
+    this.cs;
+    this.rwy;
+    this.text;
+    this.rule;
+    this.type = type;
+    this.atype;
+    this.state;
+    this.html;
+    this.compile()
+  }
+  compile() {
+    switch (this.type) {
+      case "dep":
+        this.html = defaultTag
+        break
+      case "arr":
+        this.html = arrTag
+        break
+    }
+  }
+  edit() {
+
+  }
+}
+
+function newTag(divID, type) {
+  var divToInject = document.getElementById(divID)
+  var newTag = new Tag(tagidCount, type)
+  tags.push(newTag)
+  newTag.html = newTag.html.replace("tagid", tagidCount)
+  divToInject.insertAdjacentHTML("afterbegin", newTag.html)
+  tagidCount++
+}
 
 //Generate New tag and add eventlister for context menu
 var tagidCount = 0
 
-function newTag(divId) {
-  var newTag
-  var divToInject = document.getElementById(divId)
-  divId == "dep" ? newTag = defaultTag : newTag = arrTag
-  var idToChange = ["tagid", "callsignid", "textid", "typeid", "ruleid"]
-  for (let id of idToChange) {
-    newTag = newTag.replace(id, id.concat(tagidCount))
+//globar var for the field input on tag
+input = ""
+
+//Removes text when pressing on field
+function removeOnFocus(obj) {
+  input = obj.innerHTML
+  obj.innerHTML = ""
+}
+
+//If nothing in field return the old value
+function placeholderOnBlur(obj, v) {
+  if (obj.innerHTML == "") {
+    obj.innerHTML = input
   }
-  divToInject.insertAdjacentHTML("afterbegin", newTag)
-    //Create eventlister for contextmenu
-  var newTagDiv = document.getElementById("tagid".concat(tagidCount))
-  var body = document.getElementsByTagName("body")[0]
-    //add eventlister for context menu on every new generated tag
-  newTagDiv.addEventListener("contextmenu", function(event) {
-    event.preventDefault()
-      //get id from event target
-    var target = event.target || event.srcElement
-    rightClickObjectId = ("tagid").concat((target.id).substr(target.id.length -
-        1))
-      //run context menu
-    var ctxMenu = document.getElementById("ctxMenu")
-    ctxMenu.style.display = "block"
-    ctxMenu.style.left = (event.pageX - 10) + "px"
-    ctxMenu.style.top = (event.pageY - 10) + "px"
-  }, false)
-  body.addEventListener("click", function(event) {
-    var ctxMenu = document.getElementById("ctxMenu")
-    ctxMenu.style.display = ""
-    ctxMenu.style.left = ""
-    ctxMenu.style.top = ""
-  }, false)
-  tagidCount++
+  switch (v) {
+    case "cs":
+      tags[obj.parentNode.parentNode.id].cs = obj.innerHTML
+      break;
+    case "rwy":
+      tags[obj.parentNode.parentNode.id].rwy = obj.innerHTML
+      break;
+    case "atype":
+      tags[obj.parentNode.parentNode.id].atype = obj.innerHTML
+      break;
+    case "rule":
+      tags[obj.parentNode.parentNode.id].rule = obj.innerHTML
+      break;
+    case "text":
+      tags[obj.parentNode.parentNode.id].text = obj.innerHTML
+      break;
+    case "state":
+      tags[obj.parentNode.parentNode.id].state = obj.innerHTML
+      break;
+  }
 }
 
 function checkWarning(tags, p) {

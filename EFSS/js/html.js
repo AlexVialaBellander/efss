@@ -4,10 +4,10 @@ var defaultTag =
   `
 <div id="tagid" class="tag dep">
    <div class="leftCol b">
-      <div id="callsignid" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="callsign topCol b" contenteditable="true">CS</div>
-      <div id="textid" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="sid topCol b"contenteditable="true">TEXT</div>
-      <div id="typeid" onfocus="removeOnFocus(this.id)"onblur="placeholderOnBlur(this.id)" class="type topCol b"contenteditable="true">TYPE</div>
-      <div id="ruleid" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="rule topCol b"contenteditable="true">RULE</div>
+      <div onfocus="removeOnFocus(this)" onblur="placeholderOnBlur(this, 'cs')" class="callsign topCol b" contenteditable="true">CS</div>
+      <div onfocus="removeOnFocus(this)" onblur="placeholderOnBlur(this, 'text')" class="sid topCol b"contenteditable="true">TEXT</div>
+      <div onfocus="removeOnFocus(this)"onblur="placeholderOnBlur(this, 'atype')" class="type topCol b"contenteditable="true">TYPE</div>
+      <div onfocus="removeOnFocus(this)" onblur="placeholderOnBlur(this, 'rule')" class="rule topCol b"contenteditable="true">RULE</div>
    </div>
    <select class="rwy rightCol1 b">
       <option value="rwy">RWY</option>
@@ -49,12 +49,12 @@ var arrTag =
   `
 <div id="tagid" class="tag arr">
    <div class="leftCol b">
-      <div id="callsignid" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="callsign topCol b" contenteditable="true">CS</div>
-      <div id="textid" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="sid topCol b"contenteditable="true">TEXT</div>
-      <div id="typeid" onfocus="removeOnFocus(this.id)"onblur="placeholderOnBlur(this.id)" class="type topCol b"contenteditable="true">TYPE</div>
-      <div id="ruleid" onfocus="removeOnFocus(this.id)" onblur="placeholderOnBlur(this.id)" class="rule topCol b"contenteditable="true">RULE</div>
+      <div onfocus="removeOnFocus(this)" onblur="placeholderOnBlur(this, 'cs')" class="callsign topCol b" contenteditable="true">CS</div>
+      <div onfocus="removeOnFocus(this)" onblur="placeholderOnBlur(this, 'text')" class="sid topCol b"contenteditable="true">TEXT</div>
+      <div onfocus="removeOnFocus(this)"onblur="placeholderOnBlur(this, 'atype')" class="type topCol b"contenteditable="true">TYPE</div>
+      <div onfocus="removeOnFocus(this)" onblur="placeholderOnBlur(this, 'rule')" class="rule topCol b"contenteditable="true">RULE</div>
    </div>
-   <select class="rwy rightCol1 b">
+   <select onchange="update(value, this.previousElementSibling.value,  this.parentNode.parentNode, this.parentNode, 'rwyUpdate')" class="rwy rightCol1 b">
       <option value="rwy">RWY</option>
       %
    </select>

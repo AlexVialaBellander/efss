@@ -5,22 +5,6 @@ directionalRWYS = []
 runways = []
 selectedRunways = []
 
-//globar var for the field input on tag
-input = ""
-
-//Removes text when pressing on field
-function removeOnFocus(id) {
-  input = document.getElementById(id).innerHTML
-  document.getElementById(id).innerHTML = ""
-}
-//If nothing in field return the old value
-function placeholderOnBlur(id) {
-  var x = document.getElementById(id).innerHTML
-  if (x == "") {
-    document.getElementById(id).innerHTML = input
-  }
-}
-
 //Returns array of runways
 function getRunways() {
   var airport = document.getElementById("field").value.toUpperCase()
@@ -67,7 +51,7 @@ function loadRunways() {
     var nn = withID.search("LOADING")
     var rwyHTML = spliceSlice(withID, nn, 7, "RUNWAY " + selectedRunways[z])
     targetDiv.insertAdjacentHTML("afterbegin", rwyHTML)
-      //Add runways in contextmenu
+    //Add runways in contextmenu
     var nnn = menuItem.search("rwy")
     var withID2 = spliceSlice(menuItem, (nnn + 3), 0, runwayCount)
     var nnnn = withID2.search("RUNWAY")
@@ -135,16 +119,18 @@ function update(vS, vR, cat, t, trigger) {
       tagsVs.push(tagsHTML[i].children[2].value)
     }
     checkWarning(tagsVs, cat)
-
-    if (trigger == "moveUpdate") {
-      updateMenu(t, cat)
-    }
-    if (trigger == "menuUpdate") {
-      autoMove(vS, vR, t)
+    switch (trigger) {
+      case "moveUpdate":
+        updateMenu(t, cat)
+        break
+      case "menuUpdate":
+        //autoMove(vS, vR, t)
+        break
+      case "rwyUpdate2":
+        break
     }
   }
 }
-
 
 
 //Splice string function
