@@ -34,13 +34,47 @@
     </div>
     <div class="post">
       <hr>
+      <h3 class="v">Version 0.5.0 Public Dev Build 1| 2019-07-24</h3>
+      <p class="v">Changes</p>
+      <ul class="cText">
+        <li>Feature: contextmenu removed</li>
+        <li>Feature: Saved runway and airport config on page refresh</li>
+        <li>Feature: Added Automove when label reaches final state for given category</li>
+        <ul class="cText">
+          <li>at the moment this can only be disabled by writing "user.automove = false" in the console</li>
+        </ul>
+        <li>Developer: Re-worked the code</li>
+        <ul class="cText">
+          <li>New validation process</li>
+          <li>New tag structure, tags are now objects using the Class Tag</li>
+          <li>User data is an object using the Class User</li>
+          <li>Tags are generated in a new way</li>
+          <li>Tag data can be remotley changed (in preparation for co-op mode)</li>
+        </ul>
+      </ul>
+      <p class="v">Known issues</p>
+      <ul class="cText">
+        <li>The only way to re-open the airport selection menu is to reload the page</li>
+        <li>Moving or causing an automove of a tag without putting a value in every field of the tag will change the value to UNDEFINED</li>
+        <li>Trying to validate with wrong input results in an alert</li>
+      </ul>
+      <p class="v">Roadmap</p>
+      <ul class="cText">
+        <li>Make the whole UI resizeable and adaptable </li>
+        <li>Automatic generation of tags</li>
+        <li>Create server solution for cooperation</li>
+      </ul>
+    </div>
+    <div class="post">
+      <hr>
+      <hr>
       <h3 class="v">Version 0.4.2 | 2019-03-23</h3>
       <p class="v"></p>
       <ul class="cText">
         <li>Feature: Added ALL airports</li>
-          <ul class="cText">
-            <li>Big thanks to @YannDbs for writing some excellent code allowing all airports within an AIRAC cycle to be imported and handled for the EFSS database. </li>
-          </ul>
+        <ul class="cText">
+          <li>Big thanks to @YannDbs for writing some excellent code allowing all airports within an AIRAC cycle to be imported and handled for the EFSS database. </li>
+        </ul>
     </div>
     <div class="post">
       <hr>
@@ -48,16 +82,16 @@
       <p class="v"></p>
       <ul class="cText">
         <li>Feature: Added new airports</li>
-          <ul class="cText">
-            <li>EDDF - Thanks to Niklas for providing this. </li>
-            <li>Moreover, big thanks to @markusstephanides who forked and provided: </li>
-            <li>LOWW</li>
-            <li>LOWL</li>
-            <li>LOWG</li>
-            <li>LOWK</li>
-            <li>LOWS</li>
-            <li>LOWI</li>
-          </ul>
+        <ul class="cText">
+          <li>EDDF - Thanks to Niklas for providing this. </li>
+          <li>Moreover, big thanks to @markusstephanides who forked and provided: </li>
+          <li>LOWW</li>
+          <li>LOWL</li>
+          <li>LOWG</li>
+          <li>LOWK</li>
+          <li>LOWS</li>
+          <li>LOWI</li>
+        </ul>
     </div>
     <div class="post">
       <hr>
@@ -114,7 +148,6 @@
       </ul>
       <p class="v">Current Version: https://github.com/AlexVialaBellander/efss/tree/master/</p>
       <p class="v">ID Version: https://github.com/AlexVialaBellander/efss/tree/dev/</p>
-      <hr>
     </div>
 
     <div class="post">

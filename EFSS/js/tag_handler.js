@@ -118,8 +118,9 @@ function update(vS, vR, cat, t, trigger) {
         break
       case "stateUpdate":
         tags[t.id].state = vS
-        autoMove(vS, vR, t)
-        debugger
+        if (user.automove) {
+          autoMove(vS, vR, t)
+        }
         releaseStatus(cat, vS, t)
         break
       case "rwyUpdate":
