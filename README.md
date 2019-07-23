@@ -44,9 +44,6 @@ input field value = "EKCH" OR var airport = "EKCH"
 getRunways()
 returns ["22R/04L", "22L/04R", "30/12"]
 ```
-### getting directional runways [VERSION 0.5]
-If you want to get the directional runways. ex. RWY 12 and RWY30 and NOT 12/30 as one runway. The **getDirectionalRunways** will do this for you. The **getDirectionalRunways** function expects an array with runways in format ("12/30") as an argument.
-
 ### example
 with getRunways() as argument and EKCH as airport
 ```

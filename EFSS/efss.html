@@ -12,7 +12,7 @@
 </head>
 <!-- Cookie Consent for tracking -->
 
-<body spellcheck="=false" onload="loadModal()" class="noSel">
+<body spellcheck="false" onload="loadModal()" class="noSel">
   <div id="cookie-consent" onload="isHidden()" class="cookie-consent" style="height: 80px;">
     <span class="cookie-consent__text">This website uses cookies</span>
     <a class="cookie-consent__link" href="privacy.html">Read More </a>
@@ -46,16 +46,13 @@
                 </div>
               </div>
             </th>
-            <th class="r des pad"> 0.4.2</th>
+            <th class="r des pad"> 0.5.0</th>
           </tr>
         </table>
         <div id="optionsMenu">
           <div class="menucontent">
             <table id="father">
               <tr id="wrapperOption">
-                <th id="here" width="12.5%" class="subtitle">
-                  Runway Configuration
-                </th>
               </tr>
             </table>
           </div>
@@ -74,12 +71,12 @@
   <!-- END Context Menu -->
   <!-- UI -->
   <div class="col">
-    <div onclick="newTag('dep')"" class="hl">
+    <div onclick="newTag('dep', 'dep')" class="hl">
       DEPARTURES
     </div>
     <div id="dep" class="dz">
     </div>
-    <div onclick="newTag('arr')" class="hl">
+    <div onclick="newTag('arr', 'arr')" class="hl">
       ARRIVALS
     </div>
     <div id="arr" class="dz">
@@ -120,7 +117,9 @@
 <script type="text/javascript" src="js/html.js"></script>
 <script type="text/javascript" src="js/airportdata.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>
-<!-- Open Source JS Library for drag and drop and sort -->
+<script type="text/javascript" src="js/tag_handler.js"></script>
+<script type="text/javascript" src="js/menu.js"></script>
+<!-- Open Source JS Library for drag, drop, and sort -->
 <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
 
 <!-- BELOW IS NOT PART OF THE OPEN SOURCE PROJECT -->
