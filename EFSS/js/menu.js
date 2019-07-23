@@ -13,26 +13,33 @@ class User {
 
 // GLOBAL OBJECT
 modal = document.getElementById('myModal')
+storedUser = JSON.parse(localStorage.getItem("user_data"))
+user = JSON.parse(localStorage.getItem("user_data"))
 
 //Loads the modal window
 function loadModal() {
   modal.style.display = "block"
-  var user_data = localStorage.getItem("user_data")
-  if (user_data != "") {
-    user = JSON.parse(user_data)
-    document.getElementById("field").value = user.selectedAirport
-    inputFeedback()
+  if (storedUser != null) {
+    document.getElementById("field").value = storedUser.selectedAirport
+    displayFound()
   } else {
     user = new User(0, "all")
   }
 }
+
+//Listen for keypress "enter"
+document.getElementById("field").addEventListener("keydown", function(e) {
+  if (e.code == "Enter") {
+    validation()
+  }
+})
 
 //Extends the options menu and rotate arrow icon
 optionsMenu = document.getElementById("optionsMenu")
 arrowIcon = document.getElementById("arrowIcon")
 document.getElementById("options").addEventListener("click", function() {
   airport = document.getElementById("field").value
-  if (airport.length == 4 && searchInput()) {
+  if (validInput()) {
     optionsMenu.classList.toggle("is-active")
     arrowIcon.classList.toggle("is-active")
     loadMenuItems()
@@ -41,19 +48,29 @@ document.getElementById("options").addEventListener("click", function() {
 
 //user input feedback icon
 function inputFeedback() {
-  var status = document.getElementById("status")
-  if (searchInput()) {
-    status.classList.add("found")
-    status.src = "images/indb.png"
+  if (validInput()) {
+    displayFound()
   } else {
-    status.classList.add("notfound")
-    status.src = "images/notindb.png"
+    displayNotFound()
+  }
+  if (user.selectedAirport != storedUser.selectedAirport) {
+    user.selectedRunways = []
   }
 }
+//Call field feedback
+function displayFound(){
+  document.getElementById("status").classList.add("found")
+  document.getElementById("status").src = "images/indb.png"
+}
 
+function displayNotFound(){
+  document.getElementById("status").classList.add("notfound")
+  document.getElementById("status").src = "images/notindb.png"
+}
 //search db for input value, returns boolean
-function searchInput() {
+function validInput() {
   var airport = document.getElementById("field").value.toUpperCase()
+  user.selectedAirport = airport
   var found = false
   for (i = 0; i < data.length && !found; i++) {
     if (airport == data[i][0]) {
@@ -68,13 +85,57 @@ function searchInput() {
   }
 }
 
-//Listen for keypress "enter"
-document.getElementById("field").addEventListener("keydown", function(e) {
-  if (e.keyCode === 13) {
-    validate(e)
+function loadMenuItems() {
+  if (user.selectedAirport != document.getElementById("field").value.toUpperCase()) {
+    user.selectedAirport = ""
+    user.selectedRunways = []
   }
-})
+  loadMenuRunways(user.selectedRunways)
+}
 
+function loadMenuRunways(selectedRunways){
+  var idCount = 1;
+  var runwayArray = getRunways()
+  if (selectedRunways.length == 0) {
+    user.selectedRunways = runwayArray
+    selectedRunways = runwayArray
+  }
+  var x = document.getElementById("wrapperOption")
+  var xF = document.getElementById("father")
+  x.remove(x.selectedIndex)
+  xF.insertAdjacentHTML("afterend", wrapperOptionHTML)
+  for (let index of runwayArray) {
+    var nUpdate1 = rwyContent.search("!")
+    rwyContentTemp = spliceSlice(rwyContent, nUpdate1, 1, idCount)
+    var nUpdate2 = rwyContentTemp.search("!")
+    rwyContentTemp = spliceSlice(rwyContentTemp, nUpdate2, 1, idCount)
+    var nUpdate3 = rwyContentTemp.search("XX")
+    rwyContentTemp = spliceSlice(rwyContentTemp, nUpdate3, 2, runwayArray[
+      idCount - 1])
+    var d = document.getElementById("rwyConfig")
+    d.insertAdjacentHTML("afterend", rwyContentTemp)
+    if (selectedRunways.includes(index)){
+      document.getElementById("cb" + idCount).checked = true;
+    } else {
+      document.getElementById("cb" + idCount).checked = false;
+    }
+    check(document.getElementById("cb" + idCount))
+    idCount++
+  }
+}
+
+function check(e) {
+  debugger
+  if (e.parentNode.childNodes[1].checked == true){
+    if (!(user.selectedRunways.includes(e.parentNode.childNodes[3].innerHTML))){
+      user.selectedRunways.push(e.parentNode.childNodes[3].innerHTML)
+    }
+  } else {
+    if (user.selectedRunways.includes(e.parentNode.childNodes[3].innerHTML)){
+      user.selectedRunways.splice((user.selectedRunways.indexOf(e.parentNode.childNodes[3].innerHTML)), 1)
+    }
+  }
+}
 
 //Change airport, listen on enter key press down event
 directionalRWYS = []
@@ -93,34 +154,29 @@ function getRunways() {
 }
 
 //run validation, if input is valid: spawn dropzones and load runways
-function validate(e) {
+function validation() {
   var airport = document.getElementById("field").value.toUpperCase()
-  if (!optionsMenuOpened) {
-    user.selectedRunways = getRunways()
-  }
-  if (searchInput(airport) && user.selectedRunways.length != 0) {
+  debugger
+  if (validInput(airport) && ((user.selectedRunways.length != 0))) {
+    user.selectedAirport = airport
+    localStorage.setItem("user_data", JSON.stringify(user))
     var modal = document.getElementById("myModal")
     modal.classList.add("fade")
     setTimeout(function() {
       modal.style.display = "none";
     }, 300);
-    loadRunways()
+    loadGUIRunways()
     spawnDropZone(airport)
-    console.log("Loaded:".concat(airport))
-    user.selectedAirport = airport
-    console.log("Loaded:".concat(user.selectedRunways))
-    localStorage.setItem("user_data", JSON.stringify(user))
-    console.log("Stored:".concat(JSON.stringify(user)))
-
+  } else {
+    alert("WIP no forward wrong input")
   }
-
 }
 
 //Global flag
 //Get airport data & add runways
 done = false
 
-function loadRunways() {
+function loadGUIRunways() {
   var targetDiv2 = document.getElementById("ctxMenu")
   var targetDiv = document.getElementById("runway")
   targetDiv.innerHTML = ""
@@ -182,53 +238,4 @@ function loadRunways() {
   }
   defaultTag = htmlTags[0]
   arrTag = htmlTags[1]
-}
-
-
-//GLOBAL VAR
-optionsMenuOpened = false
-
-function loadMenuItems() {
-  if (user.selectedAirport != document.getElementById("field").value.toUpperCase) {
-    user.selectedAirport = ""
-    user.selectedRunways = []
-  }
-  optionsMenuOpened = true
-  var idCount = 1;
-  var runwayArray = getRunways()
-  var x = document.getElementById("wrapperOption")
-  var xF = document.getElementById("father")
-  x.remove(x.selectedIndex)
-  xF.insertAdjacentHTML("afterend", wrapperOptionHTML)
-  for (let index of runwayArray) {
-    debugger
-    var nUpdate1 = rwyContent.search("!")
-    rwyContentTemp = spliceSlice(rwyContent, nUpdate1, 1, idCount)
-    var nUpdate2 = rwyContentTemp.search("!")
-    rwyContentTemp = spliceSlice(rwyContentTemp, nUpdate2, 1, idCount)
-    var nUpdate3 = rwyContentTemp.search("XX")
-    rwyContentTemp = spliceSlice(rwyContentTemp, nUpdate3, 2, runwayArray[
-      idCount - 1])
-    var d = document.getElementById("rwyConfig")
-    d.insertAdjacentHTML("afterend", rwyContentTemp)
-    document.getElementById("cb" + idCount).checked = false;
-    check(document.getElementById("cb" + idCount))
-    idCount++
-  }
-}
-
-function selectedRunways() {
-  for (i = 0; i < getRunways().length; i++) {
-    check(document.getElementById("cb" + i))
-  }
-}
-
-//e = innerText of checkbox input label (rwy)
-function check(e) {
-  e = e.parentNode.childNodes[3].innerText
-  if (user.selectedRunways.indexOf(e) == -1) {
-    user.selectedRunways.push(e)
-  } else {
-    user.selectedRunways.splice(user.selectedRunways.indexOf(e), 1)
-  }
 }
