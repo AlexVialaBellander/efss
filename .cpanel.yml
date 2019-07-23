@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/alexa690/public_html/projects/efss
+    - export DEPLOYPATH=/home/alexa690/public_html/projects/efss_dev
     - /bin/cp * $DEPLOYPATH
