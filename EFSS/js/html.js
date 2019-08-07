@@ -3,7 +3,7 @@
 var defaultTag =
   `
 <div id="tagid" class="tag dep bla">
-   <div class="leftCol b">
+   <div class="leftCol b" onclick="tagEditor(this.parentNode)">
       <div onfocus="removeOnFocus(this)" onblur="placeholderOnBlur(this, 'cs')" class="callsign topCol b" contenteditable="true">CS</div>
       <div onfocus="removeOnFocus(this)" onblur="placeholderOnBlur(this, 'text')" class="sid topCol b"contenteditable="true">TEXT</div>
       <div onfocus="removeOnFocus(this)"onblur="placeholderOnBlur(this, 'atype')" class="type topCol b"contenteditable="true">TYPE</div>
@@ -88,6 +88,7 @@ var arrTag =
 `
 var arrivalOptionsFinal =
   `
+  <option value="enr">ENR</option>
   <option value="f">FINAL</option>
   <option value="lnd">LND</option>
   <option value="tgo">TGO</option>
@@ -128,7 +129,7 @@ var rwyContent =
   `
 <th width="12%" class="selector">
    <div class="switch_box box_1">
-      <input onclick="check(this)" id="cb!" type="checkbox" class="switch_1">
+      <input onclick="check(this)" id="rwy_cb!" type="checkbox" class="switch_1">
       <label class="label" for="cb!">XX</label>
    </div>
 </th>
@@ -139,6 +140,15 @@ var wrapperOptionHTML =
    <tr id="wrapperOption">
       <th id="rwyConfig" width="12.5%" class="subtitle">Runway Configuration</th>
       <th width="40%" class=""></th>
+   </tr>
+   <tr>
+      <th id="userConfig" width="12.5%" class="subtitle">User Configuration</th>
+      <th width="12%" class="selector">
+         <div class="switch_box box_1">
+            <input onclick="check(this)" id="user_automove" type="checkbox" class="switch_1" checked="true">
+            <label class="label" for="cb!">Automove</label>
+         </div>
+      </th>
    </tr>
 </table>
 `

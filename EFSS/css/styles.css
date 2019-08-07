@@ -59,15 +59,18 @@ li, ul {
   float: left;
   height: 100%;
   width: 50%;
+  cursor: pointer;
 }
 
 .rightCol1 {
+  cursor: alias;
   float: left;
   height: 100%;
   width: 17.5%;
 }
 
 .rightCol2 {
+  cursor: alias;
   float: left;
   height: 100%;
   width: 22.5%;
@@ -81,7 +84,7 @@ li, ul {
 
 .tag {
   cursor: -webkit-default;
-  cursor: default;
+  cursor: grab;
   background-color: #b7b7b7;
   height: 3.5vw;
   border: 2px solid #3d3d3d;
@@ -426,7 +429,7 @@ menu:not([title]):before {
 }
 
 #optionsMenu.is-active {
-  height: 4vw;
+  height: 6vw;
 }
 
 #status {

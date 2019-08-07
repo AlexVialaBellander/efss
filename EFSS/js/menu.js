@@ -55,15 +55,16 @@ function inputFeedback() {
   }
   if (user.selectedAirport != storedUser.selectedAirport) {
     user.selectedRunways = []
+
   }
 }
 //Call field feedback
-function displayFound(){
+function displayFound() {
   document.getElementById("status").classList.add("found")
   document.getElementById("status").src = "images/indb.png"
 }
 
-function displayNotFound(){
+function displayNotFound() {
   document.getElementById("status").classList.add("notfound")
   document.getElementById("status").src = "images/notindb.png"
 }
@@ -93,7 +94,7 @@ function loadMenuItems() {
   loadMenuRunways(user.selectedRunways)
 }
 
-function loadMenuRunways(selectedRunways){
+function loadMenuRunways(selectedRunways) {
   var idCount = 1;
   var runwayArray = getRunways()
   if (selectedRunways.length == 0) {
@@ -114,25 +115,36 @@ function loadMenuRunways(selectedRunways){
       idCount - 1])
     var d = document.getElementById("rwyConfig")
     d.insertAdjacentHTML("afterend", rwyContentTemp)
-    if (selectedRunways.includes(index)){
-      document.getElementById("cb" + idCount).checked = true;
+    if (selectedRunways.includes(index)) {
+      document.getElementById("rwy_cb" + idCount).checked = true;
     } else {
-      document.getElementById("cb" + idCount).checked = false;
+      document.getElementById("rwy_cb" + idCount).checked = false;
     }
-    check(document.getElementById("cb" + idCount))
+    check(document.getElementById("rwy_cb" + idCount))
     idCount++
   }
 }
 
 function check(e) {
   debugger
-  if (e.parentNode.childNodes[1].checked == true){
-    if (!(user.selectedRunways.includes(e.parentNode.childNodes[3].innerHTML))){
-      user.selectedRunways.push(e.parentNode.childNodes[3].innerHTML)
+  if (e.id.split("_")[0] == "rwy") {
+    if (e.parentNode.childNodes[1].checked == true) {
+      if (!(user.selectedRunways.includes(e.parentNode.childNodes[3].innerHTML))) {
+        user.selectedRunways.push(e.parentNode.childNodes[3].innerHTML)
+      }
+    } else {
+      if (user.selectedRunways.includes(e.parentNode.childNodes[3].innerHTML)) {
+        user.selectedRunways.splice((user.selectedRunways.indexOf(e.parentNode.childNodes[3].innerHTML)), 1)
+      }
     }
-  } else {
-    if (user.selectedRunways.includes(e.parentNode.childNodes[3].innerHTML)){
-      user.selectedRunways.splice((user.selectedRunways.indexOf(e.parentNode.childNodes[3].innerHTML)), 1)
+  }
+  if (e.id.split("_")[0] == "user") {
+    switch (e.id.split("_")[1]) {
+      case "automove":
+        user.automove = e.parentNode.childNodes[1].checked
+        break;
+      default:
+
     }
   }
 }
@@ -156,7 +168,6 @@ function getRunways() {
 //run validation, if input is valid: spawn dropzones and load runways
 function validation() {
   var airport = document.getElementById("field").value.toUpperCase()
-  debugger
   if (validInput(airport) && ((user.selectedRunways.length != 0))) {
     user.selectedAirport = airport
     localStorage.setItem("user_data", JSON.stringify(user))

@@ -8,12 +8,12 @@ tags = [];
 class Tag {
   constructor(id, type) {
     this.id = id;
-    this.cs;
-    this.rwy;
-    this.text;
-    this.rule;
+    this.cs = "CS";
+    this.rwy = "rwy";
+    this.text = "TEXT";
+    this.rule = "RULE";
     this.type = type;
-    this.atype;
+    this.atype = "TYPE";
     this.state;
     this.html;
     this.compile()
@@ -22,9 +22,11 @@ class Tag {
     switch (this.type) {
       case "dep":
         this.html = defaultTag
+        this.state = "stby"
         break
       case "arr":
         this.html = arrTag
+        this.state = "enr"
         break
     }
   }
@@ -196,9 +198,10 @@ function autoMove(vS, vR, t) {
   var found = false
   var destination = ""
   rightClickObjectId = t.id
+  debugger
   if (vS == "lu" || vS == "to" || vS == "to" || vS == "f") {
-    for (i = 0; i < selectedRunways.length && !found; i++) {
-      if (selectedRunways[i].indexOf(rwy) != -1) {
+    for (i = 0; i < user.selectedRunways.length && !found; i++) {
+      if (user.selectedRunways[i].indexOf(rwy) != -1) {
         if (i == 0) {
           found = true
           destination = "rwy"
