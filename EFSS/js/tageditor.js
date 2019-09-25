@@ -1,3 +1,0 @@
-function tagEditor(e) {
-  
-}

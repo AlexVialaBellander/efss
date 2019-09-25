@@ -164,3 +164,11 @@ var tagRWYSel =
   `
 <option value="%">5</option>
 `
+
+var editorHTML = `
+<div id="editor" class="editor">
+  <div class="editor-content">
+    hehehjhjejejh
+  </div>
+</div>
+`
