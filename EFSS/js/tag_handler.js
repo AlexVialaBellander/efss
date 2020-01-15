@@ -39,6 +39,9 @@ class Tag {
     document.getElementById(this.id).childNodes[3].value = this.rwy
     document.getElementById(this.id).childNodes[5].value = this.state
   }
+  get() {
+    return document.getElementById(this.id)
+  }
 }
 
 function newTag(divID, type) {
@@ -113,6 +116,7 @@ function update(vS, vR, cat, t, trigger) {
     for (i = 0; i < cat.children.length; i++) {
       tagsVs.push(tagsHTML[i].children[2].value)
     }
+    debugger
     checkWarning(tagsVs, cat)
     switch (trigger) {
       case "moveUpdate":
@@ -143,6 +147,10 @@ function releaseStatus(cat, vS, t) {
 }
 
 function checkWarning(tags, p) {
+  if (p.id[0] != "r") {
+    p.children[0].classList.remove("warning", "semiConcerned")
+    p.children[0].children[2].classList.remove("warning", "semiConcerned")
+  }
   var semiConcernedValues = ["lu"]
   var concernedValues = ["to", "lnd", "tgo", "lpass"]
   var concernedIndexes = []
@@ -222,7 +230,6 @@ function autoMove(vS, vR, t) {
 }
 
 function updateMenu(t, cat) {
-  debugger
   if (cat.id[0] == "r" && t.classList.contains("arr")) {
     t.children[2].innerHTML = ""
     t.children[2].insertAdjacentHTML("beforeend", arrivalOptionsFinal)

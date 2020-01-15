@@ -311,9 +311,9 @@ menu:not([title]):before {
   padding: 0;
   width: 60%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  -webkit-animation-name: animatetop;
+  -webkit-animation-name: falldown;
   -webkit-animation-duration: 0.7s;
-  animation-name: animatetop;
+  animation-name: falldown;
   animation-duration: 0.7s;
   animation-iteration-count: 1;
 }
@@ -325,37 +325,12 @@ menu:not([title]):before {
   padding: 0;
   width: 100%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  -webkit-animation-name: animatetop;
+  -webkit-animation-name: falldown;
   -webkit-animation-duration: 0.8s;
-  animation-name: animatetop;
+  animation-name: falldown;
   animation-duration: 0.8s;
   animation-iteration-count: 1;
 
-}
-
-/* Add Animation */
-@-webkit-keyframes animatetop {
-  from {
-    top: -300px;
-    opacity: 0
-  }
-
-  to {
-    top: 0;
-    opacity: 1
-  }
-}
-
-@keyframes animatetop {
-  from {
-    top: -300px;
-    opacity: 0
-  }
-
-  to {
-    top: 0;
-    opacity: 1
-  }
 }
 
 .modal-header {
@@ -524,20 +499,7 @@ td, th {
   text-align: right;
 }
 
-/* imported and modified from http://jsfiddle.net/ravindermahajan890/Lf1h3nxr/ */
-@-webkit-keyframes shake {
-             0% { -webkit-transform:         translate(2px, 1px) rotate(0deg); }
-             10% { -webkit-transform:     translate(-1px, -2px) rotate(-1deg); }
-             20% { -webkit-transform:     translate(-1px, 0px) rotate(1deg); }
-             30% { -webkit-transform:     translate(0px, 1px) rotate(0deg); }
-             40% { -webkit-transform:     translate(1px, -1px) rotate(1deg); }
-             50% { -webkit-transform:     translate(-1px, 2px) rotate(-1deg); }
-             60% { -webkit-transform:     translate(-1px, 1px) rotate(0deg); }
-             70% { -webkit-transform:     translate(2px, 1px) rotate(-1deg); }
-             80% { -webkit-transform:     translate(-1px, -1px) rotate(2deg); }
-             90% { -webkit-transform:     translate(2px, 2px) rotate(0deg); }
-             100% { -webkit-transform:     translate(1px, -2px) rotate(-1deg); }
-         }
+
 .shake {
              -webkit-animation-name:shake;
              -webkit-animation-duration:0.2s;
@@ -569,21 +531,71 @@ td, th {
 }
 
 .editor-content {
+  cursor: default;
   position: relative;
-  background-color: #fefefe;
+  background-color: #e4e2e2;
   margin: auto;
   padding: 0;
   width: 80vw;
   height: 45vh;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  -webkit-animation-name: animatetop;
-  -webkit-animation-duration: 0.7s;
-  animation-name: animatetop;
-  animation-duration: 0.7s;
+  border: 10pt solid #8e8e8e;
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 0.3s;
+  animation-name: fade;
+  animation-duration: 0.3s;
   animation-iteration-count: 1;
+  animation-timing-function: easeOutQuart;
+  animation-direction: alternate;
 }
 
+.eCallsign {
+  background-color: #e4e2e2;
+  height: 5vh;
+  font-size: 20pt;
+  font-weight: 700;
+  text-transform: uppercase;
+}
 
+.show {
+  border: 1px solid red;
+}
+
+/* For Autocomplete */
+.autocomplete {
+  position: relative;
+  display: inline-block;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+  background-color: #e9e9e9;
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
 
 /* DEPRECATED */
 

@@ -134,7 +134,8 @@ function check(e) {
       }
     } else {
       if (user.selectedRunways.includes(e.parentNode.childNodes[3].innerHTML)) {
-        user.selectedRunways.splice((user.selectedRunways.indexOf(e.parentNode.childNodes[3].innerHTML)), 1)
+        user.selectedRunways.splice((user.selectedRunways.indexOf(e.parentNode.childNodes[
+          3].innerHTML)), 1)
       }
     }
   }
@@ -199,7 +200,7 @@ function loadGUIRunways() {
     var nn = withID.search("LOADING")
     var rwyHTML = spliceSlice(withID, nn, 7, "RUNWAY " + user.selectedRunways[z])
     targetDiv.insertAdjacentHTML("afterbegin", rwyHTML)
-    //Add runways in contextmenu
+      //Add runways in contextmenu
     var nnn = menuItem.search("rwy")
     var withID2 = spliceSlice(menuItem, (nnn + 3), 0, runwayCount)
     var nnnn = withID2.search("RUNWAY")
@@ -209,7 +210,8 @@ function loadGUIRunways() {
   }
   //Split each runway. ex 12/30 --> 12, 30
   for (y = 0; y < user.selectedRunways.length; y++) {
-    directionalRWYS = directionalRWYS.concat(user.selectedRunways[y].split("/")).sort()
+    directionalRWYS = directionalRWYS.concat(user.selectedRunways[y].split("/"))
+      .sort()
   }
   var htmlTags = [defaultTag, arrTag]
   for (z = 0; z < 2; z++) {

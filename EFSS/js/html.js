@@ -3,11 +3,11 @@
 var defaultTag =
   `
 <div id="tagid" class="tag dep bla">
-   <div class="leftCol b" onclick="tagEditor(this.parentNode)">
-      <div onfocus="removeOnFocus(this)" onblur="placeholderOnBlur(this, 'cs')" class="callsign topCol b" contenteditable="true">CS</div>
-      <div onfocus="removeOnFocus(this)" onblur="placeholderOnBlur(this, 'text')" class="sid topCol b"contenteditable="true">TEXT</div>
-      <div onfocus="removeOnFocus(this)"onblur="placeholderOnBlur(this, 'atype')" class="type topCol b"contenteditable="true">TYPE</div>
-      <div onfocus="removeOnFocus(this)" onblur="placeholderOnBlur(this, 'rule')" class="rule topCol b"contenteditable="true">RULE</div>
+   <div class="leftCol b">
+      <div onfocus="removeOnFocus(this)" onblur="placeholderOnBlur(this, 'cs')" class="callsign topCol b" contenteditable="true" onclick="tagEditor(this,'callsign')">CS</div>
+      <div onfocus="removeOnFocus(this)" onblur="placeholderOnBlur(this, 'text')" class="sid topCol b"contenteditable="true" onclick="tagEditor(this,'text')">TEXT</div>
+      <div onfocus="removeOnFocus(this)"onblur="placeholderOnBlur(this, 'atype')" class="type topCol b"contenteditable="true" onclick="tagEditor(this,'type')">TYPE</div>
+      <div onfocus="removeOnFocus(this)" onblur="placeholderOnBlur(this, 'rule')" class="rule topCol b"contenteditable="true" onclick="tagEditor(this,'rule')">RULE</div>
    </div>
    <select onchange="update(value, this.previousElementSibling.value,  this.parentNode.parentNode, this.parentNode, 'rwyUpdate')" class="rwy rightCol1 b">
       <option value="rwy">RWY</option>
@@ -55,7 +55,7 @@ var departureOptionsTaxi =
 `
 
 var departureOptionsDep =
-`     <option value="stby" disabled selected style="display:none;">STBY</option>
+  `     <option value="stby" disabled selected style="display:none;">STBY</option>
       <option value="clrd" disabled selected style="display:none;">CLRD</option>
       <option value="push" disabled selected style="display:none;">PUSH</option>
       <option value="taxi" disabled selected style="display:none;">TAXI</option>
@@ -165,10 +165,12 @@ var tagRWYSel =
 <option value="%">5</option>
 `
 
-var editorHTML = `
+var editorHTML =
+  `
 <div id="editor" class="editor">
-  <div class="editor-content">
-    hehehjhjejejh
+  <div id="editor-content" class="editor-content fade">
+    <input onchange="eUpdate(this)" id="eCallsign" class="show eCallsign">
+    <input onchange="eUpdate(this)" id="eCallsign" class="show eCallsign">
   </div>
 </div>
 `
