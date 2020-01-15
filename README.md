@@ -1,4 +1,4 @@
-# efss readme 
+# EFSS README 
 This project is an Open Source project started by Alexander Viala Bellander and is under an MIT license found at the bottom of the page.
 
 This is run as a sparetime project and is not highly prioritised.
@@ -6,52 +6,117 @@ This is run as a sparetime project and is not highly prioritised.
 To find the EFSS go to www.grubse.com/efss-app
 For full changelog: www.grubse.com/efss
 
-## how to use the software
+### How to use the software
 You need to create your own strips, this is done by pressing either the Departures or Arrivals text. Fill the tags, update their states respectivly by changing their state and by moving them. Removing a tag is done by dropping the tag onto the taxi text.
 
-## disclaimer
+### Disclaimer
 I am a beginner to programming in general, thus the code is a great mess!
+***
 
-## airport data-base structure
-The structure used for representing airports are [[String,[String, String]],[String,[String, String]]] where [] represents an array.
+## TAG HANDLER ##
+
+### Implementation
+There are the tag objects and then the tags in the html code. These are different but carry the same properties.
+
+### Data structure
+All tags are stored in a regular js array: `tags`.
+
+### The Tag Class
+`tags` contains objects of type Tag with properties:
+```
+    this.id
+    this.cs
+    this.rwy 
+    this.text
+    this.rule
+    this.type
+    this.atype
+    this.state
+    this.html
+```
+tags also have functions such as `compile()` `update()` `get()`.
+
+`compile()` (void) assigns html code to the Tag's html property. The assigned html code depends on the assigned Tag type which is either dep (departure) or arr (arrival). 
+
+`update()` (void) updates the website html code, the html counterpart of the object. Example, user changes the tag callsign using `tags[4].cs = "SAS1560"` this it self will not update the tag html code until `tags[4].update()` is run.
+
+`get()` (html element) returns the actual html object/element of the tag.
+
+***
+
+## USER PROFILE ##
+
+### The User Class
+User data is stored locally to save certain settings for returning users. At the moment `id` `type` is not in use. The data is stored in local storage.
+```
+    this.id = id;
+    this.type = type;
+    this.lastAirport;
+    this.automove = true;
+    this.selectedRunways = [];
+    this.selectedAirport;
+```
+### User initialisation
+If it is the first time a user visits the service; the function `loadModal()` will create a new user with `id = 0` and `type = "all"`.
+`user = new User(0, "all")`
+
+Upon selecting an airport the `validation()` function is run. This function adapts the UI for the selected airport and other features such as automove. 
+`localStorage.setItem("user_data", JSON.stringify(user))`
+
+***
+
+## AIRPORT DATABASE 
+
+### Implementation
+The data for all airports (ICAO) and their runways is downloaded upon website visit. `js/airportdata.js`
+
+### Data structure
+The structure used for representing airports is a js array.
+
+Representation: [[String,[String, String]],[String,[String, String]]] where [] represents an array.
 
 All airports and their runways are stored in an array.
-Calling the variable data will return the array with all airports and runways currently supported
+Calling the variable data will return the array with all airports and runways currently supported.
 
-### the database
+### The database
 ```
 var data = []
 ```
 
-### example of entry
+### Example of entry
 ```
 ["EKCH", ["22R/04L", "22L/04R", "30/12"]]
 ```
-### example of database (2 entries)
+### Example of database (2 entries)
 ```
 [["EKCH", ["22R/04L", "22L/04R", "30/12"]],["EDDM",["26L/08R", "26R/08L"]]]
 ```
 
-## getting runways
+***
+
+## FUNCTIONS 
+
+## Getting runways
 ```
 function getRunways()
 ```
 **getRunways()** checks the input field and searches **data** for the airport or the **airport** variable if airport has been selected, if the input value or **airport** is an airport in **data**, **getRunways()** returns an array with the runways.
 
-### example
+### Example
 input field value = "EKCH" OR var airport = "EKCH"
 ```
 getRunways()
 returns ["22R/04L", "22L/04R", "30/12"]
 ```
-### example
+### Example
 with getRunways() as argument and EKCH as airport
 ```
 getDirectionalRunways(array of runways)
 returns ["04L", "04R", "12", "22L", "22R", "30"]
 ```
 
-## info
+
+## INFO
 For more information, visit www.grubse.com/efss
 
 MIT License
